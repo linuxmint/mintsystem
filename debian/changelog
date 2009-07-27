@@ -1,3 +1,9 @@
+mintsystem (7.5.2) gloria; urgency=low
+
+  * Bug fix on apt deb 
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon,  27 Jul 2009 16:18:00 +0000
+
 mintsystem (7.5.1) gloria; urgency=low
 
   * Bug fix: apt content mint-artwork-gnome doesn't return anything (https://bugs.launchpad.net/bugs/399280)

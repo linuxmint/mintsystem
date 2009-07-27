@@ -88,7 +88,6 @@ elif argcommand == "build":
 	command = sudo + " dpkg-buildpackage" + argoptions
 elif argcommand == "deb":
 	command = sudo + " dpkg -i" + argoptions
-	sys.exit(0)
 else:
 		usage()
 
