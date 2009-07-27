@@ -1,0 +1,4 @@
+#!/bin/bash
+
+xgettext --language=Python --keyword=_ --output=mintsystem.pot usr/bin/mint-which-launcher
+

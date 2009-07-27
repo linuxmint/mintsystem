@@ -1,0 +1,25 @@
+#!/usr/bin/python
+
+import sys, os
+text = sys.stdin.read()
+keywords = sys.argv[1:]
+output = ""
+color = 1
+for keyword in keywords:
+		if len(keyword.strip()) > 1:
+			text = text.replace(keyword, "\\033[3" + str(color) + "m" + keyword + "\\033[0m")
+			color = color + 1
+
+tmpFile = open("/tmp/highlighted.tmp", "w")
+tmpFile.writelines(text)
+tmpFile.close()
+
+tmpFile = open("/tmp/highlighted.tmp", "r")
+for line in tmpFile:
+	line = line.strip()
+	os.system("echo \"" + line + "\"")	
+tmpFile.close()
+
+
+
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/usr/lib/linuxmint/mintSystem/python/mint-adjust.py
+

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+function usage
+{
+    echo "usage: search [arguments] [options]"
+    echo "arguments:"
+    echo "         for text"
+    echo "         in directory"
+    echo "options:"
+    echo "         -c | --case-sensitive"
+    echo "         -s | --show-filenames-only"	   
+}
+
+directory=/
+case=i
+verbose=H
+while [ "$1" != "" ]; do
+    case $1 in
+        for | -f | --for )
+		shift
+                text=$1
+                ;;
+        in | --in | -i )
+		shift
+		directory=$1
+                ;;
+        -h | --help )           
+		usage
+                exit
+                ;;
+	-c | --case-sensitive )
+		case=
+		;;
+	-s | --show-filenames-only )
+		verbose=l
+		;;
+        * )     
+		usage
+                exit 1
+    esac
+    shift
+done
+find $directory -type f -exec grep -$case$verbose "$text" --color=auto -n {} \; 

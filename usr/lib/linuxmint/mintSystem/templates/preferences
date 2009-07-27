@@ -1,0 +1,12 @@
+Package: *
+Pin: release o=linuxmint
+Pin-Priority: 700
+
+Package: *
+Pin: origin packages.linuxmint.com
+Pin-Priority: 700
+
+Package: *
+Pin: release o=Ubuntu
+Pin-Priority: 500
+

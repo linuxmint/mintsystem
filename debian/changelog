@@ -1,0 +1,222 @@
+mintsystem (7.5.1) gloria; urgency=low
+
+  * Bug fix: apt content mint-artwork-gnome doesn't return anything (https://bugs.launchpad.net/bugs/399280)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu,  16 Jul 2009 15:40:00 +0000
+
+mintsystem (7.5.0) gloria; urgency=low
+
+  * Bug fix: splash screens aren't edition-specific (https://bugs.launchpad.net/bugs/399289)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue,  14 Jul 2009 20:48:00 +0000
+
+mintsystem (7.4.9) gloria; urgency=low
+
+  * apt: Migration from bash to python
+  * apt: Color highlighting for search, show, content, contains, version, policy, depends, rdepends
+  * apt: Doesn't use sudo when un-necessary
+  * apt: Improved help
+  * apt: Added Super Cow Powers
+  * apt: In certain cases, now deals with multiple packages, for instance "apt search firefox tomboy mozilla" now highlights all three keywords with different colors.
+  * Took the opportunity to create a "highlight" command which colorizes keywords --> "produce_some_text | highlight keyword [more_keywords]"
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu,  9 Jul 2009 15:08:00 +0000
+
+mintsystem (7.4.8) gloria; urgency=low
+
+  * Added dpkg triggers for the adjustment mechanism
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  17 Jun 2009 10:25:00 +0000
+
+mintsystem (7.4.7) gloria; urgency=low
+
+  * Checks to see if dontzap is already set in xorg.conf
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun,  14 Jun 2009 17:26:00 +0000
+
+mintsystem (7.4.6) gloria; urgency=low
+
+  * Updated translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue,  19 May 2009 18:48:00 +0000
+
+mintsystem (7.4.5) gloria; urgency=low
+
+  * Updated translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun,  17 May 2009 19:56:00 +0000
+
+mintsystem (7.4.4) gloria; urgency=low
+
+  * Added translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun,  17 May 2009 17:40:00 +0000
+
+mintsystem (7.4.3) gloria; urgency=low
+
+  * Updated Gimp splash (same design, better quality)
+  * Added restoration of the execute permissions on /usr/sbin/update-grub in the adjustment system
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  13 May 2009 21:04:00 +0000
+
+mintsystem (7.4.2) gloria; urgency=low
+
+  * Added checks to create global and restore dics in case /etc/linuxmint/mintSystem.conf does not exist
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon,  11 May 2009 20:17:00 +0000
+
+mintsystem (7.4.1) gloria; urgency=low
+
+  * Changed the way /etc/linuxmint/mintSystem.conf is read (to seamlessly add new values in case of upgrades)
+  * Added restoration of the CTRL ALT BACKSPACE shortcut to restart X11
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon,  11 May 2009 18:42:00 +0000
+
+mintsystem (7.4) gloria; urgency=low
+
+  * Removed ipv6 related code -- too unstable
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri,  1 May 2009 23:00:00 +0000
+
+mintsystem (7.3) gloria; urgency=low
+
+  * Added IPv6 disabling capability to the adjustment system
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri,  1 May 2009 18:08:00 +0000
+
+mintsystem (7.2) gloria; urgency=low
+
+  * Added /usr/bin/mint-fortune and dependencies on cowsay and fortune
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu,  23 Apr 2009 23:07:00 +0000
+
+mintsystem (7.1) gloria; urgency=low
+
+  * Changed default OpenOffice splash screens
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu,  23 Apr 2009 00:33:00 +0000
+
+mintsystem (7.0) gloria; urgency=low
+
+  * Added locale folder
+  * Added /usr/bin/mint-which-launcher
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  22 Apr 2009 17:00:00 +0000
+
+mintsystem (6.9) gloria; urgency=low
+
+  * Changed default Gimp splash
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue,  21 Apr 2009 22:35:00 +0000
+
+mintsystem (6.8) gloria; urgency=low
+
+  * apt policy can now accept arguments
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Tue,  14 Apr 2009 18:56:00 +0000
+
+mintsystem (6.7) gloria; urgency=low
+
+  * Added /etc/issue and /etc/issue.net to adjustment service
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Tue,  14 Apr 2009 16:15:00 +0000
+
+mintsystem (6.6) gloria; urgency=low
+
+  * Externalized release related info to new mint-info package and add a dependency on it
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Tue,  14 Apr 2009 10:06:00 +0000
+
+mintsystem (6.5) felicia; urgency=low
+
+  * Added /usr/bin/rtfm shortcut to /usr/bin/man
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Tue,  14 Apr 2009 9:32:00 +0000
+
+mintsystem (6.4) felicia; urgency=low
+
+  * Added mint-adjust service
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Sun,  12 Apr 2009 19:25:00 +0000
+
+mintsystem (6.3) felicia; urgency=low
+
+  * Added mint-apt-version and "apt version"
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Sun,  12 Apr 2009 15:08:00 +0000
+
+mintsystem (6.2) felicia; urgency=low
+
+  * Fixed apt purge
+  * apt source doesn't use sudo anymore
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Wed,  18 Feb 2009 20:11:00 +0000
+
+mintsystem (6.1) felicia; urgency=low
+
+  * Added /usr/local/bin/mint-md5sum
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Thu,  6 Nov 2008 18:25:00 +0000
+
+mintsystem (6.0) felicia; urgency=low
+
+  * Changed version to suit Linux Mint 6 Felicia
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Mon,  27 Oct 2008 13:09:00 +0000
+
+mintsystem (5.5) elyssa; urgency=low
+
+  * Added /usr/local/bin/search
+  * Added content and contains to apt
+  * apt doesn't use sudo in root mode anymore
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Mon,  6 Oct 2008 00:09:00 +0000
+
+mintsystem (5.4) elyssa; urgency=low
+
+  * Added configobj.py
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Tue,  2 Sep 2008 18:35:00 +0000
+
+mintsystem (5.3) elyssa; urgency=low
+
+  * Added GPL.txt
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Tue,  26 Aug 2008 18:39:00 +0000
+
+mintsystem (5.2) elyssa; urgency=low
+
+  * Changed versioning, first number for Mint release, second for revision (starting with 1)
+  * Added icon.png
+  * Added portals.list for mintInstall
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Tue,  26 Aug 2008 18:31:00 +0000
+
+mintsystem (1.3) elyssa; urgency=low
+
+  * Added apt policy
+  * Added apt sources
+  * Added apt deb
+  * Added apt build
+  * Changed apt purge to use apt-get instead of aptitude
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Fri,  30 May 2008 12:17:00 +0000
+
+mintsystem (1.2) elyssa; urgency=low
+
+  * Changed sources.list (Romeo becomes a section)
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Mon,  19 May 2008 21:37:00 +0000
+
+mintsystem (1.1) elyssa; urgency=low
+
+  * Added /usr/local/bin/apt
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Thu,  1 May 2008 20:50:00 +0000
+
+mintsystem (1.0) elyssa; urgency=low
+
+  * Initial release
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Wed,  30 Jan 2008 22:56:00 +0000
+

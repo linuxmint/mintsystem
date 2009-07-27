@@ -1,0 +1,2 @@
+msgid "Please enter your password"
+msgstr "Ange ditt lösenord"
