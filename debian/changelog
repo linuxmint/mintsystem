@@ -1,3 +1,9 @@
+mintsystem (7.5.3) helena; urgency=low
+
+  * Helena build
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu,  30 Jul 2009 11:20:00 +0000
+
 mintsystem (7.5.2) gloria; urgency=low
 
   * Bug fix on apt deb 
