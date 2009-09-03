@@ -13,17 +13,6 @@ def log (string):
 	logfile.writelines("%s - %s\n" % (strftime("%Y-%m-%d %H:%M:%S"), string))
 	logfile.flush()
 
-def overwriteSplash (source, dest):
-	resource = "/usr/lib/linuxmint/mintSystem/service/resource/" + source
-	editionResource = "/usr/share/linuxmint/splash/" + source
-	if os.path.exists(dest):
-			if os.path.exists(editionResource):
-				splash = editionResource			
-			elif os.path.exists(resource):
-				splash = resource
-			os.system("cp " + splash + " " + dest)
-			log(dest + " overwritten with " + splash)
-
 log("minSystem started")
 
 try:
@@ -41,9 +30,7 @@ try:
 	if ('lsb-release' not in config['restore']):
 		config['restore']['lsb-release'] = "True"
 	if ('etc-issue' not in config['restore']):
-		config['restore']['etc-issue'] = "True"
-	if ('splash-screens' not in config['restore']):
-		config['restore']['splash-screens'] = "True"	
+		config['restore']['etc-issue'] = "True"	
 	if ('ctrl-alt-backspace' not in config['restore']):
 		config['restore']['ctrl-alt-backspace'] = "True"		
 	if ('update-grub' not in config['restore']):
@@ -55,6 +42,38 @@ try:
 	if (config['global']['enabled'] == "False"):
 		log("Disabled - Exited")
 		sys.exit(0)
+
+	# Perform file overwriting adjustments
+	adjustment_directory = "/etc/linuxmint/adjustments/"
+	array_preserves = []
+	if os.path.exists(adjustment_directory):
+		for filename in os.listdir(adjustment_directory):
+    			basename, extension = os.path.splitext(filename)
+			if extension == ".preserve":
+				filehandle = open(adjustment_directory + "/" + filename)
+				for line in filehandle:
+					line = line.strip()
+					array_preserves.append(line)
+				filehandle.close()
+	overwrites = {}
+	if os.path.exists(adjustment_directory):
+		for filename in sorted(os.listdir(adjustment_directory)):			
+    			basename, extension = os.path.splitext(filename)
+			if extension == ".overwrite":
+				filehandle = open(adjustment_directory + "/" + filename)
+				for line in filehandle:
+					line = line.strip()
+					source, destination = line.split()					
+					if destination not in array_preserves:
+						overwrites[destination] = source
+				filehandle.close()
+
+	for key in overwrites.keys():
+		source = overwrites[key]
+		destination = key
+		if os.path.exists(source) and os.path.exists(destination):			
+			os.system("cp " + source + " " + destination)
+			log(destination + " overwritten with " + source)
 
 	# Restore LSB information
 	if (config['restore']['lsb-release'] == "True"):
@@ -79,13 +98,7 @@ try:
 			issuefile = open("/etc/issue.net", "w")					
 			issuefile.writelines(issue)			
 			issuefile.close()
-			log("/etc/issue.net overwritten")
-
-	# Restore Splash screens
-	if (config['restore']['splash-screens'] == "True"):
-		overwriteSplash("openoffice.bmp", "/usr/lib/openoffice/program/openintro_ubuntu_sun.bmp")
-		overwriteSplash("openoffice_about.bmp", "/usr/lib/openoffice/program/openabout_ubuntu_sun.bmp")
-		overwriteSplash("gimp.png", "/usr/share/gimp/2.0/images/gimp-splash.png")				
+			log("/etc/issue.net overwritten")			
 
 	# Restore CTRL+ALT+BACKSPACE
 	if (config['restore']['ctrl-alt-backspace'] == "True"):
@@ -103,6 +116,7 @@ try:
 
 except Exception, detail:
 	print detail
+	log(detail)
 
 log("minSystem stopped")
 logfile.close()

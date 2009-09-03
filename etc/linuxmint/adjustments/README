@@ -1,0 +1,7 @@
+.overwrite files define files which are to be overwritten. Each line in these files trigger the overwriting of the destination by the source, with the line following the format: 
+
+source destination
+
+.overwrites files are read by alphabetical order and all overwritings are done in the end. If a destination appears more than once, only its last occurence is taken into account. 
+
+.preserve files are read at the beginning. They can contain a list of destinations (one by line). Each destination appearing in a .preserve file doesn't get overwriten, whether or not it appears in .overwrites files.
