@@ -57,23 +57,37 @@ try:
 				filehandle.close()
 	overwrites = {}
 	if os.path.exists(adjustment_directory):
-		for filename in sorted(os.listdir(adjustment_directory)):			
+		for filename in sorted(os.listdir(adjustment_directory)):
     			basename, extension = os.path.splitext(filename)
 			if extension == ".overwrite":
 				filehandle = open(adjustment_directory + "/" + filename)
 				for line in filehandle:
-					line = line.strip()
-					source, destination = line.split()					
-					if destination not in array_preserves:
-						overwrites[destination] = source
+					line = line.strip()					
+					line_items = line.split()
+					if len(line_items) == 2:
+						source, destination = line.split()
+						if destination not in array_preserves:							
+							overwrites[destination] = source
 				filehandle.close()
 
 	for key in overwrites.keys():
 		source = overwrites[key]
 		destination = key
-		if os.path.exists(source) and os.path.exists(destination):			
-			os.system("cp " + source + " " + destination)
-			log(destination + " overwritten with " + source)
+		if os.path.exists(source):
+			if not "*" in destination:
+				# Simple destination, do a cp
+				if os.path.exists(destination):
+					os.system("cp " + source + " " + destination)
+					log(destination + " overwritten with " + source)
+			else:
+				# Wildcard destination, find all possible matching destinations
+				matching_destinations = commands.getoutput("find " + destination)
+				matching_destinations = matching_destinations.split("\n")
+				for matching_destination in matching_destinations:					
+					matching_destination = matching_destination.strip()
+					if os.path.exists(matching_destination):
+						os.system("cp " + source + " " + matching_destination)
+						log(matching_destination + " overwritten with " + source)		
 
 	# Restore LSB information
 	if (config['restore']['lsb-release'] == "True"):
