@@ -1,3 +1,9 @@
+mintsystem (7.5.4) helena; urgency=low
+
+  * Introduced /etc/linuxmint/adjustments configuration for adjustment mechanism
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri,  4 Sep 2009 18:00:00 +0000
+
 mintsystem (7.5.3) helena; urgency=low
 
   * Helena build
