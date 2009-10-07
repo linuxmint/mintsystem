@@ -1,2 +1,0 @@
-msgid "Please enter your password"
-msgstr "Kérem, adja meg a jelszavát"

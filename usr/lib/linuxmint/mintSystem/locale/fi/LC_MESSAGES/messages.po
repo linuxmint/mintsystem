@@ -1,2 +1,0 @@
-msgid "Please enter your password"
-msgstr "Ole hyvä ja anna salasanasi"

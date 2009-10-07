@@ -1,3 +1,9 @@
+mintsystem (7.5.7) helena; urgency=low
+
+  * Moved resources to mint-common
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  7 Oct 2009 18:07:00 +0000
+
 mintsystem (7.5.6) helena; urgency=low
 
   * Dependency on mint-common

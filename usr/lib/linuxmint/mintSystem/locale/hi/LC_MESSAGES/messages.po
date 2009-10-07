@@ -1,2 +1,0 @@
-msgid "Please enter your password"
-msgstr "कृपया अपना गुप्तशब्द दर्ज करें"

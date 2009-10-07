@@ -1,2 +1,0 @@
-msgid "Please enter your password"
-msgstr "암호를 입력하여 주십시오"

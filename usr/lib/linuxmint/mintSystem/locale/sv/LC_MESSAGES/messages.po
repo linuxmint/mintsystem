@@ -1,3 +1,0 @@
-msgid "Please enter your password"
-msgstr "Skriv in ditt lösenord:"
-
