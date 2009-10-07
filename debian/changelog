@@ -1,3 +1,9 @@
+mintsystem (7.5.5) helena; urgency=low
+
+  * Replaced dontzap solution with command line one for CTRL ALT BACKSPACE
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  7 Oct 2009 13:46:00 +0000
+
 mintsystem (7.5.4) helena; urgency=low
 
   * Introduced /etc/linuxmint/adjustments configuration for adjustment mechanism

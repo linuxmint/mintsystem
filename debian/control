@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: mintsystem
 Architecture: all
-Depends: mint-info, cowsay, fortune, dontzap
+Depends: mint-info, cowsay, fortune
 Description: Linux Mint System Base Package
  Used by the desktop and other mint tools to gather information and process common system tasks.

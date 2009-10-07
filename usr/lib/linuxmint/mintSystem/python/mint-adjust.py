@@ -116,11 +116,8 @@ try:
 
 	# Restore CTRL+ALT+BACKSPACE
 	if (config['restore']['ctrl-alt-backspace'] == "True"):
-		dontzap = commands.getoutput("cat /etc/X11/xorg.conf | grep -i dontzap | grep -i false | wc -l")
-		if dontzap == "0":
-			if os.path.exists("/usr/bin/dontzap"):
-				os.system("/usr/bin/dontzap --disable")
-				log("X11 shortcut CTRL+ALT+BACKSPACE restored")
+		os.system("setxkbmap -option terminate:ctrl_alt_bksp")
+		log("X11 shortcut CTRL+ALT+BACKSPACE restored")
 	
 	# Restore execution permission on /usr/sbin/update-grub
 	if (config['restore']['update-grub'] == "True"):
