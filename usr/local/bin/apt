@@ -81,7 +81,7 @@ elif argcommand == "contains":
 elif argcommand == "content":
 	command = "dpkg -L" + argoptions
 elif argcommand == "version":
-	command = "mint-apt-version" + argoptions
+	command = "/usr/lib/linuxmint/common/version.py" + argoptions
 elif argcommand == "purge":
 	command = sudo + " apt-get remove --purge" + argoptions
 elif argcommand == "build":

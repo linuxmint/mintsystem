@@ -1,3 +1,9 @@
+mintsystem (7.5.6) helena; urgency=low
+
+  * Dependency on mint-common
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  7 Oct 2009 16:20:00 +0000
+
 mintsystem (7.5.5) helena; urgency=low
 
   * Replaced dontzap solution with command line one for CTRL ALT BACKSPACE
