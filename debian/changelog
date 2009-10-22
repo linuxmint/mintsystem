@@ -1,3 +1,9 @@
+mintsystem (7.5.8) helena; urgency=low
+
+  * Adjusted mint-adjust paths
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu,  22 Oct 2009 17:50:00 +0000
+
 mintsystem (7.5.7) helena; urgency=low
 
   * Moved resources to mint-common
