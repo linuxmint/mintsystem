@@ -24,7 +24,7 @@ case "$1" in
 
     ;;
     triggered)
-	/usr/lib/linuxmint/mintSystem/python/mint-adjust.py
+	/usr/lib/linuxmint/mintSystem/mint-adjust.py
     ;;
     *)
         echo "postinst called with unknown argument \`$1'" >&2
