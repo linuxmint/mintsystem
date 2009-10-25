@@ -32,9 +32,7 @@ try:
 	if ('etc-issue' not in config['restore']):
 		config['restore']['etc-issue'] = "True"	
 	if ('ctrl-alt-backspace' not in config['restore']):
-		config['restore']['ctrl-alt-backspace'] = "True"		
-	if ('update-grub' not in config['restore']):
-		config['restore']['update-grub'] = "True"	
+		config['restore']['ctrl-alt-backspace'] = "True"			
 	config.write()
 
 
@@ -118,12 +116,7 @@ try:
 	if (config['restore']['ctrl-alt-backspace'] == "True"):
 		os.system("setxkbmap -option terminate:ctrl_alt_bksp")
 		log("X11 shortcut CTRL+ALT+BACKSPACE restored")
-	
-	# Restore execution permission on /usr/sbin/update-grub
-	if (config['restore']['update-grub'] == "True"):
-		if os.path.exists("/usr/sbin/update-grub"):
-			os.system("chmod a+rx /usr/sbin/update-grub")
-			log("Execution permissions restored on /usr/sbin/update-grub")
+		
 
 except Exception, detail:
 	print detail

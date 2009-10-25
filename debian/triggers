@@ -2,3 +2,8 @@ interest /etc/lsb-release
 interest /etc/issue
 interest /etc/issue.net
 interest /usr/lib/openoffice/program
+interest /usr/lib/firefox-addons/searchplugins/google.xml
+interest /etc/firefox-3.5/profile
+interest /usr/share/sounds/startup.wav
+interest /usr/share/system-config-printer
+
