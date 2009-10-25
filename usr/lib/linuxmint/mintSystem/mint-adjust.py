@@ -17,6 +17,7 @@ log("minSystem started")
 
 try:
 	# Read configuration
+	sys.path.append('/usr/lib/linuxmint/common')
 	from configobj import ConfigObj
 	config = ConfigObj("/etc/linuxmint/mintSystem.conf")
 	

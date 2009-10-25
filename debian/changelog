@@ -1,3 +1,9 @@
+mintsystem (7.6.1) helena; urgency=low
+
+  * Fixed path for configobj
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun,  25 Oct 2009 17:45:00 +0000
+
 mintsystem (7.6.0) helena; urgency=low
 
   * Added triggers, removed update-grub config
