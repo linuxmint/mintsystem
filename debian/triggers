@@ -2,5 +2,3 @@ interest /etc/lsb-release
 interest /etc/issue
 interest /etc/issue.net
 interest /usr/lib/openoffice/program
-interest /usr/share/gimp/2.0/images
-interest /usr/sbin/update-grub

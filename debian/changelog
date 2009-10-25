@@ -1,3 +1,9 @@
+mintsystem (7.5.9) helena; urgency=low
+
+  * Removed splash screens, moved to mint-artwork-*
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun,  25 Oct 2009 13:50:00 +0000
+
 mintsystem (7.5.8) helena; urgency=low
 
   * Adjusted mint-adjust paths
