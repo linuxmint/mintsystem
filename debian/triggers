@@ -8,3 +8,4 @@ interest /usr/share/sounds/startup.wav
 interest /usr/share/system-config-printer
 interest /usr/share/opera
 interest /etc/linuxmint/adjustments
+interest /usr/share/synaptic/glade/window_main.glade
