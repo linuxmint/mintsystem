@@ -1,3 +1,9 @@
+mintsystem (7.6.4) helena; urgency=low
+
+  * Removed CTRL+ALT+BACKSPACE tweak, now taken care of in gconf
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue,  10 Nov 2009 3:51:00 +0000
+
 mintsystem (7.6.3) helena; urgency=low
 
   * Added synaptic adjustments

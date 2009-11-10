@@ -32,8 +32,6 @@ try:
 		config['restore']['lsb-release'] = "True"
 	if ('etc-issue' not in config['restore']):
 		config['restore']['etc-issue'] = "True"	
-	if ('ctrl-alt-backspace' not in config['restore']):
-		config['restore']['ctrl-alt-backspace'] = "True"			
 	config.write()
 
 
@@ -113,11 +111,6 @@ try:
 			issuefile.close()
 			log("/etc/issue.net overwritten")			
 
-	# Restore CTRL+ALT+BACKSPACE
-	if (config['restore']['ctrl-alt-backspace'] == "True"):
-		os.system("setxkbmap -option terminate:ctrl_alt_bksp")
-		log("X11 shortcut CTRL+ALT+BACKSPACE restored")
-		
 
 except Exception, detail:
 	print detail
