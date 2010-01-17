@@ -90,7 +90,10 @@ try:
 	if (config['restore']['lsb-release'] == "True"):
 		if os.path.exists("/etc/lsb-release"):
 			lsbfile = open("/etc/lsb-release", "w")			
-			lsbfile.writelines("DISTRIB_ID=LinuxMint\n")
+			if (commands.getoutput("cat /etc/linuxmint/info | grep DISTRIB_ID").strip() != ""):
+				lsbfile.writelines(commands.getoutput("cat /etc/linuxmint/info | grep DISTRIB_ID") + "\n")
+			else:
+				lsbfile.writelines("DISTRIB_ID=LinuxMint\n")
 			lsbfile.writelines("DISTRIB_" + commands.getoutput("cat /etc/linuxmint/info | grep RELEASE") + "\n")
 			lsbfile.writelines("DISTRIB_" + commands.getoutput("cat /etc/linuxmint/info | grep CODENAME") + "\n")
 			lsbfile.writelines("DISTRIB_" + commands.getoutput("cat /etc/linuxmint/info | grep DESCRIPTION") + "\n")

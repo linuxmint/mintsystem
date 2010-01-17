@@ -1,3 +1,9 @@
+mintsystem (7.6.5) helena; urgency=low
+
+  * LSB DISTRIB_ID is now configurable
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun,  17 Jan 2010 13:20:00 +0000
+
 mintsystem (7.6.4) helena; urgency=low
 
   * Removed CTRL+ALT+BACKSPACE tweak, now taken care of in gconf
