@@ -22,7 +22,9 @@ def usage():
 	print "dist-upgrade	- Perform an upgrade, possibly installing and removing packages"
 	print "download   	- Download the .deb file for a package"
 	print "dselect-upgrade	- Follow dselect selections"
+	print "held		- List all held packages"
 	print "help     	- Show help for a command"
+	print "hold		- Hold a package"
 	print "install   	- Install/upgrade packages"
 	print "policy   	- Show policy settings" 
 	print "purge    	- Remove packages and their configuration files" 
@@ -33,6 +35,7 @@ def usage():
 	print "show     	- Display detailed information about a package"
 	print "source   	- Download source archives"
 	print "sources   	- Edit /etc/apt/sources.list with nano"
+	print "unhold		- Unhold a package"
 	print "update   	- Download lists of new/upgradable packages" 
 	print "upgrade  	- Perform a safe upgrade"
 	print "version  	- Show the installed version of a package"
@@ -76,10 +79,16 @@ elif argcommand in ["stats", "depends", "rdepends", "policy"]:
 	command = aptcommand + " " + argcommand + argoptions
 elif argcommand == "sources":
 	command = sudo + " nano /etc/apt/sources.list"
+elif argcommand == "held":
+	command = "dpkg --get-selections | grep hold"
 elif argcommand == "contains":
 	command = "dpkg -S" + argoptions
 elif argcommand == "content":
 	command = "dpkg -L" + argoptions
+elif argcommand == "hold":
+	command = "echo " + argoptions + " hold | sudo dpkg --set-selections"
+elif argcommand == "unhold":
+	command = "echo " + argoptions + " install | sudo dpkg --set-selections"
 elif argcommand == "version":
 	command = "/usr/lib/linuxmint/common/version.py" + argoptions
 elif argcommand == "purge":
