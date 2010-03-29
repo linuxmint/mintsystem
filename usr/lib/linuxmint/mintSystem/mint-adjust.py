@@ -90,19 +90,19 @@ try:
 	if (config['restore']['lsb-release'] == "True"):
 		if os.path.exists("/etc/lsb-release"):
 			lsbfile = open("/etc/lsb-release", "w")			
-			if (commands.getoutput("cat /etc/linuxmint/info | grep DISTRIB_ID").strip() != ""):
-				lsbfile.writelines(commands.getoutput("cat /etc/linuxmint/info | grep DISTRIB_ID") + "\n")
+			if (commands.getoutput("grep DISTRIB_ID /etc/linuxmint/info").strip() != ""):
+				lsbfile.writelines(commands.getoutput("grep DISTRIB_ID /etc/linuxmint/info") + "\n")
 			else:
 				lsbfile.writelines("DISTRIB_ID=LinuxMint\n")
-			lsbfile.writelines("DISTRIB_" + commands.getoutput("cat /etc/linuxmint/info | grep RELEASE") + "\n")
-			lsbfile.writelines("DISTRIB_" + commands.getoutput("cat /etc/linuxmint/info | grep CODENAME") + "\n")
-			lsbfile.writelines("DISTRIB_" + commands.getoutput("cat /etc/linuxmint/info | grep DESCRIPTION") + "\n")
+			lsbfile.writelines("DISTRIB_" + commands.getoutput("grep \"RELEASE=\" /etc/linuxmint/info") + "\n")
+			lsbfile.writelines("DISTRIB_" + commands.getoutput("grep CODENAME /etc/linuxmint/info") + "\n")
+			lsbfile.writelines("DISTRIB_" + commands.getoutput("grep DESCRIPTION /etc/linuxmint/info") + "\n")
 			lsbfile.close()
 			log("/etc/lsb-release overwritten")
 
 	# Restore /etc/issue and /etc/issue.net
 	if (config['restore']['etc-issue'] == "True"):
-		issue = commands.getoutput("cat /etc/linuxmint/info | grep DESCRIPTION").replace("DESCRIPTION=", "").replace("\"", "")
+		issue = commands.getoutput("grep DESCRIPTION /etc/linuxmint/info").replace("DESCRIPTION=", "").replace("\"", "")
 		if os.path.exists("/etc/issue"):
 			issuefile = open("/etc/issue", "w")					
 			issuefile.writelines(issue + " \\n \\l")			
@@ -119,6 +119,6 @@ except Exception, detail:
 	print detail
 	log(detail)
 
-log("minSystem stopped")
+log("mintSystem stopped")
 logfile.close()
 

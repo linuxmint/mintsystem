@@ -1,3 +1,9 @@
+mintsystem (7.6.7) isadora; urgency=low
+
+  * Changed cat | grep to grep, and fixed a typo in the adjustment system.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon,  29 Mar 2010 14:57:00 +0000
+
 mintsystem (7.6.6) isadora; urgency=low
 
   * Added hold, unhold, held commands to apt
