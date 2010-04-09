@@ -1,3 +1,9 @@
+mintsystem (7.6.8) isadora; urgency=low
+
+  * Added dependency on fortunes-husse.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri,  9 Apr 2010 15:24:00 +0000
+
 mintsystem (7.6.7) isadora; urgency=low
 
   * Changed cat | grep to grep, and fixed a typo in the adjustment system.
