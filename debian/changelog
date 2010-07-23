@@ -1,3 +1,9 @@
+mintsystem (7.6.9) isadora; urgency=low
+
+  * Added /usr/bin/firefox to list of triggers
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri,  23 Jul 2010 12:47:00 +0000
+
 mintsystem (7.6.8) isadora; urgency=low
 
   * Added dependency on fortunes-husse.
