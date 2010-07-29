@@ -1,4 +1,4 @@
-mintsystem (7.6.9-debian) debian; urgency=low
+mintsystem (7.6.9-1debian1) debian; urgency=low
 
   * Don't highlight results (doesn't work well in Debian)
 
