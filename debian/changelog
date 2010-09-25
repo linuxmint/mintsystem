@@ -1,6 +1,7 @@
 mintsystem (7.7.0) julia; urgency=low
 
   * highlight only highlights one arg now, but more reliably and faster (using sed)
+  * Trigger in /opt/firefox/firefox (for LMDE)
 
  -- Clement Lefebvre <root@linuxmint.com>  Sat,  25 Sep 2010 10:31:00 +0000
 
