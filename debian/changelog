@@ -1,3 +1,9 @@
+mintsystem (7.7.1) julia; urgency=low
+
+  * Added LSB tags to mintsystem init.d script
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat,  25 Sep 2010 11:00:00 +0000
+
 mintsystem (7.7.0) julia; urgency=low
 
   * highlight only highlights one arg now, but more reliably and faster (using sed)
