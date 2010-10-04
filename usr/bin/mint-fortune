@@ -1,20 +1,17 @@
 #!/bin/bash
-RANGE=4
+RANGE=3
 number=$RANDOM
 let "number %= $RANGE"
 case $number in
 	0)
-		cow="small"
+		cow="moose"
 		;;
 	1)
 		cow="tux"
 		;;
 	2)
 		cow="koala"
-		;;
-	3)
-		cow="moose"
-		;;
+		;;	
 esac
 
 RANGE=2

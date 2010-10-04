@@ -1,3 +1,9 @@
+mintsystem (7.7.2) julia; urgency=low
+
+  * Removed small from cowsay. Don't highlight apt contains.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon,  04 Oct 2010 15:29:00 +0000
+
 mintsystem (7.7.1) julia; urgency=low
 
   * Added LSB tags to mintsystem init.d script
