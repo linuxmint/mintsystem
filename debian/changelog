@@ -1,3 +1,9 @@
+mintsystem (7.7.4) julia; urgency=low
+
+  * Don't show fortunes if gconf says not to.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri,  18 Feb 2011 12:09:00 +0000
+
 mintsystem (7.7.3) julia; urgency=low
 
   * Carriage return added in /etc/issue

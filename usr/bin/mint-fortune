@@ -1,30 +1,43 @@
 #!/bin/bash
-RANGE=3
-number=$RANDOM
-let "number %= $RANGE"
-case $number in
-	0)
-		cow="moose"
-		;;
-	1)
-		cow="tux"
-		;;
-	2)
-		cow="koala"
-		;;	
-esac
 
-RANGE=2
-number=$RANDOM
-let "number %= $RANGE"
-case $number in
-	0)
-		command="/usr/games/cowsay"
-		;;
-	1)
-		command="/usr/games/cowthink"
-		;;
-esac
-/usr/games/fortune | $command -f $cow
+function show_fortune {
+    RANGE=3
+    number=$RANDOM
+    let "number %= $RANGE"
+    case $number in
+        0)
+            cow="moose"
+            ;;
+        1)
+            cow="tux"
+            ;;
+        2)
+            cow="koala"
+            ;;	
+    esac
+
+    RANGE=2
+    number=$RANDOM
+    let "number %= $RANGE"
+    case $number in
+        0)
+            command="/usr/games/cowsay"
+            ;;
+        1)
+            command="/usr/games/cowthink"
+            ;;
+    esac
+    /usr/games/fortune | $command -f $cow
+}
+
+if [ -x "/usr/bin/gconftool-2" ]; then
+    showfortunes=`gconftool-2 --get /desktop/linuxmint/terminal/show_fortunes 2>/dev/null`
+    if [ $showfortunes == "true" ]; then        
+        show_fortune
+    fi
+else
+    show_fortune
+fi
+
 
 
