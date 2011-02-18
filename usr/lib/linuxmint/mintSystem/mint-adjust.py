@@ -105,7 +105,7 @@ try:
 		issue = commands.getoutput("grep DESCRIPTION /etc/linuxmint/info").replace("DESCRIPTION=", "").replace("\"", "")
 		if os.path.exists("/etc/issue"):
 			issuefile = open("/etc/issue", "w")					
-			issuefile.writelines(issue + " \\n \\l")			
+			issuefile.writelines(issue + " \\n \\l\n")		
 			issuefile.close()
 			log("/etc/issue overwritten")
 		if os.path.exists("/etc/issue.net"):
