@@ -1,3 +1,10 @@
+mintsystem (7.7.5) katya; urgency=low
+
+  * Katya updates
+  * Updated Synaptic adjustment
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue,  12 Apr 2011 11:02:00 +0000
+
 mintsystem (7.7.4) julia; urgency=low
 
   * Don't show fortunes if gconf says not to.
