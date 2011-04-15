@@ -68,7 +68,7 @@ if argcommand in ["install", "remove", "update", "upgrade", "dist-upgrade", "cle
 elif argcommand in ["source", "moo"]:
 	aptcommand = "apt-get"
 	command = aptcommand + " " + argcommand + argoptions		
-elif argcommand in ["search", "show", "changelog", "download"]:
+elif argcommand in ["search", "show", "changelog"]:
 	aptcommand = "aptitude"
 	command = aptcommand + " " + argcommand + argoptions
 elif argcommand in ["reinstall"]:
@@ -97,6 +97,8 @@ elif argcommand == "build":
 	command = sudo + " dpkg-buildpackage" + argoptions
 elif argcommand == "deb":
 	command = sudo + " dpkg -i" + argoptions
+elif argcommand == "download":
+    command = "apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
 else:
 		usage()
 

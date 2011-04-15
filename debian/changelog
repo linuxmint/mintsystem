@@ -1,3 +1,9 @@
+mintsystem (7.7.6) katya; urgency=low
+
+  * apt download now fetches all dependencies
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri,  15 Apr 2011 19:04:00 +0000
+
 mintsystem (7.7.5) katya; urgency=low
 
   * Katya updates
