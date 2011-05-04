@@ -1,3 +1,9 @@
+mintsystem (7.7.8) katya; urgency=low
+
+  * adjusted synaptic
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  4 May 2011 23:11:00 +0000
+
 mintsystem (7.7.7) katya; urgency=low
 
   * added aptitude in dependencies
