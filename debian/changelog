@@ -1,3 +1,9 @@
+mintsystem (7.8.0) lisa; urgency=low
+
+  * Added support for .execute adjustments  
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon,  31 Oct 2011 12:38:00 +0000
+
 mintsystem (7.7.9) katya; urgency=low
 
   * Fixed unary operator bug in show_fortune check

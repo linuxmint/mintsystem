@@ -40,8 +40,18 @@ try:
 		log("Disabled - Exited")
 		sys.exit(0)
 
-	# Perform file overwriting adjustments
-	adjustment_directory = "/etc/linuxmint/adjustments/"
+    adjustment_directory = "/etc/linuxmint/adjustments/"
+    
+    # Perform file execution adjustments
+    for filename in os.listdir(adjustment_directory):
+        basename, extension = os.path.splitext(filename)
+        if extension == ".execute":
+            full_path = adjustment_directory + "/" + filename
+            os.system("chmod a+rx %s" % full_path)                        
+            os.system(full_path)             
+            log("%s executed" % full_path)
+            
+	# Perform file overwriting adjustments            
 	array_preserves = []
 	if os.path.exists(adjustment_directory):
 		for filename in os.listdir(adjustment_directory):
