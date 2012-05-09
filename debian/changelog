@@ -1,3 +1,9 @@
+mintsystem (7.8.1) precise; urgency=low
+
+  * Switch mint-fortune to use mateconf instead of gconf
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 09 May 2012 15:22:46 +0100
+
 mintsystem (7.8.0) lisa; urgency=low
 
   * Added support for .execute adjustments  
