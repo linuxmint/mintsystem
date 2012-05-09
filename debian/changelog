@@ -1,4 +1,4 @@
-mintsystem (7.8.1) precise; urgency=low
+mintsystem (7.8.1) maya; urgency=low
 
   * Switch mint-fortune to use mateconf instead of gconf
 
