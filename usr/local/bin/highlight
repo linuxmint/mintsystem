@@ -3,7 +3,7 @@
 
 # Don't try to add coloring escape characters if they're not going to
 # be understood.
-if ! test -t 1; then
+if ! test -t 1 || test $# -eq 0; then
 	cat
 	return
 fi
