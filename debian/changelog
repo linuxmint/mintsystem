@@ -1,3 +1,9 @@
+mintsystem (7.8.2) maya; urgency=low
+
+  * Don't highlight when stdout isn't a tty (called by a script or using piped commands)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 07 Sep 2012 10:05:24 +0100
+
 mintsystem (7.8.1) maya; urgency=low
 
   * Switch mint-fortune to use mateconf instead of gconf
