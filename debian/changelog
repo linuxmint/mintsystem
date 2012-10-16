@@ -1,3 +1,9 @@
+mintsystem (7.8.3) nadia; urgency=low
+
+  * Added dns-fix and xchat-systray commands
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 16 Oct 2012 16:36:11 +0100
+
 mintsystem (7.8.2) maya; urgency=low
 
   * Don't highlight when stdout isn't a tty (called by a script or using piped commands)
