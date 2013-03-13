@@ -30,12 +30,8 @@ function show_fortune {
     /usr/games/fortune | $command -f $cow
 }
 
-if [ -x "/usr/bin/mateconftool-2" ]; then
-    showfortunes=`mateconftool-2 --get /desktop/linuxmint/terminal/show_fortunes 2>/dev/null`
-    if [ "$showfortunes" == "true" ]; then        
-        show_fortune
-    fi
+showfortunes=`gsettings get com.linuxmint.terminal show-fortunes 2>/dev/null`
+if [ "$showfortunes" == "true" ]; then
+    show_fortune
 fi
-
-
 

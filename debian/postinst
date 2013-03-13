@@ -19,6 +19,7 @@ set -e
 case "$1" in
     configure)
 	update-rc.d mintsystem start 51 S .
+	glib-compile-schemas /usr/share/glib-2.0/schemas
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
 

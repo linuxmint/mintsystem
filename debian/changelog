@@ -1,3 +1,9 @@
+mintsystem (7.8.4) olivia; urgency=low
+
+  * Migrated mintfortunes to gsettings
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 13 Mar 2013 13:47:04 +0000
+
 mintsystem (7.8.3) nadia; urgency=low
 
   * Added dns-fix and xchat-systray commands
