@@ -1,3 +1,9 @@
+mintsystem (7.8.5) olivia; urgency=low
+
+  * Added mint-md5sum nemo action
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 10 May 2013 12:50:54 +0100
+
 mintsystem (7.8.4) olivia; urgency=low
 
   * Migrated mintfortunes to gsettings
