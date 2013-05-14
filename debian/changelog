@@ -1,3 +1,9 @@
+mintsystem (7.8.6) olivia; urgency=low
+
+  * Added trigger on MDM
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 14 May 2013 23:44:04 +0100
+
 mintsystem (7.8.5) olivia; urgency=low
 
   * Added mint-md5sum nemo action
