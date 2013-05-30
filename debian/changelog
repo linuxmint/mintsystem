@@ -1,3 +1,9 @@
+mintsystem (7.8.7) olivia; urgency=low
+
+  * Test presence of Glib before using it in postinst
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 30 May 2013 12:24:48 +0100
+
 mintsystem (7.8.6) olivia; urgency=low
 
   * Added trigger on MDM
