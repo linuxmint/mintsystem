@@ -1,3 +1,9 @@
+mintsystem (7.8.8) petra; urgency=low
+
+  * Trigger on /usr/lib/firefox
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 31 Oct 2013 13:06:56 +0000
+
 mintsystem (7.8.7) olivia; urgency=low
 
   * Test presence of Glib before using it in postinst
