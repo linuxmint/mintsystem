@@ -1,3 +1,9 @@
+mintsystem (7.8.9) petra; urgency=low
+
+  * Fixed MD5 nemo action not working when filename contains space characters
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 08 Nov 2013 15:04:09 +0000
+
 mintsystem (7.8.8) petra; urgency=low
 
   * Trigger on /usr/lib/firefox
