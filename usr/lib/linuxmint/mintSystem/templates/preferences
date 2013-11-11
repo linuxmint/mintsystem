@@ -10,3 +10,6 @@ Package: *
 Pin: release o=Ubuntu
 Pin-Priority: 500
 
+Package: *
+Pin: origin ppa.launchpad.net
+Pin-Priority: 700

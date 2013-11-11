@@ -1,3 +1,9 @@
+mintsystem (7.9.0) petra; urgency=low
+
+  * Disabled mintfortune for now (using gsettings in the background is risky until systemd fixes the XDG_RUNTIME_DIR issue)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 11 Nov 2013 18:21:46 +0000
+
 mintsystem (7.8.9) petra; urgency=low
 
   * Fixed MD5 nemo action not working when filename contains space characters
