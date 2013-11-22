@@ -30,8 +30,8 @@ function show_fortune {
     /usr/games/fortune | $command -f $cow
 }
 
-#showfortunes=`gsettings get com.linuxmint.terminal show-fortunes 2>/dev/null`
-#if [ "$showfortunes" == "true" ]; then
-#    show_fortune
-#fi
+showfortunes=`gsettings get com.linuxmint.terminal show-fortunes 2>/dev/null`
+if [ "$showfortunes" == "true" ]; then
+    show_fortune
+fi
 
