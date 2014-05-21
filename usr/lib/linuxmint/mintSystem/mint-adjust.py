@@ -13,7 +13,7 @@ def log (string):
     logfile.writelines("%s - %s\n" % (strftime("%Y-%m-%d %H:%M:%S"), string))
     logfile.flush()
 
-log("minSystem started")
+log("mintSystem started")
 
 try:
     # Read configuration
