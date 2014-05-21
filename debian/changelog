@@ -1,3 +1,9 @@
+mintsystem (7.9.2) qiana; urgency=medium
+
+  * Fixed a typo in the logs
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 21 May 2014 10:45:33 +0100
+
 mintsystem (7.9.1) petra; urgency=low
 
   * Re-enable mintfortune
