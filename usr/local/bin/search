@@ -14,30 +14,36 @@ function usage
 directory=/
 case=i
 verbose=H
-while [ "$1" != "" ]; do
-    case $1 in
-        for | -f | --for )
+
+case "$1" in
+	for | -f | --for )
 		shift
-                text=$1
-                ;;
-        in | --in | -i )
-		shift
-		directory=$1
-                ;;
-        -h | --help )           
+		text="$1"
+		;;
+	-h | --help | * )
 		usage
-                exit
-                ;;
+		exit 1
+		;;
+esac
+
+case "$2" in
+	in | --in | -i )
+		shift
+		directory="$2"
+		;;
+	* )
+		usage
+		exit 1
+		;;
+esac
+
+case "$3" in
 	-c | --case-sensitive )
 		case=
 		;;
 	-s | --show-filenames-only )
 		verbose=l
 		;;
-        * )     
-		usage
-                exit 1
-    esac
-    shift
-done
+esac
+
 find $directory -type f -exec grep -$case$verbose "$text" --color=auto -n {} \; 
