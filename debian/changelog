@@ -1,3 +1,9 @@
+mintsystem (7.9.3) qiana; urgency=medium
+
+  * Fixed Synaptic freezez
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 02 Jun 2014 11:43:12 +0100
+
 mintsystem (7.9.2) qiana; urgency=medium
 
   * Fixed a typo in the logs
