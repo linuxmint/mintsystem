@@ -1,0 +1,2 @@
+E: mintsystem: file-in-usr-local usr/local/bin/apt
+W: mintsystem: file-in-unusual-dir usr/local/bin/apt

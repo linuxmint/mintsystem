@@ -7,7 +7,7 @@ Standards-Version: 3.9.5
 
 Package: mintsystem
 Architecture: all
-Depends: mint-info, cowsay, fortune, mint-common, fortunes-husse, aptitude
+Depends: ${misc:Depends}, python, mint-info, cowsay, fortune, mint-common, fortunes-husse, aptitude
 Description: Linux Mint System Base Package
  Used by the desktop and other mint tools to gather
  information and process common system tasks.
