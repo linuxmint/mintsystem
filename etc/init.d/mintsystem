@@ -8,5 +8,8 @@
 # Default-Stop:  
 ### END INIT INFO
 
+# Let's source /lib/lsb/init-functions
+. /lib/lsb/init-functions
+
 /usr/lib/linuxmint/mintSystem/mint-adjust.py
 

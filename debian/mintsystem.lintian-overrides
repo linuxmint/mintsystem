@@ -1,0 +1,4 @@
+# I assume this is supposed to override /usr/bin/apt
+mintsystem: file-in-usr-local usr/local/bin/apt
+mintsystem: file-in-unusual-dir usr/local/bin/apt
+mintsystem: dir-in-usr-local usr/local/bin/
