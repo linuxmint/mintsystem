@@ -1,2 +1,2 @@
-#!/bin/bash
-sudo cp /usr/lib/linuxmint/mintSystem/templates/resolv.conf /etc/resolv.conf
+#!/bin/sh
+sudo cp -f /usr/share/linuxmint/mintSystem/templates/resolv.conf /etc/resolv.conf
