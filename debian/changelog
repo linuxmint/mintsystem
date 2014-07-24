@@ -18,7 +18,8 @@ mintsystem (7.9.1) petra; urgency=low
 
 mintsystem (7.9.0) petra; urgency=low
 
-  * Disabled mintfortune for now (using gsettings in the background is risky until systemd fixes the XDG_RUNTIME_DIR issue)
+  * Disabled mintfortune for now (using gsettings in the background is
+    risky until systemd fixes the XDG_RUNTIME_DIR issue)
 
  -- Clement Lefebvre <root@linuxmint.com>  Mon, 11 Nov 2013 18:21:46 +0000
 
@@ -255,7 +256,8 @@ mintsystem (7.5.2) gloria; urgency=low
 
 mintsystem (7.5.1) gloria; urgency=low
 
-  * Bug fix: apt content mint-artwork-gnome doesn't return anything (https://bugs.launchpad.net/bugs/399280)
+  * Bug fix: apt content mint-artwork-gnome doesn't return anything
+    (https://bugs.launchpad.net/bugs/399280)
 
  -- Clement Lefebvre <root@linuxmint.com>  Thu,  16 Jul 2009 15:40:00 +0000
 
@@ -268,12 +270,16 @@ mintsystem (7.5.0) gloria; urgency=low
 mintsystem (7.4.9) gloria; urgency=low
 
   * apt: Migration from bash to python
-  * apt: Color highlighting for search, show, content, contains, version, policy, depends, rdepends
+  * apt: Color highlighting for search, show, content, contains, version,
+         policy, depends, rdepends
   * apt: Doesn't use sudo when un-necessary
   * apt: Improved help
   * apt: Added Super Cow Powers
-  * apt: In certain cases, now deals with multiple packages, for instance "apt search firefox tomboy mozilla" now highlights all three keywords with different colors.
-  * Took the opportunity to create a "highlight" command which colorizes keywords --> "produce_some_text | highlight keyword [more_keywords]"
+  * apt: In certain cases, now deals with multiple packages, for instance
+         "apt search firefox tomboy mozilla" now highlights all three keywords
+         with different colors.
+  * Took the opportunity to create a "highlight" command which colorizes
+    keywords --> "produce_some_text | highlight keyword [more_keywords]"
 
  -- Clement Lefebvre <root@linuxmint.com>  Thu,  9 Jul 2009 15:08:00 +0000
 
@@ -310,19 +316,22 @@ mintsystem (7.4.4) gloria; urgency=low
 mintsystem (7.4.3) gloria; urgency=low
 
   * Updated Gimp splash (same design, better quality)
-  * Added restoration of the execute permissions on /usr/sbin/update-grub in the adjustment system
+  * Added restoration of the execute permissions on /usr/sbin/update-grub
+    in the adjustment system
 
  -- Clement Lefebvre <root@linuxmint.com>  Wed,  13 May 2009 21:04:00 +0000
 
 mintsystem (7.4.2) gloria; urgency=low
 
-  * Added checks to create global and restore dics in case /etc/linuxmint/mintSystem.conf does not exist
+  * Added checks to create global and restore dics in case
+    /etc/linuxmint/mintSystem.conf does not exist
 
  -- Clement Lefebvre <root@linuxmint.com>  Mon,  11 May 2009 20:17:00 +0000
 
 mintsystem (7.4.1) gloria; urgency=low
 
-  * Changed the way /etc/linuxmint/mintSystem.conf is read (to seamlessly add new values in case of upgrades)
+  * Changed the way /etc/linuxmint/mintSystem.conf is read (to seamlessly
+    add new values in case of upgrades)
   * Added restoration of the CTRL ALT BACKSPACE shortcut to restart X11
 
  -- Clement Lefebvre <root@linuxmint.com>  Mon,  11 May 2009 18:42:00 +0000
