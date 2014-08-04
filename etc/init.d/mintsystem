@@ -10,5 +10,19 @@
 
 . /lib/lsb/init-functions
 
-/usr/share/linuxmint/mintSystem/mint-adjust.py
+case $1 in
+    start|restart|force-reload)
+	/usr/share/linuxmint/mintSystem/mint-adjust.py
+	;;
+    stop)
+	;;
+    status)
+	exit 0
+	;;
+    *)
+	echo "Usage: $0 {start|stop|status|restart|force-reload}" >&2
+	exit 3
+	;;
+esac
 
+exit 0
