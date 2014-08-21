@@ -2,7 +2,7 @@
 
 ### BEGIN INIT INFO
 # Provides:          mintsystem
-# Required-Start:    $local_fs $syslog $remote_fs dbus
+# Required-Start:    $local_fs $syslog $remote_fs
 # Required-Stop:     $local_fs $syslog $remote_fs
 # Default-Start:     S
 # Default-Stop:  
