@@ -1,0 +1,22 @@
+#!/usr/bin/python
+
+import sys, os, stat
+
+content = ""
+
+mode = os.fstat(0).st_mode
+if stat.S_ISFIFO(mode):
+    content = sys.stdin.read()
+elif stat.S_ISREG(mode):
+    content = sys.stdin.read()
+else:
+    args = sys.argv[1:]
+    if len(args) == 1 and os.path.exists(args[0]):
+        with open(args[0], 'r') as infile:
+            content = infile.read()
+    else:
+        str_args = ' '.join(args)
+        content = str_args
+
+if content != "":
+    os.system("echo \"%s\" | nc paste.linuxmint.com 9999" % content)
