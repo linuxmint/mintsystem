@@ -1,3 +1,15 @@
+mintsystem (7.9.4) rebecca; urgency=medium
+
+  * Removed unneeded adjustments (they're in Synaptic repo now)
+  * Removed obsolete trigger
+  * Proper removal of /etc/linuxmint/adjustments/10-mintsystem-synaptic.overwrite
+  * Updated prior-version field
+  * Don't require dbus in the init script
+  * Added pastebin command
+  * Use subprocess to workaround issues with quotes
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 30 Sep 2014 13:07:13 +0200
+
 mintsystem (7.9.3) qiana; urgency=medium
 
   * Fixed Synaptic freezez
