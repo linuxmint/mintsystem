@@ -84,7 +84,7 @@ elif argcommand == "held":
 elif argcommand == "contains":
 	command = "dpkg -S" + argoptions
 elif argcommand == "content":
-	command = "dpkg -L" + argoptions
+	command = "dpkg -L" + argoptions + " | sort"
 elif argcommand == "hold":
 	command = "echo " + argoptions + " hold | sudo dpkg --set-selections"
 elif argcommand == "unhold":
