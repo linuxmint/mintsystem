@@ -1,3 +1,12 @@
+mintsystem (7.9.5) rebecca; urgency=medium
+
+  * Make "apt content" command sort its output
+  * Search: Fixed indentation, don't search when directory or text aren't defined
+  * Search: Use . as default directory
+  * Fixed "apt download" downloading a little too much
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 03 Nov 2014 23:13:54 +0100
+
 mintsystem (7.9.4) rebecca; urgency=medium
 
   * Removed unneeded adjustments (they're in Synaptic repo now)
