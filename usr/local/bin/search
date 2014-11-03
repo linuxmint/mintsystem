@@ -8,36 +8,41 @@ function usage
     echo "         in directory"
     echo "options:"
     echo "         -c | --case-sensitive"
-    echo "         -s | --show-filenames-only"	   
+    echo "         -s | --show-filenames-only"     
 }
 
-directory=/
 case=i
 verbose=H
 while [ "$1" != "" ]; do
     case $1 in
         for | -f | --for )
-		shift
-                text=$1
-                ;;
+            shift
+            text=$1
+            ;;
         in | --in | -i )
-		shift
-		directory=$1
-                ;;
+            shift
+            directory=$1
+            ;;
         -h | --help )           
-		usage
-                exit
-                ;;
-	-c | --case-sensitive )
-		case=
-		;;
-	-s | --show-filenames-only )
-		verbose=l
-		;;
+            usage
+            exit
+            ;;
+        -c | --case-sensitive )
+            case=
+            ;;
+        -s | --show-filenames-only )
+            verbose=l
+            ;;
         * )     
-		usage
-                exit 1
+            usage
+            exit 1
     esac
     shift
 done
+
+if [ "$directory" == "" -o "$text" == "" ]; then
+    usage
+    exit 1
+fi
+
 find $directory -type f -exec grep -$case$verbose "$text" --color=auto -n {} \; 
