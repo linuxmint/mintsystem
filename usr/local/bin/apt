@@ -98,7 +98,7 @@ elif argcommand == "build":
 elif argcommand == "deb":
 	command = sudo + " dpkg -i" + argoptions
 elif argcommand == "download":
-    command = "apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
+    command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
 else:
 		usage()
 
