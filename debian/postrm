@@ -1,5 +1,5 @@
 #!/bin/sh
-# prerm script
+# postrm script
 # see: dh_installdeb(1)
 
 set -e
