@@ -16,13 +16,23 @@ set -e
 # the debian-policy package
 #
 
+set +e
+mkdir -p /usr/local/bin
+set -e
+
 case "$1" in
     configure)
+
 	update-rc.d mintsystem start 51 S .
         if which glib-compile-schemas >/dev/null 2>&1
 	then
 	    glib-compile-schemas /usr/share/glib-2.0/schemas
-	fi	
+	fi
+
+  update-alternatives --install \
+    /usr/local/bin/apt apt \
+    /usr/lib/linuxmint/mintSystem/apt.py 200
+
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
 
