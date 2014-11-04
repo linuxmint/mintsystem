@@ -2,12 +2,15 @@ Source: mintsystem
 Section: admin
 Priority: optional
 Maintainer: Clement Lefebvre <clem@linuxmint.com>
-Build-Depends: debhelper (>= 8.1.0~)
-Standards-Version: 3.7.2
+Build-Depends: debhelper (>= 9), python
+Standards-Version: 3.9.5
 
 Package: mintsystem
 Architecture: all
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, mint-info, cowsay, fortune, mint-common, fortunes-husse, aptitude
+Depends:
+ ${python:Depends}, ${misc:Depends},
+ aptitude, cowsay, fortune, fortunes-husse,
+ mint-common, mint-info, python
 Description: Linux Mint System Base Package
- Used by the desktop and other mint tools to gather information and process common system tasks.
+ Used by the desktop and other mint tools to gather
+ information and process common system tasks.
