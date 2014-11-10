@@ -1,3 +1,9 @@
+mintsystem (7.9.6) rebecca; urgency=medium
+
+  * Added priorities for common 3rd party sources
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 10 Nov 2014 15:59:23 +0100
+
 mintsystem (7.9.5) rebecca; urgency=medium
 
   * Make "apt content" command sort its output
