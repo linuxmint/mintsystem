@@ -1,0 +1,62 @@
+#
+# Bash completion file for Linux Mint apt utility.
+#
+
+have apt &&
+_apt()
+{
+    local cur opt
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+
+    # Completion of commands.
+    if [[ $COMP_CWORD == 1 ]]; then
+    COMPREPLY=( $(compgen -W '\
+        autoclean autoremove build build-dep changelog check clean \
+        contains content deb depends dist-upgrade download \
+        dselect-upgrade held help hold install policy purge rdepends \
+        reinstall remove search show source sources unhold update \
+        upgrade version' "$cur" ) )
+    return 0
+    fi
+
+    # Completion of command parameters.
+    opt="${COMP_WORDS[1]}"
+    case $opt in
+    # Commands which require filename.
+    # Note: "search" command does not necessarilly require
+    # filename, it can accept any pattern, but I put it in this
+    # group in order to allow filename-completion for this command.
+    "contains"|"search")
+        _filedir
+        return 0
+        ;;
+
+    # Commands which require .deb/.udeb file name.
+    "deb")
+        _filedir '?(u)deb'
+        return 0
+        ;;
+   
+    # Commands which require package name.
+    "build"|"build-dep"|"changelog"|"depends"|"download"|"install"|\
+    "policy"|"rdepends"|"show"|"source")
+        COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" \
+        2> /dev/null ) )
+        return 0
+        ;;
+
+    # Commands which require name of installed package.
+    "content"|"hold"|"purge"|"reinstall"|"remove"|"unhold"|"version")
+        if [ -f /etc/debian_version ]; then
+        # Debian system
+        COMPREPLY=( $( _xfunc dpkg _comp_dpkg_installed_packages $cur ) )
+        else
+        # assume RPM based
+        _xfunc rpm _rpm_installed_packages
+        fi
+        return 0
+        ;;
+    esac
+} &&
+complete -F _apt apt
