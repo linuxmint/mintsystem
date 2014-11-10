@@ -1,3 +1,9 @@
+mintsystem (7.9.7) rebecca; urgency=medium
+
+  * Added bash-completion for apt.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 10 Nov 2014 17:15:55 +0100
+
 mintsystem (7.9.6) rebecca; urgency=medium
 
   * Added priorities for common 3rd party sources
