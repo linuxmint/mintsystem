@@ -3,9 +3,5 @@ Pin: origin build.linuxmint.com
 Pin-Priority: 700
 
 Package: *
-Pin: release o=LP-PPA-kubuntu-ppa-backports
-Pin-Priority: 700
-
-Package: *
 Pin: release o=LP-PPA-gwendal-lebihan-dev-cinnamon-nightly
 Pin-Priority: 700
