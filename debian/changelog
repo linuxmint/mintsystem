@@ -1,3 +1,9 @@
+mintsystem (7.9.8) betsy; urgency=medium
+
+  * Added mint-drivers binary to detect common hardware
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 30 Jan 2015 14:42:46 +0100
+
 mintsystem (7.9.7) rebecca; urgency=medium
 
   * Added bash-completion for apt.
