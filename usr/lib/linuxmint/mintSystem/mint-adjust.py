@@ -124,6 +124,29 @@ try:
             issuefile.close()
             log("/etc/issue.net overwritten")
 
+    # Perform menu adjustments
+    for filename in os.listdir(adjustment_directory):
+        basename, extension = os.path.splitext(filename)
+        if extension == ".menu":
+            filehandle = open(adjustment_directory + "/" + filename)
+            for line in filehandle:
+                line = line.strip()
+                line_items = line.split()
+                if len(line_items) > 0:
+                    if line_items[0] == "hide":
+                        if len(line_items) == 2:
+                            action, desktop_file = line.split()
+                            if os.path.exists(desktop_file):
+                                os.system("grep -q -F 'NoDisplay=true' %s || echo '\nNoDisplay=true' >> %s" % (desktop_file, desktop_file))
+                                log("%s hidden" % desktop_file)
+                    elif line_items[0] == "categories":
+                        if len(line_items) == 3:
+                            action, desktop_file, categories = line.split()
+                            if os.path.exists(desktop_file):
+                                categories = categories.strip()
+                                os.system("sed -i -e 's/Categories=.*/Categories=%s/g' %s" % (categories, desktop_file))
+                                log("%s re-categorized" % desktop_file)
+            filehandle.close()
 
 except Exception, detail:
     print detail
