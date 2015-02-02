@@ -10,3 +10,4 @@ interest /etc/linuxmint/adjustments
 interest /opt/firefox/firefox
 interest /usr/lib/firefox
 interest /usr/share/mdm/defaults.conf
+interest /usr/share/applications
