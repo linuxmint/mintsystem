@@ -1,3 +1,10 @@
+mintsystem (7.9.3+1) qiana; urgency=medium
+
+  * Added pastebin command
+  * Added priorities for common 3rd party sources
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 03 Feb 2015 13:14:22 +0100
+
 mintsystem (7.9.3) qiana; urgency=medium
 
   * Fixed Synaptic freezez
