@@ -5,3 +5,7 @@ Pin-Priority: 700
 Package: *
 Pin: release o=LP-PPA-gwendal-lebihan-dev-cinnamon-nightly
 Pin-Priority: 700
+
+Package: *
+Pin: origin download.virtualbox.org
+Pin-Priority: 700
