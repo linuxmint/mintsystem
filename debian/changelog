@@ -1,3 +1,9 @@
+mintsystem (8.0.0) betsy; urgency=medium
+
+  * Added Virtualbox repository to list of 700 sources
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 03 Feb 2015 12:27:43 +0100
+
 mintsystem (7.9.9) betsy; urgency=medium
 
   * Added support for menu adjustments (hiding and changing categories)
