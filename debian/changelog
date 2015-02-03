@@ -1,3 +1,9 @@
+mintsystem (8.0.1) betsy; urgency=medium
+
+  * Revert "Added /usr/share/applications to the list of triggers"
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 03 Feb 2015 14:12:23 +0100
+
 mintsystem (8.0.0) betsy; urgency=medium
 
   * Added Virtualbox repository to list of 700 sources
