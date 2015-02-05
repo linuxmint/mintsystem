@@ -49,6 +49,10 @@ sudo="sudo"
 if os.getuid() == 0 :
 	sudo=""
 
+if os.environ.get("EDITOR") != None:
+        editor = os.environ.get("EDITOR")
+else: 
+        editor = "/usr/bin/editor"
 argcommand = sys.argv[1]
 argsuffix = sys.argv[2:]
 showHelp = False
@@ -78,7 +82,7 @@ elif argcommand in ["stats", "depends", "rdepends", "policy"]:
 	aptcommand = "apt-cache"
 	command = aptcommand + " " + argcommand + argoptions
 elif argcommand == "sources":
-	command = sudo + " nano /etc/apt/sources.list"
+	command = sudo + " " + editor + " /etc/apt/sources.list"
 elif argcommand == "held":
 	command = "dpkg --get-selections | grep hold"
 elif argcommand == "contains":
