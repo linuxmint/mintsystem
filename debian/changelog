@@ -1,3 +1,9 @@
+mintsystem (8.0.3) betsy; urgency=medium
+
+  * Added the ability to rename desktop files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 27 Feb 2015 13:34:54 +0100
+
 mintsystem (8.0.2) betsy; urgency=medium
 
   * Modified init.d script to start mintsystem in runlevels 2,3,4,5 instead of rcS.
