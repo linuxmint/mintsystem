@@ -146,6 +146,16 @@ try:
                                 categories = categories.strip()
                                 os.system("sed -i -e 's/Categories=.*/Categories=%s/g' %s" % (categories, desktop_file))
                                 log("%s re-categorized" % desktop_file)
+                    elif line_items[0] == "rename":
+                        if len(line_items) == 3:
+                            action, desktop_file, names_file = line.split()
+                            names_file = names_file.strip()
+                            if os.path.exists(desktop_file) and os.path.exists(names_file):
+                                # remove all existing names, generic names, comments
+                                os.system("sed -i -e '/^[Name|GenericName|Comment]/d' \"%s\"" % desktop_file)
+                                # add provided ones
+                                os.system("cat \"%s\" >> \"%s\"" % (names_file, desktop_file))
+                                log("%s renamed" % desktop_file)
             filehandle.close()
 
 except Exception, detail:
