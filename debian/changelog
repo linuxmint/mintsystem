@@ -1,3 +1,9 @@
+mintsystem (8.0.2) betsy; urgency=medium
+
+  * Modified init.d script to start mintsystem in runlevels 2,3,4,5 instead of rcS.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 27 Feb 2015 12:30:23 +0100
+
 mintsystem (8.0.1) betsy; urgency=medium
 
   * Revert "Added /usr/share/applications to the list of triggers"
