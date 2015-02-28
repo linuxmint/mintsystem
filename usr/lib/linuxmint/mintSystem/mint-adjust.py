@@ -47,7 +47,6 @@ try:
         basename, extension = os.path.splitext(filename)
         if extension == ".execute":
             full_path = adjustment_directory + "/" + filename
-            os.system("chmod a+rx %s" % full_path)
             os.system(full_path)
             log("%s executed" % full_path)
 
