@@ -1,3 +1,9 @@
+mintsystem (8.0.4) betsy; urgency=medium
+
+  * Don't chmod scripts before executing them (their permissions should be properly set already)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 28 Feb 2015 18:45:54 +0100
+
 mintsystem (8.0.3) betsy; urgency=medium
 
   * Added the ability to rename desktop files
