@@ -1,3 +1,9 @@
+mintsystem (8.0.5) betsy; urgency=medium
+
+  * Updated postinst
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 02 Mar 2015 11:08:48 +0100
+
 mintsystem (8.0.4) betsy; urgency=medium
 
   * Don't chmod scripts before executing them (their permissions should be properly set already)
