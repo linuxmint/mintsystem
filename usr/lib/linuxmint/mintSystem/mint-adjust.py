@@ -151,7 +151,7 @@ try:
                             names_file = names_file.strip()
                             if os.path.exists(desktop_file) and os.path.exists(names_file):
                                 # remove all existing names, generic names, comments
-                                os.system("sed -i -e '/^[Name|GenericName|Comment]/d' \"%s\"" % desktop_file)
+                                os.system("sed -i -e '/^Name/d' -e '/^GenericName/d' -e '/^Comment/d' \"%s\"" % desktop_file)
                                 # add provided ones
                                 os.system("cat \"%s\" >> \"%s\"" % (names_file, desktop_file))
                                 log("%s renamed" % desktop_file)
