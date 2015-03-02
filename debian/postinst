@@ -18,17 +18,17 @@ set -e
 
 case "$1" in
     configure)
-	update-rc.d mintsystem start 51 S .
+        update-rc.d mintsystem defaults
         if which glib-compile-schemas >/dev/null 2>&1
-	then
-	    glib-compile-schemas /usr/share/glib-2.0/schemas
-	fi	
+        then
+            glib-compile-schemas /usr/share/glib-2.0/schemas
+        fi
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
 
     ;;
     triggered)
-	/usr/lib/linuxmint/mintSystem/mint-adjust.py
+        /usr/lib/linuxmint/mintSystem/mint-adjust.py
     ;;
     *)
         echo "postinst called with unknown argument \`$1'" >&2
