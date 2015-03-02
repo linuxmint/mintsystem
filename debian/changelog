@@ -1,3 +1,9 @@
+mintsystem (8.0.6) betsy; urgency=medium
+
+  * Fixed menu adjustment removing categories line in renamed applications
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 02 Mar 2015 11:59:47 +0100
+
 mintsystem (8.0.5) betsy; urgency=medium
 
   * Updated postinst
