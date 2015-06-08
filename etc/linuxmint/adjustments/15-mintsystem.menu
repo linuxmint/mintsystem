@@ -1,0 +1,1 @@
+exec /usr/share/applications/steam.desktop sh -c 'STEAM_FRAME_FORCE_CLOSE=1 steam' %U

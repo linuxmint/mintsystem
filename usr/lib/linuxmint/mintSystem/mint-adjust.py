@@ -4,6 +4,7 @@ import os
 import commands
 import sys
 from time import strftime
+import fileinput
 
 # Prepare the log file
 global logfile
@@ -145,6 +146,18 @@ try:
                                 categories = categories.strip()
                                 os.system("sed -i -e 's/Categories=.*/Categories=%s/g' %s" % (categories, desktop_file))
                                 log("%s re-categorized" % desktop_file)
+                    elif line_items[0] == "exec":
+                        if len(line_items) >= 3:
+                            action, desktop_file, executable = line.split(' ', 2)
+                            if os.path.exists(desktop_file):
+                                executable = executable.strip()
+                                found_exec = False
+                                for desktop_line in fileinput.input(desktop_file, inplace=True):
+                                    if desktop_line.startswith("Exec=") and not found_exec:
+                                        found_exec = True
+                                        desktop_line = "Exec=%s" % executable
+                                    print desktop_line.strip()
+                                log("%s exec changed" % desktop_file)
                     elif line_items[0] == "rename":
                         if len(line_items) == 3:
                             action, desktop_file, names_file = line.split()
