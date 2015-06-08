@@ -1,3 +1,15 @@
+mintsystem (8.0.7) rafaela; urgency=medium
+
+  [ Timothy Sharitt ]
+  * Changed apt sources to first try EDITOR then fallback to /usr/bin/editor
+
+  [ Clement Lefebvre ]
+  * Added a command to list signal handlers for a given process ID
+  * implement required options in init.d script
+  * Added menu/exec support and fixed Steam window not closing when close button is pressed
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 08 Jun 2015 14:31:03 +0200
+
 mintsystem (8.0.6) betsy; urgency=medium
 
   * Fixed menu adjustment removing categories line in renamed applications
