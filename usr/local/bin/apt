@@ -28,6 +28,7 @@ def usage():
 	print "install   	- Install/upgrade packages"
 	print "policy   	- Show policy settings" 
 	print "purge    	- Remove packages and their configuration files" 
+	print "recommends	- List missing recommended packages for a particular package"
 	print "rdepends 	- Show reverse dependency information for a package"
 	print "reinstall	- Download and (possibly) reinstall a currently installed package"
 	print "remove   	- Remove packages" 
@@ -75,6 +76,8 @@ elif argcommand in ["source", "moo"]:
 elif argcommand in ["search", "show", "changelog"]:
 	aptcommand = "aptitude"
 	command = aptcommand + " " + argcommand + argoptions
+elif argcommand in ["recommends"]:
+	command = "/usr/lib/linuxmint/mintSystem/mint-apt-recommends.py " + argoptions
 elif argcommand in ["reinstall"]:
 	aptcommand = "aptitude"
 	command = sudo + " " + aptcommand + " " + argcommand + argoptions		
