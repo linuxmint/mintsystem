@@ -1,3 +1,9 @@
+mintsystem (8.0.8) rafaela; urgency=medium
+
+  * Added "apt recommends" command
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 16 Jun 2015 13:02:48 +0200
+
 mintsystem (8.0.7) rafaela; urgency=medium
 
   [ Timothy Sharitt ]
