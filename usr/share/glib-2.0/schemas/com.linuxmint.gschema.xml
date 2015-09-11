@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-
+  <schema id="com.linuxmint.desktop" path="/com/linuxmint/desktop/">
+    <key type="s" name="mate-window-manager">
+      <default>"marco-composite"</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key type="s" name="xfce-window-manager">
+      <default>"xfwm4-composite"</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
   <schema id="com.linuxmint.terminal" path="/com/linuxmint/terminal/">
-          
     <key type="b" name="show-fortunes">
       <default>false</default>
       <summary></summary>
       <description></description>
     </key>
-
   </schema>
-
 </schemalist>
