@@ -1,3 +1,9 @@
+mintsystem (8.0.9) rosa; urgency=medium
+
+  * Added a keys to store the choice of wm for MATE and Xfce
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 06 Nov 2015 16:40:40 +0000
+
 mintsystem (8.0.8) rafaela; urgency=medium
 
   * Added "apt recommends" command
