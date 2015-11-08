@@ -1,3 +1,9 @@
+mintsystem (8.1.0) rosa; urgency=medium
+
+  * APT: Raised Kubuntu Backports and LibreOffice PPA to priority 700
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 08 Nov 2015 20:33:29 +0000
+
 mintsystem (8.0.9) rosa; urgency=medium
 
   * Added a keys to store the choice of wm for MATE and Xfce
