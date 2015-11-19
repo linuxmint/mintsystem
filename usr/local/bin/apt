@@ -110,7 +110,7 @@ else:
 		usage()
 
 # Color highlighting
-if argcommand in ["search", "show", "content", "version", "policy", "depends", "rdepends"] and len(argoptions.strip()) > 1:
+if argcommand in ["search", "show", "content", "contains", "version", "policy", "depends", "rdepends"] and len(argoptions.strip()) > 1:
 	command = command + " | highlight" + argoptions
 
 if (showHelp):
