@@ -89,7 +89,7 @@ elif argcommand == "sources":
 elif argcommand == "held":
 	command = "dpkg --get-selections | grep hold"
 elif argcommand == "contains":
-	command = "dpkg -S" + argoptions
+	command = "dpkg -S" + argoptions + " | sort"
 elif argcommand == "content":
 	command = "dpkg -L" + argoptions + " | sort"
 elif argcommand == "hold":
