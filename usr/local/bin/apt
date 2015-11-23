@@ -8,7 +8,7 @@ def usage():
 	print "       apt help command [options]"
 	print ""
 	print "Commands:"
-	print "add-repository	- Erase old downloaded archive files"
+	print "add-repository	- Add entries to apt sources.list"
 	print "autoclean	- Erase old downloaded archive files"
 	print "autoremove	- Remove automatically all unused packages" 
 	print "build     	- Build binary or source packages from sources" 
