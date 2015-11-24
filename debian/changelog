@@ -1,3 +1,13 @@
+mintsystem (8.1.1) rosa; urgency=medium
+
+  [ monsta ]
+  *  Make "apt contains" command sort its output
+
+  [ Michael Tunnell ]
+  * Added a add-repository command
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 24 Nov 2015 14:59:02 +0000
+
 mintsystem (8.1.0) rosa; urgency=medium
 
   * APT: Raised Kubuntu Backports and LibreOffice PPA to priority 700
