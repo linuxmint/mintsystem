@@ -108,7 +108,7 @@ elif argcommand == "deb":
 elif argcommand == "download":
     command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
 elif argcommand == "add-repository":
-	command = sudo + "add-apt-repository" + argoptions
+	command = sudo + " add-apt-repository" + argoptions
 else:
 		usage()
 
