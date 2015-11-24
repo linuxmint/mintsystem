@@ -8,6 +8,7 @@ def usage():
 	print "       apt help command [options]"
 	print ""
 	print "Commands:"
+	print "add-repository	- Add entries to apt sources.list"
 	print "autoclean	- Erase old downloaded archive files"
 	print "autoremove	- Remove automatically all unused packages" 
 	print "build     	- Build binary or source packages from sources" 
@@ -106,6 +107,8 @@ elif argcommand == "deb":
 	command = sudo + " dpkg -i" + argoptions
 elif argcommand == "download":
     command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
+elif argcommand == "add-repository":
+	command = sudo + "add-apt-repository" + argoptions
 else:
 		usage()
 
