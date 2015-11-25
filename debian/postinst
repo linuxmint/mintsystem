@@ -23,6 +23,7 @@ case "$1" in
         then
             glib-compile-schemas /usr/share/glib-2.0/schemas
         fi
+        /usr/lib/linuxmint/mintSystem/mint-adjust.py
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
 
