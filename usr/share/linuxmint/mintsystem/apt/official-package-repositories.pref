@@ -1,4 +1,8 @@
 Package: *
+Pin: origin live.linuxmint.com
+Pin-Priority: 750
+
+Package: *
 Pin: release o=linuxmint,c=upstream
 Pin-Priority: 700
 
