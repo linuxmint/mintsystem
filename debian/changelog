@@ -1,3 +1,9 @@
+mintsystem (8.1.5) rosa; urgency=medium
+
+  * APT: Elevate the priority of live.linuxmint.com to 750 (needs to override upstream to guarantee we keep langpacks in sync with the versions present on the ISO)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 26 Nov 2015 10:54:08 +0000
+
 mintsystem (8.1.4) rosa; urgency=medium
 
   * Switch official-package-repositories.pref from a conffile to an adjustment (takes care of upgrades and gives more flexibility)
