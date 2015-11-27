@@ -1,3 +1,9 @@
+mintsystem (8.1.6) rosa; urgency=medium
+
+  * Revert "Mark mintsystem as Essential" (needs all dependencies to be essential as well, we're not ready for this just yet).
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 27 Nov 2015 11:05:08 +0000
+
 mintsystem (8.1.5) rosa; urgency=medium
 
   * APT: Elevate the priority of live.linuxmint.com to 750 (needs to override upstream to guarantee we keep langpacks in sync with the versions present on the ISO)
