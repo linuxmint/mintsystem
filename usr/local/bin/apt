@@ -27,6 +27,7 @@ def usage():
 	print "help     	- Show help for a command"
 	print "hold		- Hold a package"
 	print "install   	- Install/upgrade packages"
+	print "list		- List currently installed ( --installed ) or upgradable ( --upgradable ) packages" 
 	print "policy   	- Show policy settings" 
 	print "purge    	- Remove packages and their configuration files" 
 	print "recommends	- List missing recommended packages for a particular package"
@@ -109,6 +110,8 @@ elif argcommand == "download":
     command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
 elif argcommand == "add-repository":
 	command = sudo + " add-apt-repository" + argoptions
+elif argcommand == "list":
+        command = "/usr/bin/apt list" + argoptions
 else:
 		usage()
 
