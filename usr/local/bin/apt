@@ -89,15 +89,15 @@ elif argcommand in ["stats", "depends", "rdepends", "policy"]:
 elif argcommand == "sources":
     command = sudo + " " + editor + " /etc/apt/sources.list"
 elif argcommand == "held":
-    command = "dpkg --get-selections | grep hold"
+    command = "apt-mark showhold"
 elif argcommand == "contains":
     command = "dpkg -S" + argoptions + " | sort"
 elif argcommand == "content":
     command = "dpkg -L" + argoptions + " | sort"
 elif argcommand == "hold":
-    command = "echo " + argoptions + " hold | sudo dpkg --set-selections"
+    command = "sudo apt-mark hold " + argoptions
 elif argcommand == "unhold":
-    command = "echo " + argoptions + " install | sudo dpkg --set-selections"
+    command = "sudo apt-mark unhold " + argoptions
 elif argcommand == "version":
     command = "/usr/lib/linuxmint/common/version.py" + argoptions
 elif argcommand == "purge":
