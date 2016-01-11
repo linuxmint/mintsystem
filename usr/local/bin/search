@@ -8,7 +8,7 @@ function usage
     echo "         in directory"
     echo "options:"
     echo "         -c | --case-sensitive"
-    echo "         -s | --show-filenames-only"     
+    echo "         -s | --show-filenames-only"
 }
 
 directory=.
@@ -24,7 +24,7 @@ while [ "$1" != "" ]; do
             shift
             directory=$1
             ;;
-        -h | --help )           
+        -h | --help )
             usage
             exit
             ;;
@@ -34,7 +34,7 @@ while [ "$1" != "" ]; do
         -s | --show-filenames-only )
             verbose=l
             ;;
-        * )     
+        * )
             usage
             exit 1
     esac
@@ -46,4 +46,4 @@ if [ "$directory" == "" -o "$text" == "" ]; then
     exit 1
 fi
 
-find $directory -type f -exec grep -$case$verbose "$text" --color=auto -n {} \; 
+find $directory -type f -exec grep -$case$verbose "$text" --color=auto -n {} \;

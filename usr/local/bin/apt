@@ -1,123 +1,124 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys, os
 
 def usage():
-	print "apt"
-	print "Usage: apt command [options]"
-	print "       apt help command [options]"
-	print ""
-	print "Commands:"
-	print "add-repository	- Add entries to apt sources.list"
-	print "autoclean	- Erase old downloaded archive files"
-	print "autoremove	- Remove automatically all unused packages" 
-	print "build     	- Build binary or source packages from sources" 
-	print "build-dep	- Configure build-dependencies for source packages"
-	print "changelog	- View a package's changelog" 
-	print "check    	- Verify that there are no broken dependencies" 
-	print "clean    	- Erase downloaded archive files" 
-	print "contains  	- List packages containing a file"
-	print "content   	- List files contained in a package" 
-	print "deb      	- Install a .deb package"
-	print "depends  	- Show raw dependency information for a package"
-	print "dist-upgrade	- Perform an upgrade, possibly installing and removing packages"
-	print "download   	- Download the .deb file for a package"
-	print "dselect-upgrade	- Follow dselect selections"
-	print "held		- List all held packages"
-	print "help     	- Show help for a command"
-	print "hold		- Hold a package"
-	print "install   	- Install/upgrade packages"
-	print "policy   	- Show policy settings" 
-	print "purge    	- Remove packages and their configuration files" 
-	print "recommends	- List missing recommended packages for a particular package"
-	print "rdepends 	- Show reverse dependency information for a package"
-	print "reinstall	- Download and (possibly) reinstall a currently installed package"
-	print "remove   	- Remove packages" 
-	print "search   	- Search for a package by name and/or expression" 
-	print "show     	- Display detailed information about a package"
-	print "source   	- Download source archives"
-	print "sources   	- Edit /etc/apt/sources.list with nano"
-	print "unhold		- Unhold a package"
-	print "update   	- Download lists of new/upgradable packages" 
-	print "upgrade  	- Perform a safe upgrade"
-	print "version  	- Show the installed version of a package"
-	print "			This apt has Super Cow Powers"
-	sys.exit(1)
+    print ("apt")
+    print ("Usage: apt command [options]")
+    print ("       apt help command [options]")
+    print ("")
+    print ("Commands:")
+    print ("  add-repository   - Add entries to apt sources.list")
+    print ("  autoclean        - Erase old downloaded archive files")
+    print ("  autoremove       - Remove automatically all unused packages")
+    print ("  build            - Build binary or source packages from sources")
+    print ("  build-dep        - Configure build-dependencies for source packages")
+    print ("  changelog        - View a package's changelog")
+    print ("  check            - Verify that there are no broken dependencies")
+    print ("  clean            - Erase downloaded archive files")
+    print ("  contains         - List packages containing a file")
+    print ("  content          - List files contained in a package")
+    print ("  deb              - Install a .deb package")
+    print ("  depends          - Show raw dependency information for a package")
+    print ("  dist-upgrade     - Perform an upgrade, possibly installing and removing packages")
+    print ("  download         - Download the .deb file for a package")
+    print ("  dselect-upgrade  - Follow dselect selections")
+    print ("  held             - List all held packages")
+    print ("  help             - Show help for a command")
+    print ("  hold             - Hold a package")
+    print ("  install          - Install/upgrade packages")
+    print ("  policy           - Show policy settings")
+    print ("  purge            - Remove packages and their configuration files")
+    print ("  recommends       - List missing recommended packages for a particular package")
+    print ("  rdepends         - Show reverse dependency information for a package")
+    print ("  reinstall        - Download and (possibly) reinstall a currently installed package")
+    print ("  remove           - Remove packages")
+    print ("  search           - Search for a package by name and/or expression")
+    print ("  show             - Display detailed information about a package")
+    print ("  source           - Download source archives")
+    print ("  sources          - Edit /etc/apt/sources.list with nano")
+    print ("  unhold           - Unhold a package")
+    print ("  update           - Download lists of new/upgradable packages")
+    print ("  upgrade          - Perform a safe upgrade")
+    print ("  version          - Show the installed version of a package")
+    print ("")
+    print ("This apt has Super Cow Powers")
+    sys.exit(1)
 
 if len(sys.argv) < 2:
-		usage()
+        usage()
 
 sudo="sudo"
 if os.getuid() == 0 :
-	sudo=""
+    sudo=""
 
 if os.environ.get("EDITOR") != None:
-        editor = os.environ.get("EDITOR")
-else: 
-        editor = "/usr/bin/editor"
+    editor = os.environ.get("EDITOR")
+else:
+    editor = "/usr/bin/editor"
 argcommand = sys.argv[1]
 argsuffix = sys.argv[2:]
 showHelp = False
 if argcommand == "help":
-	if len(sys.argv) < 3:
-		usage()
-	showHelp = True
-	argcommand = sys.argv[2]
-	argsuffix = sys.argv[3:]
+    if len(sys.argv) < 3:
+        usage()
+    showHelp = True
+    argcommand = sys.argv[2]
+    argsuffix = sys.argv[3:]
 argoptions = ""
 for argoption in argsuffix:
-	argoptions = argoptions + " " + argoption
+    argoptions = argoptions + " " + argoption
 
 if argcommand in ["install", "remove", "update", "upgrade", "dist-upgrade", "clean", "dselect-upgrade", "build-dep", "check", "autoremove", "autoclean"]:
-	aptcommand = "apt-get"
-	command = sudo + " " + aptcommand + " " + argcommand + argoptions		
+    aptcommand = "apt-get"
+    command = sudo + " " + aptcommand + " " + argcommand + argoptions
 elif argcommand in ["source", "moo"]:
-	aptcommand = "apt-get"
-	command = aptcommand + " " + argcommand + argoptions		
+    aptcommand = "apt-get"
+    command = aptcommand + " " + argcommand + argoptions
 elif argcommand in ["search", "show", "changelog"]:
-	aptcommand = "aptitude"
-	command = aptcommand + " " + argcommand + argoptions
+    aptcommand = "aptitude"
+    command = aptcommand + " " + argcommand + argoptions
 elif argcommand in ["recommends"]:
-	command = "/usr/lib/linuxmint/mintSystem/mint-apt-recommends.py " + argoptions
+    command = "/usr/lib/linuxmint/mintSystem/mint-apt-recommends.py " + argoptions
 elif argcommand in ["reinstall"]:
-	aptcommand = "aptitude"
-	command = sudo + " " + aptcommand + " " + argcommand + argoptions		
+    aptcommand = "aptitude"
+    command = sudo + " " + aptcommand + " " + argcommand + argoptions
 elif argcommand in ["stats", "depends", "rdepends", "policy"]:
-	aptcommand = "apt-cache"
-	command = aptcommand + " " + argcommand + argoptions
+    aptcommand = "apt-cache"
+    command = aptcommand + " " + argcommand + argoptions
 elif argcommand == "sources":
-	command = sudo + " " + editor + " /etc/apt/sources.list"
+    command = sudo + " " + editor + " /etc/apt/sources.list"
 elif argcommand == "held":
-	command = "dpkg --get-selections | grep hold"
+    command = "dpkg --get-selections | grep hold"
 elif argcommand == "contains":
-	command = "dpkg -S" + argoptions + " | sort"
+    command = "dpkg -S" + argoptions + " | sort"
 elif argcommand == "content":
-	command = "dpkg -L" + argoptions + " | sort"
+    command = "dpkg -L" + argoptions + " | sort"
 elif argcommand == "hold":
-	command = "echo " + argoptions + " hold | sudo dpkg --set-selections"
+    command = "echo " + argoptions + " hold | sudo dpkg --set-selections"
 elif argcommand == "unhold":
-	command = "echo " + argoptions + " install | sudo dpkg --set-selections"
+    command = "echo " + argoptions + " install | sudo dpkg --set-selections"
 elif argcommand == "version":
-	command = "/usr/lib/linuxmint/common/version.py" + argoptions
+    command = "/usr/lib/linuxmint/common/version.py" + argoptions
 elif argcommand == "purge":
-	command = sudo + " apt-get remove --purge" + argoptions
+    command = sudo + " apt-get remove --purge" + argoptions
 elif argcommand == "build":
-	command = sudo + " dpkg-buildpackage" + argoptions
+    command = sudo + " dpkg-buildpackage" + argoptions
 elif argcommand == "deb":
-	command = sudo + " dpkg -i" + argoptions
+    command = sudo + " dpkg -i" + argoptions
 elif argcommand == "download":
     command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
 elif argcommand == "add-repository":
-	command = sudo + " add-apt-repository" + argoptions
+    command = sudo + " add-apt-repository" + argoptions
 else:
-		usage()
+    usage()
 
 # Color highlighting
 if argcommand in ["search", "show", "content", "version", "policy", "depends", "rdepends"] and len(argoptions.strip()) > 1:
-	command = command + " | highlight" + argoptions
+    command = command + " | highlight" + argoptions
 
 if (showHelp):
-	print "\"apt "+ argcommand + argoptions + "\" is equivalent to \"" + command + "\""
-else:	
-	os.system(command)
+    print ("\"apt "+ argcommand + argoptions + "\" is equivalent to \"" + command + "\"")
+else:
+    os.system(command)
 

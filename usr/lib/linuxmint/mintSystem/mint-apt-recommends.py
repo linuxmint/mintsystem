@@ -4,8 +4,6 @@ import apt
 import sys
 import commands
 
-
-
 class RecommendsFinder:
 
     def __init__ (self, cache, package):
