@@ -1,3 +1,9 @@
+mintsystem (8.1.7) sarah; urgency=medium
+
+  * Reviewed shebangs, indentation and trailing spaces
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 11 Jan 2016 16:25:00 +0000
+
 mintsystem (8.1.6) rosa; urgency=medium
 
   * Revert "Mark mintsystem as Essential" (needs all dependencies to be essential as well, we're not ready for this just yet).
