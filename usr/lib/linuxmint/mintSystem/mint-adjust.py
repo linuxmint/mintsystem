@@ -3,7 +3,8 @@
 import os
 import commands
 import sys
-from time import strftime
+import time
+import datetime
 import fileinput
 
 # Prepare the log file
@@ -11,8 +12,10 @@ global logfile
 logfile = open("/var/log/mintsystem.log", "w")
 
 def log (string):
-    logfile.writelines("%s - %s\n" % (strftime("%Y-%m-%d %H:%M:%S"), string))
+    logfile.writelines("%s - %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"), string))
     logfile.flush()
+
+start_time = datetime.datetime.now()
 
 log("mintSystem started")
 
@@ -39,6 +42,9 @@ try:
     # Exit if disabled
     if (config['global']['enabled'] == "False"):
         log("Disabled - Exited")
+        stop_time = datetime.datetime.now()
+        log ("Execution time: %s" % (stop_time - start_time))
+        logfile.close()
         sys.exit(0)
 
     adjustment_directory = "/etc/linuxmint/adjustments/"
@@ -175,4 +181,7 @@ except Exception, detail:
     log(detail)
 
 log("mintSystem stopped")
+
+stop_time = datetime.datetime.now()
+log ("Execution time: %s" % (stop_time - start_time))
 logfile.close()
