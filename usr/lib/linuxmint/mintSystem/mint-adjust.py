@@ -6,6 +6,7 @@ import sys
 import time
 import datetime
 import fileinput
+import filecmp
 
 class MintSystem():
     def __init__(self):
@@ -25,8 +26,11 @@ class MintSystem():
 
     def replace_file(self, source, destination):
         if os.path.exists(source) and os.path.exists(destination):
-            os.system("cp " + source + " " + destination)
-            self.log("Overwrote: %s -> %s" % (source, destination))
+            if filecmp.cmp(source, destination):
+                self.log("Skipped: %s -> %s (files seem identical)" % (source, destination))
+            else:
+                os.system("cp " + source + " " + destination)
+                self.log("Overwrote: %s -> %s" % (source, destination))
 
     def adjust(self):
         try:
