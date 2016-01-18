@@ -13,6 +13,10 @@ class MintSystem():
         self.start_time = datetime.datetime.now()
         self.logfile = open("/var/log/mintsystem.log", "w")
         self.log("mintSystem started")
+        self.executed = []
+        self.overwritten = []
+        self.skipped = []
+        self.edited = []
 
     def log (self, string):
         self.logfile.writelines("%s - %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"), string))
@@ -26,11 +30,12 @@ class MintSystem():
 
     def replace_file(self, source, destination):
         if os.path.exists(source) and os.path.exists(destination):
-            if filecmp.cmp(source, destination):
-                self.log("Skipped: %s -> %s (files seem identical)" % (source, destination))
-            else:
-                os.system("cp " + source + " " + destination)
-                self.log("Overwrote: %s -> %s" % (source, destination))
+            if (destination not in self.overwritten) and (destination not in self.skipped):
+                if filecmp.cmp(source, destination):
+                    self.skipped.append(destination)
+                else:
+                    self.overwritten.append(destination)
+                    os.system("cp " + source + " " + destination)
 
     def adjust(self):
         try:
@@ -64,9 +69,9 @@ class MintSystem():
             for filename in os.listdir(adjustment_directory):
                 basename, extension = os.path.splitext(filename)
                 if extension == ".execute":
-                    full_path = adjustment_directory + "/" + filename
+                    full_path = os.path.join(adjustment_directory, filename)
                     os.system(full_path)
-                    self.log("%s executed" % full_path)
+                    self.executed.append(full_path)
 
             # Perform file overwriting adjustments
             array_preserves = []
@@ -74,7 +79,7 @@ class MintSystem():
                 for filename in os.listdir(adjustment_directory):
                     basename, extension = os.path.splitext(filename)
                     if extension == ".preserve":
-                        filehandle = open(adjustment_directory + "/" + filename)
+                        filehandle = open(os.path.join(adjustment_directory, filename))
                         for line in filehandle:
                             line = line.strip()
                             array_preserves.append(line)
@@ -84,7 +89,7 @@ class MintSystem():
                 for filename in sorted(os.listdir(adjustment_directory)):
                     basename, extension = os.path.splitext(filename)
                     if extension == ".overwrite":
-                        filehandle = open(adjustment_directory + "/" + filename)
+                        filehandle = open(os.path.join(adjustment_directory, filename))
                         for line in filehandle:
                             line = line.strip()
                             line_items = line.split()
@@ -120,7 +125,7 @@ class MintSystem():
                     lsbfile.writelines("DISTRIB_" + commands.getoutput("grep CODENAME /etc/linuxmint/info") + "\n")
                     lsbfile.writelines("DISTRIB_" + commands.getoutput("grep DESCRIPTION /etc/linuxmint/info") + "\n")
                     lsbfile.close()
-                    self.log("/etc/lsb-release overwritten")
+                    self.overwritten.append("/etc/lsb-release")
 
             # Restore /etc/issue and /etc/issue.net
             if (config['restore']['etc-issue'] == "True"):
@@ -129,18 +134,18 @@ class MintSystem():
                     issuefile = open("/etc/issue", "w")
                     issuefile.writelines(issue + " \\n \\l\n")
                     issuefile.close()
-                    self.log("/etc/issue overwritten")
+                    self.overwritten.append("/etc/issue")
                 if os.path.exists("/etc/issue.net"):
                     issuefile = open("/etc/issue.net", "w")
                     issuefile.writelines(issue)
                     issuefile.close()
-                    self.log("/etc/issue.net overwritten")
+                    self.overwritten.append("/etc/issue.net")
 
             # Perform menu adjustments
             for filename in os.listdir(adjustment_directory):
                 basename, extension = os.path.splitext(filename)
                 if extension == ".menu":
-                    filehandle = open(adjustment_directory + "/" + filename)
+                    filehandle = open(os.path.join(adjustment_directory, filename))
                     for line in filehandle:
                         line = line.strip()
                         line_items = line.split()
@@ -150,14 +155,14 @@ class MintSystem():
                                     action, desktop_file = line.split()
                                     if os.path.exists(desktop_file):
                                         os.system("grep -q -F 'NoDisplay=true' %s || echo '\nNoDisplay=true' >> %s" % (desktop_file, desktop_file))
-                                        self.log("%s hidden" % desktop_file)
+                                        self.edited.append("%s (hide)" % desktop_file)
                             elif line_items[0] == "categories":
                                 if len(line_items) == 3:
                                     action, desktop_file, categories = line.split()
                                     if os.path.exists(desktop_file):
                                         categories = categories.strip()
                                         os.system("sed -i -e 's/Categories=.*/Categories=%s/g' %s" % (categories, desktop_file))
-                                        self.log("%s re-categorized" % desktop_file)
+                                        self.edited.append("%s (categories)" % desktop_file)
                             elif line_items[0] == "exec":
                                 if len(line_items) >= 3:
                                     action, desktop_file, executable = line.split(' ', 2)
@@ -169,7 +174,7 @@ class MintSystem():
                                                 found_exec = True
                                                 desktop_line = "Exec=%s" % executable
                                             print desktop_line.strip()
-                                        self.log("%s exec changed" % desktop_file)
+                                        self.edited.append("%s (exec)" % desktop_file)
                             elif line_items[0] == "rename":
                                 if len(line_items) == 3:
                                     action, desktop_file, names_file = line.split()
@@ -179,8 +184,24 @@ class MintSystem():
                                         os.system("sed -i -e '/^Name/d' -e '/^GenericName/d' -e '/^Comment/d' \"%s\"" % desktop_file)
                                         # add provided ones
                                         os.system("cat \"%s\" >> \"%s\"" % (names_file, desktop_file))
-                                        self.log("%s renamed" % desktop_file)
+                                        self.edited.append("%s (name)" % desktop_file)
                     filehandle.close()
+
+            self.log("Executed:")
+            for filename in sorted(self.executed):
+                self.log("  %s" % filename)
+
+            self.log("Replaced:")
+            for filename in sorted(self.overwritten):
+                self.log("  %s" % filename)
+
+            self.log("Edited:")
+            for filename in sorted(self.edited):
+                self.log("  %s" % filename)
+
+            self.log("Skipped:")
+            for filename in sorted(self.skipped):
+                self.log("  %s" % filename)
 
         except Exception, detail:
             print detail
