@@ -8,6 +8,8 @@ import datetime
 import fileinput
 import filecmp
 
+TIMESTAMPS = "/var/log/mintsystem.timestamps"
+
 class MintSystem():
     def __init__(self):
         self.start_time = datetime.datetime.now()
@@ -17,6 +19,10 @@ class MintSystem():
         self.overwritten = []
         self.skipped = []
         self.edited = []
+        self.original_timestamps = {}
+        self.timestamps = {}
+        self.timestamps_changed = False
+        self.read_timestamps()
 
     def log (self, string):
         self.logfile.writelines("%s - %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"), string))
@@ -27,6 +33,44 @@ class MintSystem():
         self.log ("Execution time: %s" % (stop_time - self.start_time))
         self.logfile.close()
         sys.exit(0)
+
+    def read_timestamps(self):
+        if os.path.exists(TIMESTAMPS):
+            filehandle = open(TIMESTAMPS)
+            for line in filehandle:
+                line = line.strip()
+                line_items = line.split()
+                if len(line_items) == 2:
+                    self.original_timestamps[line_items[0]] = line_items[1]
+                    self.timestamps[line_items[0]] = line_items[1]
+
+    def write_timestamps(self):
+        filehandle = open(TIMESTAMPS, "w")
+        for filename in sorted(self.timestamps.keys()):
+            line = "%s %s\n" % (filename, self.timestamps[filename])
+            filehandle.write(line)
+        filehandle.close()
+
+    def has_changed(self, filename, collection, description):
+        if not os.path.exists(filename):
+            return False
+
+        timestamp = os.stat(filename).st_mtime
+        if (filename not in self.original_timestamps):
+            has_changed = True
+        else:
+            has_changed = (self.original_timestamps[filename] != str(timestamp))
+
+        if (has_changed):
+            collection.append("%s (%s)" % (filename, description))
+        else:
+            self.skipped.append("%s (%s)" % (filename, description))
+        return has_changed
+
+    def update_timestamp(self, filename):
+        timestamp = os.stat(filename).st_mtime
+        self.timestamps[filename] = timestamp
+        self.timestamps_changed = True
 
     def replace_file(self, source, destination):
         if os.path.exists(source) and os.path.exists(destination):
@@ -115,7 +159,7 @@ class MintSystem():
 
             # Restore LSB information
             if (config['restore']['lsb-release'] == "True"):
-                if os.path.exists("/etc/lsb-release"):
+                if self.has_changed("/etc/lsb-release", self.overwritten, "lsb"):
                     lsbfile = open("/etc/lsb-release", "w")
                     if (commands.getoutput("grep DISTRIB_ID /etc/linuxmint/info").strip() != ""):
                         lsbfile.writelines(commands.getoutput("grep DISTRIB_ID /etc/linuxmint/info") + "\n")
@@ -125,21 +169,21 @@ class MintSystem():
                     lsbfile.writelines("DISTRIB_" + commands.getoutput("grep CODENAME /etc/linuxmint/info") + "\n")
                     lsbfile.writelines("DISTRIB_" + commands.getoutput("grep DESCRIPTION /etc/linuxmint/info") + "\n")
                     lsbfile.close()
-                    self.overwritten.append("/etc/lsb-release")
+                    self.update_timestamp("/etc/lsb-release")
 
             # Restore /etc/issue and /etc/issue.net
             if (config['restore']['etc-issue'] == "True"):
                 issue = commands.getoutput("grep DESCRIPTION /etc/linuxmint/info").replace("DESCRIPTION=", "").replace("\"", "")
-                if os.path.exists("/etc/issue"):
+                if self.has_changed("/etc/issue", self.overwritten, "lsb"):
                     issuefile = open("/etc/issue", "w")
                     issuefile.writelines(issue + " \\n \\l\n")
                     issuefile.close()
-                    self.overwritten.append("/etc/issue")
-                if os.path.exists("/etc/issue.net"):
+                    self.update_timestamp("/etc/issue")
+                if self.has_changed("/etc/issue.net", self.overwritten, "lsb"):
                     issuefile = open("/etc/issue.net", "w")
                     issuefile.writelines(issue)
                     issuefile.close()
-                    self.overwritten.append("/etc/issue.net")
+                    self.update_timestamp("/etc/issue.net")
 
             # Perform menu adjustments
             for filename in os.listdir(adjustment_directory):
@@ -153,38 +197,37 @@ class MintSystem():
                             if line_items[0] == "hide":
                                 if len(line_items) == 2:
                                     action, desktop_file = line.split()
-                                    if os.path.exists(desktop_file):
-                                        os.system("grep -q -F 'NoDisplay=true' %s || echo '\nNoDisplay=true' >> %s" % (desktop_file, desktop_file))
-                                        self.edited.append("%s (hide)" % desktop_file)
+                                    if self.has_changed(desktop_file, self.edited, "hide"):
+                                        os.system("grep -q -F 'NoDisplay=true' %s || echo 'NoDisplay=true' >> %s" % (desktop_file, desktop_file))
+                                        self.update_timestamp(desktop_file)
                             elif line_items[0] == "categories":
                                 if len(line_items) == 3:
                                     action, desktop_file, categories = line.split()
-                                    if os.path.exists(desktop_file):
+                                    if self.has_changed(desktop_file, self.edited, "categories"):
                                         categories = categories.strip()
                                         os.system("sed -i -e 's/Categories=.*/Categories=%s/g' %s" % (categories, desktop_file))
-                                        self.edited.append("%s (categories)" % desktop_file)
+                                        self.update_timestamp(desktop_file)
                             elif line_items[0] == "exec":
                                 if len(line_items) >= 3:
                                     action, desktop_file, executable = line.split(' ', 2)
-                                    if os.path.exists(desktop_file):
+                                    if self.has_changed(desktop_file, self.edited, "exec"):
                                         executable = executable.strip()
                                         found_exec = False
                                         for desktop_line in fileinput.input(desktop_file, inplace=True):
                                             if desktop_line.startswith("Exec=") and not found_exec:
                                                 found_exec = True
                                                 desktop_line = "Exec=%s" % executable
-                                            print desktop_line.strip()
-                                        self.edited.append("%s (exec)" % desktop_file)
+                                        self.update_timestamp(desktop_file)
                             elif line_items[0] == "rename":
                                 if len(line_items) == 3:
                                     action, desktop_file, names_file = line.split()
                                     names_file = names_file.strip()
-                                    if os.path.exists(desktop_file) and os.path.exists(names_file):
+                                    if os.path.exists(names_file) and self.has_changed(desktop_file, self.edited, "name"):
                                         # remove all existing names, generic names, comments
                                         os.system("sed -i -e '/^Name/d' -e '/^GenericName/d' -e '/^Comment/d' \"%s\"" % desktop_file)
                                         # add provided ones
                                         os.system("cat \"%s\" >> \"%s\"" % (names_file, desktop_file))
-                                        self.edited.append("%s (name)" % desktop_file)
+                                        self.update_timestamp(desktop_file)
                     filehandle.close()
 
             self.log("Executed:")
@@ -203,10 +246,12 @@ class MintSystem():
             for filename in sorted(self.skipped):
                 self.log("  %s" % filename)
 
+            if self.timestamps_changed:
+                self.write_timestamps()
+
         except Exception, detail:
             print detail
             self.log(detail)
-
 
 mintsystem = MintSystem()
 mintsystem.adjust()
