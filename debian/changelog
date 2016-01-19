@@ -1,3 +1,15 @@
+mintsystem (8.1.8) sarah; urgency=medium
+
+  * Report processing time
+  * Turn the adjustment system into a class
+  * Skip identical files (using filecmp) when overwriting
+  * Improve logs, skip duplicate overwrites, use os.path.join() when appropriate
+  * Record timestamps after modifications and only modify when files have changed
+  * Don't time/flush each log entry
+  * Support show and onlyshowin
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 19 Jan 2016 18:08:04 +0000
+
 mintsystem (8.1.7) sarah; urgency=medium
 
   * Reviewed shebangs, indentation and trailing spaces
