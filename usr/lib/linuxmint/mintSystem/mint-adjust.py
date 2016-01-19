@@ -202,12 +202,25 @@ class MintSystem():
                                     if self.has_changed(desktop_file, self.edited, "hide"):
                                         os.system("grep -q -F 'NoDisplay=true' %s || echo 'NoDisplay=true' >> %s" % (desktop_file, desktop_file))
                                         self.update_timestamp(desktop_file)
+                            elif line_items[0] == "show":
+                                if len(line_items) == 2:
+                                    action, desktop_file = line.split()
+                                    if self.has_changed(desktop_file, self.edited, "show"):
+                                        os.system("sed -i -e '/^NoDisplay/d' \"%s\"" % desktop_file)
+                                        self.update_timestamp(desktop_file)
                             elif line_items[0] == "categories":
                                 if len(line_items) == 3:
                                     action, desktop_file, categories = line.split()
                                     if self.has_changed(desktop_file, self.edited, "categories"):
                                         categories = categories.strip()
                                         os.system("sed -i -e 's/Categories=.*/Categories=%s/g' %s" % (categories, desktop_file))
+                                        self.update_timestamp(desktop_file)
+                            elif line_items[0] == "onlyshowin":
+                                if len(line_items) == 3:
+                                    action, desktop_file, onlyshowins = line.split()
+                                    if self.has_changed(desktop_file, self.edited, "onlyshowin"):
+                                        onlyshowins = onlyshowins.strip()
+                                        os.system("sed -i -e 's/OnlyShowIn=.*/OnlyShowIn=%s/g' %s" % (onlyshowins, desktop_file))
                                         self.update_timestamp(desktop_file)
                             elif line_items[0] == "exec":
                                 if len(line_items) >= 3:
