@@ -14,7 +14,7 @@ class MintSystem():
     def __init__(self):
         self.start_time = datetime.datetime.now()
         self.logfile = open("/var/log/mintsystem.log", "w")
-        self.log("mintSystem started")
+        self.time_log("mintSystem started")
         self.executed = []
         self.overwritten = []
         self.skipped = []
@@ -24,13 +24,16 @@ class MintSystem():
         self.timestamps_changed = False
         self.read_timestamps()
 
+    def time_log (self, string):
+        self.log("%s - %s" % (time.strftime("%Y-%m-%d %H:%M:%S"), string))
+
     def log (self, string):
-        self.logfile.writelines("%s - %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"), string))
-        self.logfile.flush()
+        self.logfile.writelines("%s\n" % string)
 
     def quit(self):
         stop_time = datetime.datetime.now()
         self.log ("Execution time: %s" % (stop_time - self.start_time))
+        self.logfile.flush()
         self.logfile.close()
         sys.exit(0)
 
@@ -101,7 +104,6 @@ class MintSystem():
                 config['restore']['etc-issue'] = "True"
             config.write()
 
-
             # Exit if disabled
             if (config['global']['enabled'] == "False"):
                 self.log("Disabled - Exited")
@@ -128,6 +130,7 @@ class MintSystem():
                             line = line.strip()
                             array_preserves.append(line)
                         filehandle.close()
+
             overwrites = {}
             if os.path.exists(adjustment_directory):
                 for filename in sorted(os.listdir(adjustment_directory)):
@@ -156,7 +159,6 @@ class MintSystem():
                         for matching_destination in matching_destinations:
                             matching_destination = matching_destination.strip()
                             self.replace_file(source, matching_destination)
-
             # Restore LSB information
             if (config['restore']['lsb-release'] == "True"):
                 if self.has_changed("/etc/lsb-release", self.overwritten, "lsb"):
@@ -246,6 +248,7 @@ class MintSystem():
             for filename in sorted(self.skipped):
                 self.log("  %s" % filename)
 
+
             if self.timestamps_changed:
                 self.write_timestamps()
 
@@ -256,3 +259,4 @@ class MintSystem():
 mintsystem = MintSystem()
 mintsystem.adjust()
 mintsystem.quit()
+
