@@ -1,3 +1,16 @@
+mintsystem (8.1.9) sarah; urgency=medium
+
+  [ monsta ]
+  * apt script: use apt-mark for hold/unhold/held commands
+
+  [ Clement Lefebvre ]
+  * In the case of menu renames, also consider the timestamp of the names file
+  * Get rid of ConfigObj
+  * Stop using the commands module
+  * Switch adjustment system to python3
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 21 Jan 2016 11:33:08 +0000
+
 mintsystem (8.1.8) sarah; urgency=medium
 
   * Report processing time
