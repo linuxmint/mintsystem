@@ -7,6 +7,7 @@ import time
 import datetime
 import fileinput
 import filecmp
+import ConfigParser
 
 TIMESTAMPS = "/var/log/mintsystem.timestamps"
 
@@ -87,25 +88,27 @@ class MintSystem():
     def adjust(self):
         try:
             # Read configuration
-            sys.path.append('/usr/lib/linuxmint/common')
-            from configobj import ConfigObj
-            config = ConfigObj("/etc/linuxmint/mintSystem.conf")
-
-            # Default values
-            if ('global' not in config):
-                config['global'] = {}
-            if ('enabled' not in config['global']):
-                config['global']['enabled'] = "True"
-            if ('restore' not in config):
-                config['restore'] = {}
-            if ('lsb-release' not in config['restore']):
-                config['restore']['lsb-release'] = "True"
-            if ('etc-issue' not in config['restore']):
-                config['restore']['etc-issue'] = "True"
-            config.write()
+            try:
+                config = ConfigParser.RawConfigParser()
+                config.read('/etc/linuxmint/mintSystem.conf')
+                self.enabled = (config.get('global', 'enabled') == "True")
+                self.restore_issue = (config.get('restore', 'etc-issue') == "True")
+                self.restore_lsb = (config.get('restore', 'lsb-release') == "True")
+            except:
+                config = ConfigParser.RawConfigParser()
+                config.add_section('global')
+                config.set('global', 'enabled', 'True')
+                config.add_section('restore')
+                config.set('restore', 'etc-issue', 'True')
+                config.set('restore', 'lsb-release', 'True')
+                with open('/etc/linuxmint/mintSystem.conf', 'wb') as configfile:
+                    config.write(configfile)
+                self.enabled = True
+                self.restore_issue = True
+                self.restore_lsb = True
 
             # Exit if disabled
-            if (config['global']['enabled'] == "False"):
+            if not self.enabled:
                 self.log("Disabled - Exited")
                 self.quit()
 
@@ -160,7 +163,7 @@ class MintSystem():
                             matching_destination = matching_destination.strip()
                             self.replace_file(source, matching_destination)
             # Restore LSB information
-            if (config['restore']['lsb-release'] == "True"):
+            if self.restore_lsb:
                 if self.has_changed("/etc/lsb-release", self.overwritten, "lsb"):
                     lsbfile = open("/etc/lsb-release", "w")
                     if (commands.getoutput("grep DISTRIB_ID /etc/linuxmint/info").strip() != ""):
@@ -174,7 +177,7 @@ class MintSystem():
                     self.update_timestamp("/etc/lsb-release")
 
             # Restore /etc/issue and /etc/issue.net
-            if (config['restore']['etc-issue'] == "True"):
+            if self.restore_issue:
                 issue = commands.getoutput("grep DESCRIPTION /etc/linuxmint/info").replace("DESCRIPTION=", "").replace("\"", "")
                 if self.has_changed("/etc/issue", self.overwritten, "lsb"):
                     issuefile = open("/etc/issue", "w")
