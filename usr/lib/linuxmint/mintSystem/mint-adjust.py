@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 import os
 import sys
@@ -6,7 +6,7 @@ import time
 import datetime
 import fileinput
 import filecmp
-import ConfigParser
+import configparser
 import glob
 
 TIMESTAMPS = "/var/log/mintsystem.timestamps"
@@ -89,19 +89,19 @@ class MintSystem():
         try:
             # Read configuration
             try:
-                config = ConfigParser.RawConfigParser()
+                config = configparser.RawConfigParser()
                 config.read('/etc/linuxmint/mintSystem.conf')
                 self.enabled = (config.get('global', 'enabled') == "True")
                 self.restore_issue = (config.get('restore', 'etc-issue') == "True")
                 self.restore_lsb = (config.get('restore', 'lsb-release') == "True")
             except:
-                config = ConfigParser.RawConfigParser()
+                config = configparser.RawConfigParser()
                 config.add_section('global')
                 config.set('global', 'enabled', 'True')
                 config.add_section('restore')
                 config.set('restore', 'etc-issue', 'True')
                 config.set('restore', 'lsb-release', 'True')
-                with open('/etc/linuxmint/mintSystem.conf', 'wb') as configfile:
+                with open('/etc/linuxmint/mintSystem.conf', 'w') as configfile:
                     config.write(configfile)
                 self.enabled = True
                 self.restore_issue = True
@@ -266,8 +266,8 @@ class MintSystem():
             if self.timestamps_changed:
                 self.write_timestamps()
 
-        except Exception, detail:
-            print detail
+        except Exception as detail:
+            print (detail)
             self.log(detail)
 
 mintsystem = MintSystem()
