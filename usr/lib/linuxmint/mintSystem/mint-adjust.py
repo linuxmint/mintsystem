@@ -1,13 +1,13 @@
 #!/usr/bin/python2
 
 import os
-import commands
 import sys
 import time
 import datetime
 import fileinput
 import filecmp
 import ConfigParser
+import glob
 
 TIMESTAMPS = "/var/log/mintsystem.timestamps"
 
@@ -157,38 +157,36 @@ class MintSystem():
                         self.replace_file(source, destination)
                     else:
                         # Wildcard destination, find all possible matching destinations
-                        matching_destinations = commands.getoutput("find " + destination)
-                        matching_destinations = matching_destinations.split("\n")
-                        for matching_destination in matching_destinations:
-                            matching_destination = matching_destination.strip()
+                        for matching_destination in glob.glob(destination):
                             self.replace_file(source, matching_destination)
             # Restore LSB information
-            if self.restore_lsb:
-                if self.has_changed("/etc/lsb-release", self.overwritten, "lsb"):
-                    lsbfile = open("/etc/lsb-release", "w")
-                    if (commands.getoutput("grep DISTRIB_ID /etc/linuxmint/info").strip() != ""):
-                        lsbfile.writelines(commands.getoutput("grep DISTRIB_ID /etc/linuxmint/info") + "\n")
-                    else:
-                        lsbfile.writelines("DISTRIB_ID=LinuxMint\n")
-                    lsbfile.writelines("DISTRIB_" + commands.getoutput("grep \"RELEASE=\" /etc/linuxmint/info") + "\n")
-                    lsbfile.writelines("DISTRIB_" + commands.getoutput("grep CODENAME /etc/linuxmint/info") + "\n")
-                    lsbfile.writelines("DISTRIB_" + commands.getoutput("grep DESCRIPTION /etc/linuxmint/info") + "\n")
-                    lsbfile.close()
-                    self.update_timestamp("/etc/lsb-release")
+            if os.path.exists("/etc/linuxmint/info"):
+                with open("/etc/linuxmint/info") as f:
+                    mint_info = dict([line.strip().split("=") for line in f])
 
-            # Restore /etc/issue and /etc/issue.net
-            if self.restore_issue:
-                issue = commands.getoutput("grep DESCRIPTION /etc/linuxmint/info").replace("DESCRIPTION=", "").replace("\"", "")
-                if self.has_changed("/etc/issue", self.overwritten, "lsb"):
-                    issuefile = open("/etc/issue", "w")
-                    issuefile.writelines(issue + " \\n \\l\n")
-                    issuefile.close()
-                    self.update_timestamp("/etc/issue")
-                if self.has_changed("/etc/issue.net", self.overwritten, "lsb"):
-                    issuefile = open("/etc/issue.net", "w")
-                    issuefile.writelines(issue)
-                    issuefile.close()
-                    self.update_timestamp("/etc/issue.net")
+                if self.restore_lsb:
+                    if self.has_changed("/etc/lsb-release", self.overwritten, "lsb"):
+                        lsbfile = open("/etc/lsb-release", "w")
+                        lsbfile.writelines("DISTRIB_ID=LinuxMint\n")
+                        lsbfile.writelines("DISTRIB_RELEASE=%s\n" % mint_info["RELEASE"])
+                        lsbfile.writelines("DISTRIB_CODENAME=%s\n" % mint_info["CODENAME"])
+                        lsbfile.writelines("DISTRIB_DESCRIPTION=%s\n" % mint_info["DESCRIPTION"])
+                        lsbfile.close()
+                        self.update_timestamp("/etc/lsb-release")
+
+                # Restore /etc/issue and /etc/issue.net
+                if self.restore_issue:
+                    description = mint_info["DESCRIPTION"].replace("\"", "")
+                    if self.has_changed("/etc/issue", self.overwritten, "lsb"):
+                        issuefile = open("/etc/issue", "w")
+                        issuefile.writelines("%s \\n \\l\n" % description)
+                        issuefile.close()
+                        self.update_timestamp("/etc/issue")
+                    if self.has_changed("/etc/issue.net", self.overwritten, "lsb"):
+                        issuefile = open("/etc/issue.net", "w")
+                        issuefile.writelines(description)
+                        issuefile.close()
+                        self.update_timestamp("/etc/issue.net")
 
             # Perform menu adjustments
             for filename in os.listdir(adjustment_directory):
@@ -265,7 +263,6 @@ class MintSystem():
             for filename in sorted(self.skipped):
                 self.log("  %s" % filename)
 
-
             if self.timestamps_changed:
                 self.write_timestamps()
 
@@ -276,4 +273,3 @@ class MintSystem():
 mintsystem = MintSystem()
 mintsystem.adjust()
 mintsystem.quit()
-
