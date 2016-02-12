@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh ${@} --with python2
+	dh ${@}
 
 override_dh_usrlocal:
 	# remove this override when there aren't

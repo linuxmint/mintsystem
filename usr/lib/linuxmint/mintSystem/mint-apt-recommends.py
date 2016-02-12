@@ -1,16 +1,17 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 import apt
 import sys
-import commands
+import subprocess
+
 
 class RecommendsFinder:
 
-    def __init__ (self, cache, package):
+    def __init__(self, cache, package):
         self.cache = cache
         self.package = package
         self.missing_recommends = []
-        output = commands.getoutput("aptitude search '?broken-reverse-recommends(?installed)' | awk {'print $2;'}")
+        output = subprocess.getoutput("aptitude search '?broken-reverse-recommends(?installed)' | awk {'print $2;'}")
         for line in output.split("\n"):
             line = line.strip()
             self.missing_recommends.append(line)
@@ -19,7 +20,6 @@ class RecommendsFinder:
         self.already_looked_at = []
 
         self.get_recommends(self.package, 1)
-
 
     def get_recommends(self, package, level):
         if package.name not in self.already_looked_at:
@@ -38,11 +38,11 @@ class RecommendsFinder:
             # go through the recommends
             for recommend in pkg.recommends:
                 for base_rec in recommend.or_dependencies:
-                    if base_rec.name in self.missing_recommends and not base_rec.name in self.found_missing_recommends:
+                    if base_rec.name in self.missing_recommends and base_rec.name not in self.found_missing_recommends:
                         self.found_missing_recommends.append(base_rec.name)
                         if base_rec.name in self.cache:
                             rec_pkg = self.cache[base_rec.name]
-                            self.get_recommends(rec_pkg, level+1)
+                            self.get_recommends(rec_pkg, level + 1)
             # go through the dependencies
             for dep in pkg.dependencies:
                 for base_dep in dep.or_dependencies:
@@ -53,7 +53,7 @@ class RecommendsFinder:
                         if package.is_installed:
                             if not dep_pkg.is_installed:
                                 continue
-                        self.get_recommends(dep_pkg, level+1)
+                        self.get_recommends(dep_pkg, level + 1)
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
@@ -63,22 +63,22 @@ if __name__ == "__main__":
             package = cache[package_name]
             finder = RecommendsFinder(cache, package)
             missing_recommends = sorted(finder.found_missing_recommends)
-            print ""
+            print("")
             if len(missing_recommends) > 0:
-                print "The following missing recommended packages were found for %s:\n" % package_name
+                print("The following missing recommended packages were found for %s:\n" % package_name)
                 for missing in missing_recommends:
-                    print "    %s" % missing
-                print ""
-                print "You can install them by typing the following command:"
-                print ""
-                print "    apt install %s" % " ".join(missing_recommends)
+                    print("    %s" % missing)
+                print("")
+                print("You can install them by typing the following command:")
+                print("")
+                print("    apt install %s" % " ".join(missing_recommends))
             else:
-                print "No missing recommended packages were found for %s" % package_name
-            print ""
+                print("No missing recommended packages were found for %s" % package_name)
+            print("")
         else:
-            print "Error: package %s not found in APT cache!" % package_name
+            print("Error: package %s not found in APT cache!" % package_name)
             sys.exit(1)
 
     else:
-        print "Usage:  apt recommends [package]"
+        print("Usage:  apt recommends [package]")
         sys.exit(1)

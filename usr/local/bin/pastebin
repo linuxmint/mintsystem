@@ -1,6 +1,9 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
-import sys, os, stat, subprocess
+import sys
+import os
+import stat
+import subprocess
 
 content = ""
 
@@ -19,5 +22,5 @@ else:
         content = str_args
 
 if content != "":
-    p = subprocess.Popen(["/bin/nc", "paste.linuxmint.com", "9999"], stdin = subprocess.PIPE)
+    p = subprocess.Popen(["/bin/nc", "paste.linuxmint.com", "9999"], stdin=subprocess.PIPE)
     p.communicate(content)
