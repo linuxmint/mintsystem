@@ -23,4 +23,4 @@ else:
 
 if content != "":
     p = subprocess.Popen(["/bin/nc", "paste.linuxmint.com", "9999"], stdin=subprocess.PIPE)
-    p.communicate(content)
+    p.communicate(content.encode("UTF-8"))
