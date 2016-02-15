@@ -11,7 +11,9 @@ import glob
 
 TIMESTAMPS = "/var/log/mintsystem.timestamps"
 
+
 class MintSystem():
+
     def __init__(self):
         self.start_time = datetime.datetime.now()
         self.logfile = open("/var/log/mintsystem.log", "w")
@@ -25,15 +27,15 @@ class MintSystem():
         self.timestamps_changed = False
         self.read_timestamps()
 
-    def time_log (self, string):
+    def time_log(self, string):
         self.log("%s - %s" % (time.strftime("%Y-%m-%d %H:%M:%S"), string))
 
-    def log (self, string):
+    def log(self, string):
         self.logfile.writelines("%s\n" % string)
 
     def quit(self):
         stop_time = datetime.datetime.now()
-        self.log ("Execution time: %s" % (stop_time - self.start_time))
+        self.log("Execution time: %s" % (stop_time - self.start_time))
         self.logfile.flush()
         self.logfile.close()
         sys.exit(0)
@@ -153,7 +155,7 @@ class MintSystem():
                 source = overwrites[key]
                 destination = key
                 if os.path.exists(source):
-                    if not "*" in destination:
+                    if "*" not in destination:
                         self.replace_file(source, destination)
                     else:
                         # Wildcard destination, find all possible matching destinations
