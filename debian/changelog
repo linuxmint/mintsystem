@@ -1,3 +1,13 @@
+mintsystem (8.2.0) sarah; urgency=medium
+
+  [ Daniel Alley ]
+  * update all python to python3 and quit using dh_python
+
+  [ Clement Lefebvre ]
+  * Fixed pastebin (broken when migrated to python3)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 19 Feb 2016 11:56:17 +0000
+
 mintsystem (8.1.9) sarah; urgency=medium
 
   [ monsta ]
