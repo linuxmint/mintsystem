@@ -54,7 +54,7 @@ sudo = "sudo"
 if os.getuid() == 0:
     sudo = ""
 
-if os.environ.get("EDITOR") != None:
+if os.environ.get("EDITOR") is not None:
     editor = os.environ.get("EDITOR")
 else:
     editor = "/usr/bin/editor"
@@ -70,24 +70,25 @@ if argcommand == "help":
     argcommand = sys.argv[2]
     argsuffix = sys.argv[3:]
 argoptions = ""
+
 for argoption in argsuffix:
     argoptions = argoptions + " " + argoption
 
-if argcommand in ["install", "remove", "update", "upgrade", "dist-upgrade", "clean", "dselect-upgrade", "build-dep", "check", "autoremove", "autoclean"]:
+if argcommand in ("install", "remove", "update", "upgrade", "dist-upgrade", "clean", "dselect-upgrade", "build-dep", "check", "autoremove", "autoclean"):
     aptcommand = "apt-get"
     command = sudo + " " + aptcommand + " " + argcommand + argoptions
-elif argcommand in ["source", "moo"]:
+elif argcommand in ("source", "moo"):
     aptcommand = "apt-get"
     command = aptcommand + " " + argcommand + argoptions
-elif argcommand in ["search", "show", "changelog"]:
+elif argcommand in ("search", "show", "changelog"):
     aptcommand = "aptitude"
     command = aptcommand + " " + argcommand + argoptions
-elif argcommand in ["recommends"]:
+elif argcommand in ("recommends"):
     command = "/usr/lib/linuxmint/mintSystem/mint-apt-recommends.py " + argoptions
-elif argcommand in ["reinstall"]:
+elif argcommand in ("reinstall"):
     aptcommand = "aptitude"
     command = sudo + " " + aptcommand + " " + argcommand + argoptions
-elif argcommand in ["stats", "depends", "rdepends", "policy"]:
+elif argcommand in ("stats", "depends", "rdepends", "policy"):
     aptcommand = "apt-cache"
     command = aptcommand + " " + argcommand + argoptions
 elif argcommand == "sources":
@@ -118,7 +119,7 @@ else:
     usage()
 
 # Color highlighting
-if argcommand in ["search", "show", "content", "version", "policy", "depends", "rdepends"] and len(argoptions.strip()) > 1:
+if argcommand in ("search", "show", "content", "version", "policy", "depends", "rdepends") and len(argoptions.strip()) > 1:
     command = command + " | highlight" + argoptions
 
 if (showHelp):
