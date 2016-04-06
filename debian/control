@@ -9,6 +9,7 @@ Package: mintsystem
 Architecture: all
 Depends: python3 (>= 3.3),
          perl,
+         apt,
          aptitude,
          cowsay,
          fortune,
