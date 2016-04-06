@@ -25,6 +25,7 @@ def usage():
     print("  dist-upgrade     - Perform an upgrade, possibly installing and removing packages")
     print("  download         - Download the .deb file for a package")
     print("  dselect-upgrade  - Follow dselect selections")
+    print("  full-upgrade     - Upgrade the system by removing/installing/upgrading packages")
     print("  held             - List all held packages")
     print("  help             - Show help for a command")
     print("  hold             - Hold a package")
@@ -47,6 +48,23 @@ def usage():
     print("This apt has Super Cow Powers")
     sys.exit(1)
 
+
+# Commands supported by /usr/bin/apt (1.2.9)
+APT_SUPPORTED = (
+    "autoremove",
+    "list",
+    "search",
+    "show",
+    "install",
+    "remove",
+    "autoremove",
+    "purge",
+    "update",
+    "upgrade",
+    "full-upgrade",
+    "edit-sources",
+)
+
 if len(sys.argv) < 2:
     usage()
 
@@ -61,68 +79,73 @@ else:
 
 argcommand = sys.argv[1]
 argsuffix = sys.argv[2:]
-showHelp = False
-
-if argcommand == "help":
-    if len(sys.argv) < 3:
-        usage()
-    showHelp = True
-    argcommand = sys.argv[2]
-    argsuffix = sys.argv[3:]
 argoptions = ""
 
-for argoption in argsuffix:
-    argoptions = argoptions + " " + argoption
+command = ""
 
-if argcommand in ("install", "remove", "update", "upgrade", "dist-upgrade", "clean", "dselect-upgrade", "build-dep", "check", "autoremove", "autoclean"):
-    aptcommand = "apt-get"
-    command = sudo + " " + aptcommand + " " + argcommand + argoptions
-elif argcommand in ("source", "moo"):
-    aptcommand = "apt-get"
-    command = aptcommand + " " + argcommand + argoptions
-elif argcommand in ("search", "show", "changelog"):
-    aptcommand = "aptitude"
-    command = aptcommand + " " + argcommand + argoptions
-elif argcommand in ("recommends"):
-    command = "/usr/lib/linuxmint/mintSystem/mint-apt-recommends.py " + argoptions
-elif argcommand in ("reinstall"):
-    aptcommand = "aptitude"
-    command = sudo + " " + aptcommand + " " + argcommand + argoptions
-elif argcommand in ("stats", "depends", "rdepends", "policy"):
-    aptcommand = "apt-cache"
-    command = aptcommand + " " + argcommand + argoptions
-elif argcommand == "sources":
-    command = sudo + " " + editor + " /etc/apt/sources.list"
-elif argcommand == "held":
-    command = "apt-mark showhold"
-elif argcommand == "contains":
-    command = "dpkg -S" + argoptions + " | sort"
-elif argcommand == "content":
-    command = "dpkg -L" + argoptions + " | sort"
-elif argcommand == "hold":
-    command = "sudo apt-mark hold " + argoptions
-elif argcommand == "unhold":
-    command = "sudo apt-mark unhold " + argoptions
-elif argcommand == "version":
-    command = "/usr/lib/linuxmint/common/version.py" + argoptions
-elif argcommand == "purge":
-    command = sudo + " apt-get remove --purge" + argoptions
-elif argcommand == "build":
-    command = sudo + " dpkg-buildpackage" + argoptions
-elif argcommand == "deb":
-    command = sudo + " dpkg -i" + argoptions
-elif argcommand == "download":
-    command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
-elif argcommand == "add-repository":
-    command = sudo + " add-apt-repository" + argoptions
+show_help = False
+
+if argcommand in APT_SUPPORTED:
+    aptcommand = "/usr/bin/apt"
+    command = sudo + " " + aptcommand + " " + " ".join(sys.argv[1:])
 else:
-    usage()
+    if argcommand == "help":
+        if len(sys.argv) < 3:
+            usage()
+        show_help = True
+        argcommand = sys.argv[2]
+        argsuffix = sys.argv[3:]
+
+    for argoption in argsuffix:
+        argoptions = argoptions + " " + argoption
+
+    if argcommand in ("dist-upgrade", "clean", "dselect-upgrade", "build-dep", "check", "autoclean"):
+        aptcommand = "apt-get"
+        command = sudo + " " + aptcommand + " " + argcommand + argoptions
+    elif argcommand in ("source", "moo"):
+        aptcommand = "apt-get"
+        command = aptcommand + " " + argcommand + argoptions
+    elif argcommand in ("changelog"):
+        aptcommand = "aptitude"
+        command = aptcommand + " " + argcommand + argoptions
+    elif argcommand in ("recommends"):
+        command = "/usr/lib/linuxmint/mintSystem/mint-apt-recommends.py " + argoptions
+    elif argcommand in ("reinstall"):
+        aptcommand = "aptitude"
+        command = sudo + " " + aptcommand + " " + argcommand + argoptions
+    elif argcommand in ("stats", "depends", "rdepends", "policy"):
+        aptcommand = "apt-cache"
+        command = aptcommand + " " + argcommand + argoptions
+    elif argcommand == "sources":
+        command = sudo + " " + editor + " /etc/apt/sources.list"
+    elif argcommand == "held":
+        command = "apt-mark showhold"
+    elif argcommand == "contains":
+        command = "dpkg -S" + argoptions + " | sort"
+    elif argcommand == "content":
+        command = "dpkg -L" + argoptions + " | sort"
+    elif argcommand == "hold":
+        command = "sudo apt-mark hold " + argoptions
+    elif argcommand == "unhold":
+        command = "sudo apt-mark unhold " + argoptions
+    elif argcommand == "version":
+        command = "/usr/lib/linuxmint/common/version.py" + argoptions
+    elif argcommand == "build":
+        command = sudo + " dpkg-buildpackage" + argoptions
+    elif argcommand == "deb":
+        command = sudo + " dpkg -i" + argoptions
+    elif argcommand == "download":
+        command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
+    elif argcommand == "add-repository":
+        command = sudo + " add-apt-repository" + argoptions
+    else:
+        usage()
 
 # Color highlighting
-if argcommand in ("search", "show", "content", "version", "policy", "depends", "rdepends") and len(argoptions.strip()) > 1:
+if argcommand in ("content", "version", "policy", "depends", "rdepends") and len(argoptions.strip()) > 1:
     command = command + " | highlight" + argoptions
 
-if (showHelp):
+if show_help:
     print("\"apt " + argcommand + argoptions + "\" is equivalent to \"" + command + "\"")
 else:
     os.system(command)
