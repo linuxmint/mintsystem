@@ -22,14 +22,16 @@ def usage():
     print("  content          - List files contained in a package")
     print("  deb              - Install a .deb package")
     print("  depends          - Show raw dependency information for a package")
-    print("  dist-upgrade     - Perform an upgrade, possibly installing and removing packages")
+    print("  dist-upgrade     - Same as 'full-upgrade'")
     print("  download         - Download the .deb file for a package")
+    print("  edit-sources     - Edit /etc/apt/sources.list with your preferred text editor")
     print("  dselect-upgrade  - Follow dselect selections")
     print("  full-upgrade     - Upgrade the system by removing/installing/upgrading packages")
     print("  held             - List all held packages")
     print("  help             - Show help for a command")
     print("  hold             - Hold a package")
     print("  install          - Install/upgrade packages")
+    print("  list             - List packages based on package names")
     print("  policy           - Show policy settings")
     print("  purge            - Remove packages and their configuration files")
     print("  recommends       - List missing recommended packages for a particular package")
@@ -39,7 +41,7 @@ def usage():
     print("  search           - Search for a package by name and/or expression")
     print("  show             - Display detailed information about a package")
     print("  source           - Download source archives")
-    print("  sources          - Edit /etc/apt/sources.list with nano")
+    print("  sources          - Same as 'edit-sources'")
     print("  unhold           - Unhold a package")
     print("  update           - Download lists of new/upgradable packages")
     print("  upgrade          - Perform a safe upgrade")
@@ -65,6 +67,12 @@ APT_SUPPORTED = (
     "edit-sources",
 )
 
+# Legacy apt commands which have equivalents in the new apt under different names
+APT_EQUIVALENTS = {
+    "dist-upgrade": "full-upgrade",
+    "sources": "edit-sources"
+}
+
 if len(sys.argv) < 2:
     usage()
 
@@ -85,61 +93,61 @@ command = ""
 
 show_help = False
 
+if argcommand == "help":
+    if len(sys.argv) < 3:
+        usage()
+    show_help = True
+    argcommand = sys.argv[2]
+    argsuffix = sys.argv[3:]
+
+for argoption in argsuffix:
+    argoptions = argoptions + " " + argoption
+
 if argcommand in APT_SUPPORTED:
     aptcommand = "/usr/bin/apt"
-    command = sudo + " " + aptcommand + " " + " ".join(sys.argv[1:])
+    command = sudo + " " + aptcommand + " " + argcommand + argoptions
+elif argcommand in APT_EQUIVALENTS.keys():
+    aptcommand = "/usr/bin/apt"
+    command = sudo + " " + aptcommand + " " + APT_EQUIVALENTS[argcommand] + argoptions
+elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean"):
+    aptcommand = "apt-get"
+    command = sudo + " " + aptcommand + " " + argcommand + argoptions
+elif argcommand in ("source", "moo"):
+    aptcommand = "apt-get"
+    command = aptcommand + " " + argcommand + argoptions
+elif argcommand in ("changelog"):
+    aptcommand = "aptitude"
+    command = aptcommand + " " + argcommand + argoptions
+elif argcommand in ("recommends"):
+    command = "/usr/lib/linuxmint/mintSystem/mint-apt-recommends.py " + argoptions
+elif argcommand in ("reinstall"):
+    aptcommand = "aptitude"
+    command = sudo + " " + aptcommand + " " + argcommand + argoptions
+elif argcommand in ("stats", "depends", "rdepends", "policy"):
+    aptcommand = "apt-cache"
+    command = aptcommand + " " + argcommand + argoptions
+elif argcommand == "held":
+    command = "apt-mark showhold"
+elif argcommand == "contains":
+    command = "dpkg -S" + argoptions + " | sort"
+elif argcommand == "content":
+    command = "dpkg -L" + argoptions + " | sort"
+elif argcommand == "hold":
+    command = "sudo apt-mark hold " + argoptions
+elif argcommand == "unhold":
+    command = "sudo apt-mark unhold " + argoptions
+elif argcommand == "version":
+    command = "/usr/lib/linuxmint/common/version.py" + argoptions
+elif argcommand == "build":
+    command = sudo + " dpkg-buildpackage" + argoptions
+elif argcommand == "deb":
+    command = sudo + " dpkg -i" + argoptions
+elif argcommand == "download":
+    command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
+elif argcommand == "add-repository":
+    command = sudo + " add-apt-repository" + argoptions
 else:
-    if argcommand == "help":
-        if len(sys.argv) < 3:
-            usage()
-        show_help = True
-        argcommand = sys.argv[2]
-        argsuffix = sys.argv[3:]
-
-    for argoption in argsuffix:
-        argoptions = argoptions + " " + argoption
-
-    if argcommand in ("dist-upgrade", "clean", "dselect-upgrade", "build-dep", "check", "autoclean"):
-        aptcommand = "apt-get"
-        command = sudo + " " + aptcommand + " " + argcommand + argoptions
-    elif argcommand in ("source", "moo"):
-        aptcommand = "apt-get"
-        command = aptcommand + " " + argcommand + argoptions
-    elif argcommand in ("changelog"):
-        aptcommand = "aptitude"
-        command = aptcommand + " " + argcommand + argoptions
-    elif argcommand in ("recommends"):
-        command = "/usr/lib/linuxmint/mintSystem/mint-apt-recommends.py " + argoptions
-    elif argcommand in ("reinstall"):
-        aptcommand = "aptitude"
-        command = sudo + " " + aptcommand + " " + argcommand + argoptions
-    elif argcommand in ("stats", "depends", "rdepends", "policy"):
-        aptcommand = "apt-cache"
-        command = aptcommand + " " + argcommand + argoptions
-    elif argcommand == "sources":
-        command = sudo + " " + editor + " /etc/apt/sources.list"
-    elif argcommand == "held":
-        command = "apt-mark showhold"
-    elif argcommand == "contains":
-        command = "dpkg -S" + argoptions + " | sort"
-    elif argcommand == "content":
-        command = "dpkg -L" + argoptions + " | sort"
-    elif argcommand == "hold":
-        command = "sudo apt-mark hold " + argoptions
-    elif argcommand == "unhold":
-        command = "sudo apt-mark unhold " + argoptions
-    elif argcommand == "version":
-        command = "/usr/lib/linuxmint/common/version.py" + argoptions
-    elif argcommand == "build":
-        command = sudo + " dpkg-buildpackage" + argoptions
-    elif argcommand == "deb":
-        command = sudo + " dpkg -i" + argoptions
-    elif argcommand == "download":
-        command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
-    elif argcommand == "add-repository":
-        command = sudo + " add-apt-repository" + argoptions
-    else:
-        usage()
+    usage()
 
 # Color highlighting
 if argcommand in ("content", "version", "policy", "depends", "rdepends") and len(argoptions.strip()) > 1:
