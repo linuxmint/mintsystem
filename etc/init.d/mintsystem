@@ -12,7 +12,7 @@
 
 case $1 in
     start|restart|force-reload)
-	/usr/lib/linuxmint/mintSystem/mint-adjust.py
+	/usr/lib/linuxmint/mintsystem/mint-adjust.py
 	;;
     stop)
 	;;
