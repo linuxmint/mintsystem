@@ -65,6 +65,7 @@ argoptions = " ".join(sys.argv[2:])
 command = ""
 
 show_help = False
+
 if argcommand == "help":
     if len(sys.argv) < 3:
         usage()
@@ -75,7 +76,6 @@ if argcommand == "help":
 if argcommand in aliases.keys():
     argcommand = aliases[argcommand]
 
-
 if argcommand in ("autoremove", "list", "search", "show", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources"):
     # apt
     command = "/usr/bin/apt %s %s" % (argcommand, argoptions)
@@ -84,7 +84,7 @@ elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean
     command = "apt-get %s %s" % (argcommand, argoptions)
 elif argcommand in ("changelog", "reinstall"):
     # aptitude
-    command =  "aptitude %s %s" % (argcommand, argoptions)
+    command = "aptitude %s %s" % (argcommand, argoptions)
 elif argcommand in ("stats", "depends", "rdepends", "policy"):
     # apt-cache
     command = "apt-cache %s %s" % (argcommand, argoptions)
