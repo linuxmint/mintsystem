@@ -40,6 +40,7 @@ def usage():
     print("  remove           - Remove packages")
     print("  search           - Search for a package by name and/or expression")
     print("  show             - Display detailed information about a package")
+    print("  showhold         - Same as 'held'")
     print("  source           - Download source archives")
     print("  sources          - Same as 'edit-sources'")
     print("  unhold           - Unhold a package")
@@ -47,111 +48,76 @@ def usage():
     print("  upgrade          - Perform a safe upgrade")
     print("  version          - Show the installed version of a package")
     print("")
-    print("This apt has Super Cow Powers")
     sys.exit(1)
 
-
-# Commands supported by /usr/bin/apt (1.2.9)
-APT_SUPPORTED = (
-    "autoremove",
-    "list",
-    "search",
-    "show",
-    "install",
-    "remove",
-    "autoremove",
-    "purge",
-    "update",
-    "upgrade",
-    "full-upgrade",
-    "edit-sources",
-)
-
-# Legacy apt commands which have equivalents in the new apt under different names
-APT_EQUIVALENTS = {
+aliases = {
     "dist-upgrade": "full-upgrade",
-    "sources": "edit-sources"
+    "sources": "edit-sources",
+    "held": "showhold"
 }
 
 if len(sys.argv) < 2:
     usage()
 
-sudo = "sudo"
-if os.getuid() == 0:
-    sudo = ""
-
-if os.environ.get("EDITOR") is not None:
-    editor = os.environ.get("EDITOR")
-else:
-    editor = "/usr/bin/editor"
-
 argcommand = sys.argv[1]
-argsuffix = sys.argv[2:]
-argoptions = ""
+argoptions = " ".join(sys.argv[2:])
 
 command = ""
 
 show_help = False
-
 if argcommand == "help":
     if len(sys.argv) < 3:
         usage()
     show_help = True
     argcommand = sys.argv[2]
-    argsuffix = sys.argv[3:]
+    argoptions = " ".join(sys.argv[3:])
 
-for argoption in argsuffix:
-    argoptions = argoptions + " " + argoption
+if argcommand in aliases.keys():
+    argcommand = aliases[argcommand]
 
-if argcommand in APT_SUPPORTED:
-    aptcommand = "/usr/bin/apt"
-    command = sudo + " " + aptcommand + " " + argcommand + argoptions
-elif argcommand in APT_EQUIVALENTS.keys():
-    aptcommand = "/usr/bin/apt"
-    command = sudo + " " + aptcommand + " " + APT_EQUIVALENTS[argcommand] + argoptions
-elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean"):
-    aptcommand = "apt-get"
-    command = sudo + " " + aptcommand + " " + argcommand + argoptions
-elif argcommand in ("source", "moo"):
-    aptcommand = "apt-get"
-    command = aptcommand + " " + argcommand + argoptions
-elif argcommand in ("changelog"):
-    aptcommand = "aptitude"
-    command = aptcommand + " " + argcommand + argoptions
+
+if argcommand in ("autoremove", "list", "search", "show", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources"):
+    # apt
+    command = "/usr/bin/apt %s %s" % (argcommand, argoptions)
+elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean", "source", "moo"):
+    # apt-get
+    command = "apt-get %s %s" % (argcommand, argoptions)
+elif argcommand in ("changelog", "reinstall"):
+    # aptitude
+    command =  "aptitude %s %s" % (argcommand, argoptions)
+elif argcommand in ("stats", "depends", "rdepends", "policy"):
+    # apt-cache
+    command = "apt-cache %s %s" % (argcommand, argoptions)
 elif argcommand in ("recommends"):
     command = "/usr/lib/linuxmint/mintSystem/mint-apt-recommends.py " + argoptions
-elif argcommand in ("reinstall"):
-    aptcommand = "aptitude"
-    command = sudo + " " + aptcommand + " " + argcommand + argoptions
-elif argcommand in ("stats", "depends", "rdepends", "policy"):
-    aptcommand = "apt-cache"
-    command = aptcommand + " " + argcommand + argoptions
-elif argcommand == "held":
-    command = "apt-mark showhold"
+elif argcommand in ("showhold", "hold", "unhold"):
+    # apt-mark
+    command = "apt-mark %s %s" % (argcommand, argoptions)
 elif argcommand == "contains":
-    command = "dpkg -S" + argoptions + " | sort"
+    command = "dpkg -S %s | sort" % argoptions
 elif argcommand == "content":
-    command = "dpkg -L" + argoptions + " | sort"
-elif argcommand == "hold":
-    command = "sudo apt-mark hold " + argoptions
-elif argcommand == "unhold":
-    command = "sudo apt-mark unhold " + argoptions
-elif argcommand == "version":
-    command = "/usr/lib/linuxmint/common/version.py" + argoptions
-elif argcommand == "build":
-    command = sudo + " dpkg-buildpackage" + argoptions
+    command = "dpkg -L %s | sort" % argoptions
 elif argcommand == "deb":
-    command = sudo + " dpkg -i" + argoptions
+    command = "dpkg -i %s" % argoptions
+elif argcommand == "build":
+    command = "dpkg-buildpackage %s" % argoptions
+elif argcommand == "version":
+    command = "/usr/lib/linuxmint/common/version.py %s" % argoptions
 elif argcommand == "download":
-    command = "LC_ALL=C apt-cache depends " + argoptions + " |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r"
+    command = "LC_ALL=C apt-cache depends %s |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r" % argoptions
 elif argcommand == "add-repository":
-    command = sudo + " add-apt-repository" + argoptions
+    command = "add-apt-repository %s" % argoptions
 else:
     usage()
+    sys.exit(1)
+
+# Sudo prefix
+if os.getuid() != 0 and argcommand in ("autoremove", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall", "deb", "hold", "unhold", "add-repository"):
+    command = "sudo %s" % command
 
 # Color highlighting
 if argcommand in ("content", "version", "policy", "depends", "rdepends") and len(argoptions.strip()) > 1:
-    command = command + " | highlight" + argoptions
+    command = "%s | highlight %s" % (command, argoptions)
 
 if show_help:
     print("\"apt " + argcommand + argoptions + "\" is equivalent to \"" + command + "\"")
