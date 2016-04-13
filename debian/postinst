@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script 
+# postinst script
 # see: dh_installdeb(1)
 
 set -e
@@ -23,13 +23,13 @@ case "$1" in
         then
             glib-compile-schemas /usr/share/glib-2.0/schemas
         fi
-        /usr/lib/linuxmint/mintSystem/mint-adjust.py
+        /usr/lib/linuxmint/mintsystem/mint-adjust.py
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
 
     ;;
     triggered)
-        /usr/lib/linuxmint/mintSystem/mint-adjust.py
+        /usr/lib/linuxmint/mintsystem/mint-adjust.py
     ;;
     *)
         echo "postinst called with unknown argument \`$1'" >&2
