@@ -1,3 +1,21 @@
+mintsystem (8.2.1) sarah; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Adjustment: Don't rename files which don't exist (make the test explicit)
+  * APT: Little change in usage()
+  * APT wrapper: Refactored code a bit
+
+  [ Daniel Alley ]
+  * Formatting
+  * Use sets instead of lists for arg lookup
+  * Turned "apt" into a wrapper around the "apt" debian binary in /usr/bin/apt
+  * Added dependency on apt binary
+  * Added new descriptions, reduced conditional to 1 level, added support for aliases
+  * Formatting
+  * Renamed folders from camelCase to lowercase
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 22 Apr 2016 11:57:19 +0100
+
 mintsystem (8.2.0) sarah; urgency=medium
 
   [ Daniel Alley ]
