@@ -1,3 +1,9 @@
+mintsystem (8.2.2) sarah; urgency=medium
+
+  * Fixed regression on "exec" menu adjustments.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 22 Apr 2016 12:56:04 +0100
+
 mintsystem (8.2.1) sarah; urgency=medium
 
   [ Clement Lefebvre ]
