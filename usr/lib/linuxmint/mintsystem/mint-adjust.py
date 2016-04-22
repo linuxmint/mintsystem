@@ -235,6 +235,7 @@ class MintSystem():
                                             if desktop_line.startswith("Exec=") and not found_exec:
                                                 found_exec = True
                                                 desktop_line = "Exec=%s" % executable
+                                            print (desktop_line.strip())
                                         self.update_timestamp(desktop_file)
                             elif line_items[0] == "rename":
                                 if len(line_items) == 3:
