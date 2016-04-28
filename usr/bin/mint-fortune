@@ -31,7 +31,6 @@ function show_fortune {
 }
 
 showfortunes=`gsettings get com.linuxmint.terminal show-fortunes 2>/dev/null`
-if [ "$showfortunes" == "true" ]; then
+if [ "$showfortunes" == "true" ] && [ -x "/usr/games/fortune" ] && [ -x "/usr/games/cowsay" ]; then
     show_fortune
 fi
-
