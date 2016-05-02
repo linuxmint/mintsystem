@@ -1,0 +1,10 @@
+[Nemo Action]
+Active=true
+Name=Check SHA256
+Comment=Check the SHA256 signature of the file
+Name[fr]=Vérifier le SHA256
+Comment[fr]=Vérifier la signature SHA256 de ce fichier
+Exec=mint-sha256sum '%F'
+Icon-Name=gtk-execute
+Selection=S
+Extensions=iso;img;
