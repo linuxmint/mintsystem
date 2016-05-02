@@ -94,20 +94,14 @@ class MintSystem():
                 config = configparser.RawConfigParser()
                 config.read('/etc/linuxmint/mintSystem.conf')
                 self.enabled = (config.get('global', 'enabled') == "True")
-                self.restore_issue = (config.get('restore', 'etc-issue') == "True")
-                self.restore_lsb = (config.get('restore', 'lsb-release') == "True")
             except:
                 config = configparser.RawConfigParser()
                 config.add_section('global')
                 config.set('global', 'enabled', 'True')
                 config.add_section('restore')
-                config.set('restore', 'etc-issue', 'True')
-                config.set('restore', 'lsb-release', 'True')
                 with open('/etc/linuxmint/mintSystem.conf', 'w') as configfile:
                     config.write(configfile)
                 self.enabled = True
-                self.restore_issue = True
-                self.restore_lsb = True
 
             # Exit if disabled
             if not self.enabled:
@@ -161,34 +155,6 @@ class MintSystem():
                         # Wildcard destination, find all possible matching destinations
                         for matching_destination in glob.glob(destination):
                             self.replace_file(source, matching_destination)
-            # Restore LSB information
-            if os.path.exists("/etc/linuxmint/info"):
-                with open("/etc/linuxmint/info") as f:
-                    mint_info = dict([line.strip().split("=") for line in f])
-
-                if self.restore_lsb:
-                    if self.has_changed("/etc/lsb-release", self.overwritten, "lsb"):
-                        lsbfile = open("/etc/lsb-release", "w")
-                        lsbfile.writelines("DISTRIB_ID=LinuxMint\n")
-                        lsbfile.writelines("DISTRIB_RELEASE=%s\n" % mint_info["RELEASE"])
-                        lsbfile.writelines("DISTRIB_CODENAME=%s\n" % mint_info["CODENAME"])
-                        lsbfile.writelines("DISTRIB_DESCRIPTION=%s\n" % mint_info["DESCRIPTION"])
-                        lsbfile.close()
-                        self.update_timestamp("/etc/lsb-release")
-
-                # Restore /etc/issue and /etc/issue.net
-                if self.restore_issue:
-                    description = mint_info["DESCRIPTION"].replace("\"", "")
-                    if self.has_changed("/etc/issue", self.overwritten, "lsb"):
-                        issuefile = open("/etc/issue", "w")
-                        issuefile.writelines("%s \\n \\l\n" % description)
-                        issuefile.close()
-                        self.update_timestamp("/etc/issue")
-                    if self.has_changed("/etc/issue.net", self.overwritten, "lsb"):
-                        issuefile = open("/etc/issue.net", "w")
-                        issuefile.writelines(description)
-                        issuefile.close()
-                        self.update_timestamp("/etc/issue.net")
 
             # Perform menu adjustments
             for filename in os.listdir(adjustment_directory):
