@@ -1,0 +1,2 @@
+#!/bin/sh
+zenity --info --text=`sha256sum "$1"` --no-wrap
