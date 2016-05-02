@@ -1,3 +1,10 @@
+mintsystem (8.2.4) sarah; urgency=medium
+
+  * Don't overwrite base files (rely on pinning instead)
+  * Switch MD5 nemo action to SHA256
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 02 May 2016 15:38:20 +0100
+
 mintsystem (8.2.3) sarah; urgency=medium
 
   * Don't depend on fortunes/cowsay
