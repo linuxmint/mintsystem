@@ -76,13 +76,13 @@ if argcommand == "help":
 if argcommand in aliases.keys():
     argcommand = aliases[argcommand]
 
-if argcommand in ("autoremove", "list", "search", "show", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources"):
+if argcommand in ("autoremove", "list", "show", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources"):
     # apt
     command = "/usr/bin/apt %s %s" % (argcommand, argoptions)
 elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean", "source", "moo"):
     # apt-get
     command = "apt-get %s %s" % (argcommand, argoptions)
-elif argcommand in ("changelog", "reinstall"):
+elif argcommand in ("search", "changelog", "reinstall"):
     # aptitude
     command = "aptitude %s %s" % (argcommand, argoptions)
 elif argcommand in ("stats", "depends", "rdepends", "policy"):
