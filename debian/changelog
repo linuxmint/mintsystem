@@ -1,3 +1,9 @@
+mintsystem (8.2.5) sarah; urgency=medium
+
+  * APT: Rely on aptitude for "apt search"
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 05 May 2016 11:45:01 +0100
+
 mintsystem (8.2.4) sarah; urgency=medium
 
   * Don't overwrite base files (rely on pinning instead)
