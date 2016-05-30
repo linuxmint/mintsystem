@@ -169,7 +169,7 @@ class MintSystem():
                                 if len(line_items) == 2:
                                     action, desktop_file = line.split()
                                     if self.has_changed(desktop_file, self.edited, "hide"):
-                                        os.system("grep -q -F 'NoDisplay=true' %s || echo 'NoDisplay=true' >> %s" % (desktop_file, desktop_file))
+                                        os.system("grep -q -F 'NoDisplay=true' %s || echo '\nNoDisplay=true' >> %s" % (desktop_file, desktop_file))
                                         self.update_timestamp(desktop_file)
                             elif line_items[0] == "show":
                                 if len(line_items) == 2:
