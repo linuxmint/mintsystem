@@ -1,3 +1,9 @@
+mintsystem (8.2.6) sarah; urgency=medium
+
+  * Hide menu item: insert a line break before NoDisplay=true
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 30 May 2016 14:03:36 +0100
+
 mintsystem (8.2.5) sarah; urgency=medium
 
   * APT: Rely on aptitude for "apt search"
