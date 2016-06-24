@@ -1,3 +1,9 @@
+mintsystem (8.2.8) sarah; urgency=medium
+
+  * Gave "apt download" rainbow powers
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 24 Jun 2016 22:56:03 +0100
+
 mintsystem (8.2.7) sarah; urgency=medium
 
   * Init.d: Don't depend on remote filesystems being ready
