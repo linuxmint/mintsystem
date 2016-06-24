@@ -1,3 +1,11 @@
+mintsystem (8.2.7) sarah; urgency=medium
+
+  * Init.d: Don't depend on remote filesystems being ready
+  * Init.d: Remove syslog from list of dependencies
+  * Provide a "simple" systemd service file
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 24 Jun 2016 12:38:41 +0100
+
 mintsystem (8.2.6) sarah; urgency=medium
 
   * Hide menu item: insert a line break before NoDisplay=true
