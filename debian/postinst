@@ -23,6 +23,11 @@ case "$1" in
         then
             glib-compile-schemas /usr/share/glib-2.0/schemas
         fi
+        if which systemctl >/dev/null 2>&1
+        then
+            systemctl daemon-reload || true
+            systemctl reenable mintsystem.service || true
+        fi
         /usr/lib/linuxmint/mintsystem/mint-adjust.py
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)

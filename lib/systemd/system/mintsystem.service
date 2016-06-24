@@ -1,0 +1,12 @@
+[Unit]
+Before=multi-user.target
+After=local-fs.target
+
+[Service]
+Type=simple
+Restart=no
+KillMode=process
+ExecStart=/etc/init.d/mintsystem start
+
+[Install]
+WantedBy=multi-user.target
