@@ -104,7 +104,20 @@ elif argcommand == "build":
 elif argcommand == "version":
     command = "/usr/lib/linuxmint/common/version.py %s" % argoptions
 elif argcommand == "download":
-    command = "LC_ALL=C apt-cache depends %s |grep -v \"Conflicts:\|Replaces:\"|awk '{print $NF}'|sed -e 's/[<>]//g'|xargs aptitude download -r" % argoptions
+    archive_name = argoptions.split()[0]
+    command = "apt update; "\
+    "mkdir -p %(archive_name)s && "\
+    "cd %(archive_name)s && "\
+    "rm -rf *.deb && "\
+    "LC_ALL=C apt-get install --dry-run %(argoptions)s | grep ^Inst | awk {'print $2;'} | xargs aptitude download -r && "\
+    "echo 'sudo dpkg -i *.deb' > install.sh && "\
+    "chmod a+rx install.sh && "\
+    "cd .. && "\
+    "tar cvf %(archive_name)s.tar %(archive_name)s/ >/dev/null && "\
+    "gzip %(archive_name)s.tar && "\
+    "rm -rf '%(archive_name)s' && "\
+    "echo '\nThe packages were downloaded into %(archive_name)s.tgz. This archive contains all the packages necessary for an offline installation.\n'" \
+    % {'archive_name':archive_name, 'argoptions':argoptions}
 elif argcommand == "add-repository":
     command = "add-apt-repository %s" % argoptions
 else:
@@ -120,6 +133,6 @@ if argcommand in ("content", "version", "policy", "depends", "rdepends") and len
     command = "%s | highlight %s" % (command, argoptions)
 
 if show_help:
-    print("\"apt " + argcommand + argoptions + "\" is equivalent to \"" + command + "\"")
+    print("\"apt " + argcommand + " " + argoptions + "\" is equivalent to \"" + command + "\"")
 else:
     os.system(command)
