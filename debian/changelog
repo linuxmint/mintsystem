@@ -1,3 +1,9 @@
+mintsystem (8.1.6+1) rosa; urgency=medium
+
+  * Pastebin: Use gist.github.com
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 01 Sep 2016 10:21:40 +0100
+
 mintsystem (8.1.6) rosa; urgency=medium
 
   * Revert "Mark mintsystem as Essential" (needs all dependencies to be essential as well, we're not ready for this just yet).
