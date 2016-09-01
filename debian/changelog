@@ -1,3 +1,13 @@
+mintsystem (8.2.9) sarah; urgency=medium
+
+  [ monsta ]
+  * remove xchat-systray script as xchat is gone
+
+  [ Two_Dogs ]
+  * Use github's gist for pastebin
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 01 Sep 2016 10:00:40 +0100
+
 mintsystem (8.2.8) sarah; urgency=medium
 
   * Gave "apt download" rainbow powers
