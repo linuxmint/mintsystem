@@ -1,3 +1,9 @@
+mintsystem (7.9.7+2) rebecca; urgency=medium
+
+  * Pastebin: use gist.github.com
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 01 Sep 2016 10:15:25 +0100
+
 mintsystem (7.9.7+1) rebecca; urgency=medium
 
   * Added Virtualbox repository to list of 700 sources
