@@ -19,5 +19,5 @@ else:
         content = str_args
 
 if content != "":
-    p = subprocess.Popen(["/bin/nc", "paste.linuxmint.com", "9999"], stdin = subprocess.PIPE)
+    p = subprocess.Popen(["/usr/bin/gist-paste"], stdin = subprocess.PIPE)
     p.communicate(content)

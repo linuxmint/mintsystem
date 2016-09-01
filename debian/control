@@ -10,7 +10,7 @@ Architecture: all
 Depends:
  ${python:Depends}, ${misc:Depends},
  aptitude, cowsay, fortune, fortunes-husse,
- mint-common, mint-info, python, zenity
+ mint-common, mint-info, python, zenity, gist
 Description: Linux Mint System Base Package
  Used by the desktop and other mint tools to gather
  information and process common system tasks.
