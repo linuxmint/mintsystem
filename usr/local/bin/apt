@@ -2,7 +2,7 @@
 
 import sys
 import os
-
+import subprocess
 
 def usage():
     print("apt")
@@ -135,4 +135,5 @@ if argcommand in ("content", "version", "policy", "depends", "rdepends") and len
 if show_help:
     print("\"apt " + argcommand + " " + argoptions + "\" is equivalent to \"" + command + "\"")
 else:
-    os.system(command)
+    return_code = subprocess.call(command.split())
+    sys.exit(return_code)
