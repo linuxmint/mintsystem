@@ -1,3 +1,11 @@
+mintsystem (8.3.0) serena; urgency=medium
+
+  * Replace system call with subprocess.call
+  * Fixed output highlighting and sorting.
+  * Fix apt download
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 05 Nov 2016 14:30:44 +0000
+
 mintsystem (8.2.9) sarah; urgency=medium
 
   [ monsta ]
