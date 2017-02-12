@@ -95,6 +95,9 @@ elif argcommand in ("recommends"):
 elif argcommand in ("showhold", "hold", "unhold"):
     # apt-mark
     command = "apt-mark %s %s" % (argcommand, argoptions)
+elif argcommand in ("markauto", "markmanual"):
+    # apt-mark
+    command = "apt-mark %s %s" % (argcommand[4:], argoptions)
 elif argcommand == "contains":
     command = "dpkg -S %s" % argoptions
 elif argcommand == "content":
@@ -114,7 +117,7 @@ else:
     sys.exit(1)
 
 # Sudo prefix
-if os.getuid() != 0 and argcommand in ("autoremove", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall", "deb", "hold", "unhold", "add-repository"):
+if os.getuid() != 0 and argcommand in ("autoremove", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall", "deb", "hold", "unhold", "add-repository", "markauto", "markmanual"):
     command = "sudo %s" % command
 
 # Color highlighting
