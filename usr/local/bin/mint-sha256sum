@@ -1,2 +1,2 @@
 #!/bin/sh
-zenity --info --text=`sha256sum "$1"` --no-wrap
+(HASH=$(sha256sum "$1"); exec 1>&-; zenity --title="mint-sha256sum" --info --text="$HASH" --no-wrap) | zenity --progress  --title="mint-sha256sum" --pulsate --auto-close --no-cancel
