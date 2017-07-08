@@ -7,4 +7,4 @@ Comment[fr]=Vérifier la signature SHA256 de ce fichier
 Exec=mint-sha256sum '%F'
 Icon-Name=gtk-execute
 Selection=S
-Extensions=iso;img;
+Mimetypes=application/x-iso9660-image;
