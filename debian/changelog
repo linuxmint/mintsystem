@@ -1,3 +1,9 @@
+mintsystem (8.1.7.2) betsy; urgency=medium
+
+  * Switch MD5 nemo action to SHA256
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 11 Jul 2017 11:39:16 +0200
+
 mintsystem (8.1.7.1) betsy; urgency=medium
 
   * Remove pastebin command (moved to xapps-common)
