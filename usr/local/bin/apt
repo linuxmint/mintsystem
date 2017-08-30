@@ -68,6 +68,8 @@ show_help = False
 sort = False
 highlight = False
 
+rows, columns = os.popen('stty size', 'r').read().split()
+
 if argcommand == "help":
     if len(sys.argv) < 3:
         usage()
@@ -84,7 +86,7 @@ if argcommand in ("autoremove", "list", "show", "install", "remove", "purge", "u
 elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean", "source", "moo"):
     # apt-get
     command = "apt-get %s %s" % (argcommand, argoptions)
-elif argcommand in ("search", "changelog", "reinstall"):
+elif argcommand in ("changelog", "reinstall"):
     # aptitude
     command = "aptitude %s %s" % (argcommand, argoptions)
 elif argcommand in ("stats", "depends", "rdepends", "policy"):
@@ -112,6 +114,8 @@ elif argcommand == "download":
     command = "/usr/lib/linuxmint/mintsystem/mint-apt-download.py " + argoptions
 elif argcommand == "add-repository":
     command = "add-apt-repository %s" % argoptions
+elif argcommand == "search":
+    command = "aptitude -w %s %s %s" % (columns, argcommand, argoptions)
 else:
     usage()
     sys.exit(1)
