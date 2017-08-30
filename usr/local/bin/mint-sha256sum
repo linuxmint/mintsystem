@@ -3,5 +3,5 @@
     HASH=$(sha256sum "$1")
     # send EOF to end the zenity progress dialog
     exec 1>&-
-    zenity --title="mint-sha256sum" --info --text="$HASH" --no-wrap
-) | zenity --progress  --title="mint-sha256sum" --pulsate --auto-close --no-cancel
+    zenity --title="sha256sum" --info --text="$HASH" --no-wrap
+) | zenity --progress  --title="sha256sum" --pulsate --auto-close --no-cancel
