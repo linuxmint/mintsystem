@@ -1,3 +1,21 @@
+mintsystem (8.3.3) sylvia; urgency=medium
+
+  [ Paul Jähne ]
+  * Use Mimetypes instead of Extensions
+  * Put translations for Name directly und Name
+  * Add German translation
+
+  [ jtsagata ]
+  * Adapt "apt search" cmd output to terminal width (#1) (#67)
+
+  [ Paul Jähne ]
+  * Add progress dialog and title (#65)
+
+  [ Clement Lefebvre ]
+  * mint-sha256sum: Don't brand the window title.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 27 Oct 2017 13:19:53 +0100
+
 mintsystem (8.3.2) sonya; urgency=medium
 
   * Remove pastebin command (moved to xapps-common)
