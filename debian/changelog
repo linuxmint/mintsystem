@@ -1,3 +1,10 @@
+mintsystem (8.3.4) sylvia; urgency=medium
+
+  [ mrg0029 ]
+  * Fix "apt recommends" catching e.g. "apt d" (#68)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 23 Nov 2017 09:49:23 +0000
+
 mintsystem (8.3.3) sylvia; urgency=medium
 
   [ Paul Jähne ]
