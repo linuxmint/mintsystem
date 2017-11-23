@@ -92,7 +92,7 @@ elif argcommand in ("changelog", "reinstall"):
 elif argcommand in ("stats", "depends", "rdepends", "policy"):
     # apt-cache
     command = "apt-cache %s %s" % (argcommand, argoptions)
-elif argcommand in ("recommends"):
+elif argcommand in ("recommends", ):
     command = "/usr/lib/linuxmint/mintsystem/mint-apt-recommends.py " + argoptions
 elif argcommand in ("showhold", "hold", "unhold"):
     # apt-mark
