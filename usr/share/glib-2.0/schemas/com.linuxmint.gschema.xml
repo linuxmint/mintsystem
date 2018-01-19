@@ -12,11 +12,4 @@
       <description></description>
     </key>
   </schema>
-  <schema id="com.linuxmint.terminal" path="/com/linuxmint/terminal/">
-    <key type="b" name="show-fortunes">
-      <default>false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-  </schema>
 </schemalist>
