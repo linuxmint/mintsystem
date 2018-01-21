@@ -68,7 +68,10 @@ show_help = False
 sort = False
 highlight = False
 
-rows, columns = os.popen('stty size', 'r').read().split()
+if sys.stdin.isatty():
+	rows, columns = os.popen('stty size', 'r').read().split()
+else:
+	rows, columns = 24, 80
 
 if argcommand == "help":
     if len(sys.argv) < 3:
