@@ -127,7 +127,8 @@ class MintSystem():
                         filehandle = open(os.path.join(adjustment_directory, filename))
                         for line in filehandle:
                             line = line.strip()
-                            array_preserves.append(line)
+                            if (line):
+                                array_preserves.append(line)
                         filehandle.close()
 
             overwrites = {}
