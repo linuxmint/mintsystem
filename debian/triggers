@@ -5,7 +5,7 @@ interest /usr/lib/firefox-addons/searchplugins/google.xml
 interest /usr/bin/firefox
 interest /usr/share/sounds/startup.wav
 interest /usr/share/system-config-printer
-interest /etc/linuxmint/adjustments
+interest /usr/share/linuxmint/adjustments
 interest /opt/firefox/firefox
 interest /usr/lib/firefox
 interest /usr/share/mdm/defaults.conf

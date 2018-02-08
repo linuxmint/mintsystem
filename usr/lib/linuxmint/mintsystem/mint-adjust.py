@@ -108,7 +108,7 @@ class MintSystem():
                 self.log("Disabled - Exited")
                 self.quit()
 
-            adjustment_directory = "/etc/linuxmint/adjustments/"
+            adjustment_directory = "/usr/share/linuxmint/adjustments/"
 
             # Perform file execution adjustments
             for filename in os.listdir(adjustment_directory):
