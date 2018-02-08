@@ -1,3 +1,17 @@
+mintsystem (8.3.5) tara; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Remove fortunes
+
+  [ Steve M ]
+  * Fix for apt failing when not run from a terminal. (#70)
+
+  [ Clement Lefebvre ]
+  * Fix https://bugs.launchpad.net/linuxmint/+bug/1536291
+  * Switch adjustments directory to /usr/share
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 08 Feb 2018 17:06:05 +0000
+
 mintsystem (8.3.4) sylvia; urgency=medium
 
   [ mrg0029 ]
