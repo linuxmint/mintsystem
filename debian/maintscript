@@ -1,1 +1,4 @@
 rm_conffile /etc/linuxmint/adjustments/10-mintsystem-synaptic.overwrite 7.9.4~
+rm_conffile /etc/linuxmint/adjustments/15-mintsystem.menu 8.3.6~
+rm_conffile /etc/linuxmint/adjustments/15-mintsystem.overwrite 8.3.6~
+rm_conffile /etc/linuxmint/adjustments/README 8.3.6~
