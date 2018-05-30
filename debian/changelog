@@ -1,3 +1,10 @@
+mintsystem (8.3.6) tara; urgency=medium
+
+  [ monsta ]
+  * properly remove old files from /etc/linuxmint/adjustments (#71)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 30 May 2018 18:02:19 +0100
+
 mintsystem (8.3.5) tara; urgency=medium
 
   [ Clement Lefebvre ]
