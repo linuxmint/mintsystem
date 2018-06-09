@@ -7,6 +7,6 @@ Comment=Check the SHA256 signature of the file
 Comment[de]=Prüfe den SHA256-Hash der Datei
 Comment[fr]=Vérifier la signature SHA256 de ce fichier
 Exec=mint-sha256sum '%F'
-Icon-Name=gtk-execute
+Icon-Name=system-run-symbolic
 Selection=S
 Mimetypes=application/x-iso9660-image;
