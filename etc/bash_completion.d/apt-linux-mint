@@ -12,10 +12,10 @@ _apt()
     # Completion of commands.
     if [[ $COMP_CWORD == 1 ]]; then
     COMPREPLY=( $(compgen -W '\
-        autoclean autoremove build build-dep changelog check clean \
+        add-repository autoclean autoremove build build-dep changelog check clean \
         contains content deb depends dist-upgrade download \
-        dselect-upgrade held help hold install policy purge rdepends \
-        reinstall remove search show source sources unhold update \
+        dselect-upgrade edit-sources full-upgrade held help hold install list policy purge recommends rdepends \
+        reinstall remove search show showhold source sources unhold update \
         upgrade version' "$cur" ) )
     return 0
     fi
@@ -39,8 +39,8 @@ _apt()
         ;;
    
     # Commands which require package name.
-    "build"|"build-dep"|"changelog"|"depends"|"download"|"install"|\
-    "policy"|"rdepends"|"show"|"source")
+    "build"|"build-dep"|"changelog"|"depends"|"download"|"install"|"list"|\
+    "policy"|"recommends"|"rdepends"|"show"|"source")
         COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" \
         2> /dev/null ) )
         return 0
