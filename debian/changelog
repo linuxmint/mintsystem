@@ -1,3 +1,9 @@
+mintsystem (8.3.8) tara; urgency=medium
+
+  * Add missing commands to bash completition
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 19 Jun 2018 13:44:26 +0200
+
 mintsystem (8.3.7) tara; urgency=medium
 
   [ NikoKrause ]
