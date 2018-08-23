@@ -27,7 +27,7 @@ if __name__ == "__main__":
             subprocess.call(["mkdir", "-p", package.name])
             os.chdir(package.name)
             os.system("rm -rf *.deb")
-            os.system("LC_ALL=C apt-get install --dry-run %s | grep ^Inst | awk {'print $2;'} | xargs aptitude download -r" % package.name)
+            os.system("LC_ALL=C apt-get install --dry-run %s | grep ^Inst | awk {'print $2;'} | xargs apt-get download " % package.name)
             os.system("echo 'sudo dpkg -i *.deb' > install.sh")
             os.system("chmod a+rx install.sh")
             os.chdir("..")
