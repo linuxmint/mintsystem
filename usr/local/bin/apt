@@ -154,4 +154,11 @@ else:
         ps2.wait()
     else:
         return_code = subprocess.call(command)
+        # automatically reload a running mintupdate after an update or upgrade
+        if argcommand in ("update", "upgrade", "full-upgrade"):
+            import psutil
+            for p in psutil.process_iter(attrs=["name"]):
+                if p.info["name"] == "mintUpdate":
+                    subprocess.call("mintupdate-launcher")
+                    break
         sys.exit(return_code)
