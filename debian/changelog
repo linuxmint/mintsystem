@@ -1,3 +1,10 @@
+mintsystem (8.4.0) tara; urgency=medium
+
+  [ gm10 ]
+  * apt: fix apt download
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 22 Oct 2018 13:58:28 +0100
+
 mintsystem (8.3.9) tara; urgency=medium
 
   * Don't depend on gist
