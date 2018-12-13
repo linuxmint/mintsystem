@@ -1,62 +1,316 @@
 #
-# Bash completion file for Linux Mint apt utility.
+# Bash completion file for Linux Mint's /usr/local/bin/apt script.
 #
 
 have apt &&
 _apt()
 {
-    local cur opt
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
+    local sourcesdir="/etc/apt/sources.list.d"
+    local cur prev words cword
+    _init_completion || return
 
-    # Completion of commands.
-    if [[ $COMP_CWORD == 1 ]]; then
-    COMPREPLY=( $(compgen -W '\
-        add-repository autoclean autoremove build build-dep changelog check clean \
-        contains content deb depends dist-upgrade download \
-        dselect-upgrade edit-sources full-upgrade held help hold install list policy purge recommends rdepends \
-        reinstall remove search show showhold source sources unhold update \
-        upgrade version' "$cur" ) )
-    return 0
+    local GENERIC_APT_GET_OPTIONS='
+        -d --download-only
+        -y --assume-yes
+        --assume-no
+        -u --show-upgraded
+        -m --ignore-missing
+        -t --target-release
+        --download
+        --fix-missing
+        --ignore-hold
+        --upgrade
+        --only-upgrade
+        --allow-change-held-packages
+        --allow-remove-essential
+        --allow-downgrades
+        --print-uris
+        --trivial-only
+        --remove
+        --allow-unauthenticated
+        --allow-insecure-repositories
+        --install-recommends
+        --install-suggests
+        --fix-policy
+        --solver
+        --planner
+    '
+
+    # see if the user selected a command already
+    local COMMANDS=(
+        "add-key"
+        "add-repository"
+        "autoclean" "auto-clean"
+        "autoremove" "auto-remove"
+        "build"
+        "build-dep"
+        "changelog"
+        "check"
+        "clean"
+        "contains"
+        "content"
+        "deb"
+        "depends"
+        "dist-upgrade"
+        "download"
+        "dselect-upgrade"
+        "edit-sources"
+        "full-upgrade"
+        "held"
+        "help"
+        "hold"
+        "install"
+        "list"
+        "listi"
+        "listu"
+        "markauto"
+        "markmanual"
+        "moo"
+        "policy"
+        "purge"
+        "purgeall"
+        "purge-residual"
+        "rdepends"
+        "recommends"
+        "reinstall"
+        "remove"
+        "search"
+        "show"
+        "showhold"
+        "showsrc"
+        "source"
+        "unhold"
+        "update"
+        "upgrade"
+        "version"
+        )
+
+    local command i
+    for (( i=0; i < ${#words[@]}-1; i++ )); do
+        if [[ ${COMMANDS[@]} =~ ${words[i]} ]]; then
+            command=${words[i]}
+            break
+        fi
+    done
+
+    # Complete a -t<SPACE><TAB>
+    case $prev in
+        -t|--target-release)
+            COMPREPLY=( $( compgen -W "$(apt-cache policy | egrep -o 'a=[^,]*|n=[^,]*' | cut -f2- -d= | sort -u)" -- "$cur" ) )
+            return 0
+            ;;
+    esac
+
+    # supported options per command
+    if [[ "$cur" == -* ]]; then
+        case $command in
+            autoremove|dist-upgrade|full-upgrade|install|purge|purgeall|reinstall|remove|upgrade)
+                COMPREPLY=( $( compgen -W '
+                    --show-progress
+                    --fix-broken
+                    --purge
+                    --verbose-versions
+                    --autoremove
+                    -s --simulate --dry-run
+                    --download
+                    --fix-missing
+                    --fix-policy
+                    --ignore-hold
+                    --force-yes
+                    --trivial-only
+                    --reinstall --solver
+                    -t --target-release'"$GENERIC_APT_GET_OPTIONS" -- "$cur" ) )
+                return 0
+                ;;
+            update)
+                COMPREPLY=( $( compgen -W '
+                    --list-cleanup
+                    --no-list-cleanup
+                    --print-uris
+                    --allow-insecure-repositories
+                    --allow-releaseinfo-change
+                    ' -- "$cur" ) )
+                return 0
+                ;;
+            list|list|listu)
+                COMPREPLY=( $( compgen -W '
+                    --installed --upgradable
+                    --manual-installed
+                    -v --verbose
+                    -a --all-versions
+                    -t --target-release
+                    ' -- "$cur" ) )
+                return 0
+                ;;
+            show)
+                COMPREPLY=( $( compgen -W '
+                    -a --all-versions
+                    ' -- "$cur" ) )
+                return 0
+                ;;
+            depends|rdepends)
+                COMPREPLY=( $( compgen -W '
+                    -i
+                    --important
+                    --installed
+                    --pre-depends
+                    --depends
+                    --recommends
+                    --suggests
+                    --replaces
+                    --breaks
+                    --conflicts
+                    --enhances
+                    --recurse
+                    --implicit' -- "$cur" ) )
+                return 0
+                ;;
+            search)
+                COMPREPLY=( $( compgen -W '
+                    -n --names-only
+                    -f --full' -- "$cur" ) )
+                return 0
+                ;;
+            showsrc)
+                COMPREPLY=( $( compgen -W '
+                    --only-source' -- "$cur" ) )
+                return 0
+                ;;
+            source)
+                COMPREPLY=( $( compgen -W '
+                    -s --simulate --dry-run
+                    -b --compile --build
+                    -P --build-profiles
+                    --diff-only --debian-only
+                    --tar-only
+                    --dsc-only
+                    -t --target-release
+                    '"$GENERIC_APT_GET_OPTIONS" -- "$cur" ) )
+                return 0
+                ;;
+            build-dep)
+                COMPREPLY=( $( compgen -W '
+                    -a --host-architecture
+                    -s --simulate --dry-run
+                    -P --build-profiles
+                    -t --target-release
+                    --purge
+                    --arch-only
+                    --indep-only
+                    '"$GENERIC_APT_GET_OPTIONS" -- "$cur" ) )
+                return 0
+                ;;
+            moo)
+                COMPREPLY=( $( compgen -W '
+                    --color
+                    ' -- "$cur" ) )
+                return 0
+                ;;
+            clean|autoclean)
+                COMPREPLY=( $( compgen -W '
+                    -s --simulate --dry-run
+                    ' -- "$cur" ) )
+                return 0
+                ;;
+            recommends)
+                COMPREPLY=( $( compgen -W '
+                    -R --recursive' -- "$cur" ) )
+                return 0
+                ;;
+            changelog)
+                COMPREPLY=( $( compgen -W '
+                    --debug
+                    --no-local' -- "$cur" ) )
+                return 0
+                ;;
+            help)
+                COMPREPLY=( $( compgen -W "$GENERIC_APT_GET_OPTIONS" -- "$cur" ) )
+                return 0
+                ;;
+        esac
     fi
 
-    # Completion of command parameters.
-    opt="${COMP_WORDS[1]}"
-    case $opt in
-    # Commands which require filename.
-    # Note: "search" command does not necessarilly require
-    # filename, it can accept any pattern, but I put it in this
-    # group in order to allow filename-completion for this command.
-    "contains"|"search")
-        _filedir
-        return 0
-        ;;
+    # command and command argument completion
+    case $command in
 
-    # Commands which require .deb/.udeb file name.
-    "deb")
-        _filedir '?(u)deb'
-        return 0
-        ;;
-   
-    # Commands which require package name.
-    "build"|"build-dep"|"changelog"|"depends"|"download"|"install"|"list"|\
-    "policy"|"recommends"|"rdepends"|"show"|"source")
-        COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" \
-        2> /dev/null ) )
-        return 0
-        ;;
+        # Complete the command itself
+        ""|help)
+            COMPREPLY=( $( compgen -W '${COMMANDS[@]}' -- "$cur" ) )
+            return 0
+            ;;
 
-    # Commands which require name of installed package.
-    "content"|"hold"|"purge"|"reinstall"|"remove"|"unhold"|"version")
-        if [ -f /etc/debian_version ]; then
-        # Debian system
-        COMPREPLY=( $( _xfunc dpkg _comp_dpkg_installed_packages $cur ) )
-        else
-        # assume RPM based
-        _xfunc rpm _rpm_installed_packages
-        fi
-        return 0
-        ;;
+        # Complete name of installed package
+        autoremove|content|hold|listi|listu|markauto|markmanual|\
+        purge|purgeall|reinstall|remove|unhold)
+            if [[ -f /etc/debian_version ]]; then
+                # Debian system
+                COMPREPLY=( $( \
+                    _xfunc dpkg _comp_dpkg_installed_packages $cur ) )
+            else
+                # assume RPM based
+                _xfunc rpm _rpm_installed_packages
+            fi
+            return 0
+            ;;
+
+        # Complete name of available package
+        build|changelog|depends|download|list|recommends|\
+        rdepends|show|source|version)
+            COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" \
+                2> /dev/null ) )
+            return 0
+            ;;
+
+        # Complete name of available package or .deb file
+        install)
+            COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" \
+                2> /dev/null ) )
+            if [[ "$cur" == ./* || "$cur" == /* ]]; then
+                _filedir "deb"
+            fi
+            return 0
+            ;;
+
+        # Complete name of package with available source package
+        source|build-dep|showsrc|policy)
+            COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" \
+                2> /dev/null ) $( apt-cache dumpavail | \
+                command grep "^Source: $cur" | sort -u | cut -f2 -d" " ) )
+            return 0
+            ;;
+
+        # Complete name of $sourcesdir.list file
+        edit-sources)
+            COMPREPLY=( $( compgen -W '$( command ls $sourcesdir )' \
+                -- "$cur" ) )
+            return 0
+            ;;
+
+        # Complete name of .deb/.udeb file
+        deb)
+            _filedir '?(u)deb'
+            return 0
+            ;;
+
+        # Complete name of any file
+        contains|search)
+            _filedir
+            return 0
+            ;;
+        add-key)
+            if [[ "$cur" == ./* || "$cur" == /* ]]; then
+                _filedir
+            fi
+            return 0
+            ;;
+
+        # Moo!
+        moo)
+            COMPREPLY=( $( compgen -W 'moo' \
+                -- "$cur" ) )
+            return 0
+            ;;
     esac
+
 } &&
 complete -F _apt apt

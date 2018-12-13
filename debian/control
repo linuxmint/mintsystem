@@ -11,8 +11,9 @@ Depends: python3 (>= 3.3),
          perl,
          apt,
          aptitude,
-         mint-common,
+         mint-common (>= 2),
          mint-info,
+         python3-apt
          zenity,
          ${misc:Depends}
 Description: Linux Mint System Base Package

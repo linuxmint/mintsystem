@@ -1,163 +1,240 @@
 #!/usr/bin/python3
 
-import sys
 import os
+import signal
 import subprocess
-import shlex
+import sys
+
 
 def usage():
-    print("apt")
-    print("Usage: apt command [options]")
-    print("       apt help command [options]")
-    print("")
-    print("Commands:")
-    print("  add-repository   - Add entries to apt sources.list")
-    print("  autoclean        - Erase old downloaded archive files")
-    print("  autoremove       - Remove automatically all unused packages")
-    print("  build            - Build binary or source packages from sources")
-    print("  build-dep        - Configure build-dependencies for source packages")
-    print("  changelog        - View a package's changelog")
-    print("  check            - Verify that there are no broken dependencies")
-    print("  clean            - Erase downloaded archive files")
-    print("  contains         - List packages containing a file")
-    print("  content          - List files contained in a package")
-    print("  deb              - Install a .deb package")
-    print("  depends          - Show raw dependency information for a package")
-    print("  dist-upgrade     - Upgrade the system by removing/installing/upgrading packages")
-    print("  download         - Download the .deb file for a package")
-    print("  edit-sources     - Edit /etc/apt/sources.list with your preferred text editor")
-    print("  dselect-upgrade  - Follow dselect selections")
-    print("  full-upgrade     - Same as 'dist-upgrade'")
-    print("  held             - List all held packages")
-    print("  help             - Show help for a command")
-    print("  hold             - Hold a package")
-    print("  install          - Install/upgrade packages")
-    print("  list             - List packages based on package names")
-    print("  policy           - Show policy settings")
-    print("  purge            - Remove packages and their configuration files")
-    print("  recommends       - List missing recommended packages for a particular package")
-    print("  rdepends         - Show reverse dependency information for a package")
-    print("  reinstall        - Download and (possibly) reinstall a currently installed package")
-    print("  remove           - Remove packages")
-    print("  search           - Search for a package by name and/or expression")
-    print("  show             - Display detailed information about a package")
-    print("  showhold         - Same as 'held'")
-    print("  source           - Download source archives")
-    print("  sources          - Same as 'edit-sources'")
-    print("  unhold           - Unhold a package")
-    print("  update           - Download lists of new/upgradable packages")
-    print("  upgrade          - Perform a safe upgrade")
-    print("  version          - Show the installed version of a package")
-    print("")
+    print(
+"""Usage: apt command [options]
+       apt help command [options]
+
+Commands:
+  add-key          - Add specified repository public key or ./keyfile
+  add-repository   - Add repository or PPA (add -r to remove instead)
+  autoclean        - Clean no longer available packages from the cache
+  autoremove       - Remove automatically all unused packages
+  build            - Build binary or source packages from sources
+  build-dep        - Configure build-dependencies for source packages
+  changelog        - View a package's changelog
+  check            - Verify that there are no broken dependencies
+  clean            - Clean the package cache
+  contains         - List packages containing a file
+  content          - List files contained in the given package
+  deb              - Install a .deb package
+  depends          - Show raw dependency information for the given package
+  dist-upgrade     - Upgrade by removing/installing/upgrading packages
+  download         - Download the given package and missing dependencies
+  edit-sources     - Edit given repository source information .list filename
+  dselect-upgrade  - Follow dselect selections
+  full-upgrade     - Same as 'dist-upgrade'
+  help             - Show help for the given command
+  hold             - Mark the given package as held to prevent updates
+  install          - Install given package or path/package_file.deb
+  list             - List packages matching pattern
+  listi            - List installed packages matching pattern
+  listu            - List upgradable packages matching pattern
+  markauto         - Mark the given packages as automatically installed
+  markmanual       - Mark the given packages as manually installed
+  policy           - Show policy settings for the given packages
+  purge            - Remove given packages and their configuration files
+  purgeall         - Remove given packages with dependencies and config files
+  purge-residual   - Remove left-over system configuration files
+  recommends       - List missing recommended packages for the given package
+  rdepends         - Show reverse dependency information for the given package
+  reinstall        - Reinstall a currently installed package
+  remove           - Remove given packages (also see: purge)
+  search           - Search for a package with aptitude, --apt to use apt
+  show             - Display detailed information about a package
+  showhold         - List all held packages (alias: held)
+  showsrc          - Show source records (requires source repositories)
+  source           - Download source package (requires source repositories)
+  unhold           - Unhold a package
+  unmarkauto       - Same as markauto
+  update           - Update lists of available packages
+  upgrade          - Install all available upgrades (also see: dist-upgrade)
+  version          - Show the installed version of a package
+""")
     sys.exit(1)
 
-aliases = {
-    "dist-upgrade": "full-upgrade",
-    "sources": "edit-sources",
-    "held": "showhold"
-}
+def signal_handler(signum, _):
+    print("")
+    sys.exit(128 + signum)
+
+for s in (signal.SIGINT, signal.SIGTSTP, signal.SIGHUP, signal.SIGQUIT, signal.SIGTERM):
+    signal.signal(s, signal_handler)
 
 if len(sys.argv) < 2:
     usage()
 
-argcommand = sys.argv[1]
-argoptions = " ".join(sys.argv[2:])
-
-command = ""
+aliases = {
+    "auto-clean": "autoclean",
+    "auto-remove" : "autoremove",
+    "dist-upgrade": "full-upgrade",
+    "held": "showhold",
+    "contents": "content",
+    "unmarkauto": "markmanual"
+}
 
 show_help = False
 sort = False
 highlight = False
+argcommand = None
 
-if sys.stdin.isatty():
-	rows, columns = os.popen('stty size', 'r').read().split()
-else:
-	rows, columns = 24, 80
-
-if argcommand == "help":
+if sys.argv[1] == "help":
     if len(sys.argv) < 3:
         usage()
     show_help = True
-    argcommand = sys.argv[2]
-    argoptions = " ".join(sys.argv[3:])
+    sys.argv.pop(1)
+elif sys.argv[1] in ("-v", "--version"):
+    argcommand = "aptversion"
+    sys.argv[1:] = ""
+
+argoptions = sys.argv[1:]
+for i, s in enumerate(sys.argv[1:]):
+    if s.startswith("-"):
+        continue
+    else:
+        argcommand = s
+        argoptions.pop(i)
+        break
+
+if sys.stdin.isatty():
+    columns = subprocess.run(["stty", "size"],
+        stdout=subprocess.PIPE).stdout.decode().split()[1]
+else:
+    columns = 80
 
 if argcommand in aliases.keys():
     argcommand = aliases[argcommand]
 
-if argcommand in ("autoremove", "list", "show", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources"):
-    # apt
-    command = "/usr/bin/apt %s %s" % (argcommand, argoptions)
-elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean", "source", "moo"):
-    # apt-get
-    command = "apt-get %s %s" % (argcommand, argoptions)
-elif argcommand in ("changelog", "reinstall"):
-    # aptitude
-    command = "aptitude %s %s" % (argcommand, argoptions)
-elif argcommand in ("stats", "depends", "rdepends", "policy"):
-    # apt-cache
-    command = "apt-cache %s %s" % (argcommand, argoptions)
-elif argcommand in ("recommends", ):
-    command = "/usr/lib/linuxmint/mintsystem/mint-apt-recommends.py " + argoptions
+if argcommand in ("autoclean", "autoremove", "build-dep", "clean", "depends",
+    "full-upgrade", "install", "list", "moo", "policy", "purge",
+    "rdepends", "remove", "show", "showsrc", "source", "update", "upgrade"):
+    command = ["/usr/bin/apt", argcommand]
+elif argcommand == "changelog":
+    # apt_changelog.py
+    command = ["/usr/lib/python3/dist-packages/mintcommon/apt_changelog.py"]
+elif argcommand == "edit-sources":
+    # apt's edit-sources is bugged and does not support sym-linked source lists
+    command = ["nano"]
+    if not argoptions:
+        argoptions = ["/etc/apt/sources.list"]
+    else:
+        for i, argoption in enumerate(argoptions):
+            if not argoption[0] in ("/","-"):
+                argoptions[i] = "/etc/apt/sources.list.d/%s" % argoption
+elif argcommand in ("dselect-upgrade", "check"):
+    command = ["apt-get", argcommand]
+elif argcommand == "reinstall":
+    command = ["/usr/bin/apt", "install", "--reinstall"]
+elif argcommand == "listi":
+    command = ["apt", "list", "--installed"]
+elif argcommand == "listu":
+    command = ["/usr/bin/apt", "list", "--upgradable"]
+elif argcommand == "purgeall":
+    command = ["/usr/bin/apt", "autoremove", "--purge"]
+elif argcommand == "purge-residual":
+    pre_command = "dpkg -l | grep '^rc' | awk '{print $2}'"
+    if not show_help:
+        output = subprocess.run(pre_command,
+            stdout=subprocess.PIPE, shell=True).stdout.decode().split("\n")
+        if output == ['']:
+            print("No residual configuration found")
+            sys.exit(0)
+    command = ["/usr/bin/apt", "purge"]
+    if not show_help:
+        command.extend(output)
+    else:
+        command.extend([f"$({pre_command})"])
+elif argcommand == "add-key":
+    if argoptions and (argoptions[0].startswith("./") or argoptions[0].startswith("/")):
+        command = ["apt-key", "add"]
+    else:
+        command = ["apt-key", "adv", "--keyserver", "hkps://keyserver.ubuntu.com:443", "--receive-keys"]
+elif argcommand == "recommends":
+    # mint-apt-recommends.py
+    command = ["/usr/lib/linuxmint/mintsystem/mint-apt-recommends.py"]
 elif argcommand in ("showhold", "hold", "unhold"):
-    # apt-mark
-    command = "apt-mark %s %s" % (argcommand, argoptions)
+    command = ["apt-mark", argcommand]
 elif argcommand in ("markauto", "markmanual"):
-    # apt-mark
-    command = "apt-mark %s %s" % (argcommand[4:], argoptions)
+    command = ["apt-mark", argcommand[4:]]
 elif argcommand == "contains":
-    command = "dpkg -S %s" % argoptions
+    command = ["dpkg", "-S"]
 elif argcommand == "content":
-    command = "dpkg -L %s" % argoptions
+    command = ["dpkg", "-L"]
 elif argcommand == "deb":
-    command = "dpkg -i %s" % argoptions
+    command = ["dpkg", "-i"]
 elif argcommand == "build":
-    command = "dpkg-buildpackage %s" % argoptions
+    command = ["dpkg-buildpackage"]
 elif argcommand == "version":
-    try:
-        version = subprocess.check_output("dpkg-query -f '${Version}' -W %s 2>/dev/null" % shlex.quote(argoptions), shell=True, encoding="UTF-8")
-        print (version)
-    except:
-        print ("")
-    sys.exit(0)
+    command = ["dpkg-query", "-Wf", "${Version}\n"]
 elif argcommand == "download":
-    command = "/usr/lib/linuxmint/mintsystem/mint-apt-download.py " + argoptions
+    # mint-apt-download.py
+    command = ["/usr/lib/linuxmint/mintsystem/mint-apt-download.py"]
 elif argcommand == "add-repository":
-    command = "add-apt-repository %s" % argoptions
+    # add-apt-repository
+    command = ["add-apt-repository"]
+elif argcommand == "aptversion":
+    command = ["/usr/bin/apt", "--version"]
 elif argcommand == "search":
-    command = "aptitude -w %s %s %s" % (columns, argcommand, argoptions)
+    if "--apt" in argoptions:
+        # apt
+        argoptions.remove("--apt")
+        command = ["/usr/bin/apt", argcommand]
+    else:
+        # aptitude
+        command = ["aptitude", "-w", columns, argcommand]
+        highlight = True
 else:
     usage()
     sys.exit(1)
 
-# Sudo prefix
-if os.getuid() != 0 and argcommand in ("autoremove", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall", "deb", "hold", "unhold", "add-repository", "markauto", "markmanual"):
-    command = "sudo %s" % command
+command.extend(argoptions)
 
-# Color highlighting
-if argcommand in ("content", "version", "policy", "depends", "rdepends", "search") and len(argoptions.strip()) > 1:
-    highlight = True
+# Simulation arguments that make sudo unnecessary
+sudo_exceptions = {
+    "/usr/bin/apt": ["-s", "--simulate", "--just-print", "--dry-run", "--recon", "--no-act"],
+    "apt-get": ["-s", "--simulate", "--just-print", "--dry-run", "--recon", "--no-act"],
+    "apt-mark": ["-s", "--simulate", "--just-print", "--dry-run", "--recon", "--no-act"],
+    "dpkg": ["--simulate", "--dry-run", "--no-act"],
+}
+
+# Sudo prefix
+if os.getuid() != 0 and argcommand in (
+    "add-key", "add-repository", "autoclean", "autoremove",
+    "build-dep", "check", "clean", "deb", "dselect-upgrade",
+    "edit-sources", "full-upgrade", "hold", "install",
+    "markauto", "markmanual", "purge", "purge-residual",
+    "purgeall", "reinstall", "remove", "unhold", "update",
+    "upgrade") and (
+        not command[0] in sudo_exceptions.keys() or not
+        [x for x in sudo_exceptions[command[0]] if x in argoptions]
+    ):
+    command.insert(0,"sudo")
 
 # Sorting
 if argcommand in ("content", "contains"):
     sort = True
 
 if show_help:
-    print("\"apt " + argcommand + " " + argoptions + "\" is equivalent to \"" + command + "\"")
+    print(f"apt {argcommand} {' '.join(argoptions)}\n is equivalent to\n{' '.join(command).rstrip()}")
 else:
-    command = command.split()
-    if sort and highlight:
-        ps1 = subprocess.Popen(command, stdout=subprocess.PIPE)
-        ps2 = subprocess.Popen(('sort'), stdin=ps1.stdout, stdout=subprocess.PIPE)
-        ps3 = subprocess.Popen(('highlight-mint', argoptions), stdin=ps2.stdout)
-        ps3.wait()
-    elif sort:
-        ps1 = subprocess.Popen(command, stdout=subprocess.PIPE)
-        ps2 = subprocess.Popen(('sort'), stdin=ps1.stdout)
-        ps2.wait()
-    elif highlight:
-        ps1 = subprocess.Popen(command, stdout=subprocess.PIPE)
-        ps2 = subprocess.Popen(('highlight-mint', argoptions), stdin=ps1.stdout)
-        ps2.wait()
+    # Piping binary apt causes it to drop colors and output a warning to
+    # stderr, so only pipe where necessary (and potentially handle stderr)
+    if sort or highlight:
+        ps1 = subprocess.run(command, stdout=subprocess.PIPE)
+        output = ps1.stdout.decode()
+        if sort:
+            output = "\n".join(sorted(output.strip().split("\n"))) + "\n"
+        if highlight and len(argoptions):
+            for option in argoptions:
+                if not option.startswith("-"):
+                    output = output.replace(option, f"\033[31m{option}\033[39m")
+        sys.stdout.write(output)
     else:
-        return_code = subprocess.call(command)
-        sys.exit(return_code)
+        ps1 = subprocess.run(command)
+
+    sys.exit(ps1.returncode)
