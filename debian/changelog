@@ -1,3 +1,24 @@
+mintsystem (8.3.4.1) sylvia; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Bring back /usr/local/pastebin and make it use termbin
+  * Don't depend on gist
+
+  [ Steve M ]
+  * Fix for apt failing when not run from a terminal. (#70)
+
+  [ Clement Lefebvre ]
+  * Fix https://bugs.launchpad.net/linuxmint/+bug/1536291
+
+  [ NikoKrause ]
+  * Nemo action: use symbolic icon
+
+  [ Clement Lefebvre ]
+  * Add missing commands to bash completition
+  * APT: Clean downloaded files automatically
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 07 Feb 2019 10:27:11 +0000
+
 mintsystem (8.3.4) sylvia; urgency=medium
 
   [ mrg0029 ]
