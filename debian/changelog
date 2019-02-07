@@ -1,3 +1,9 @@
+mintsystem (8.4.2) tessa; urgency=medium
+
+  * APT: Clean downloaded files automatically
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 07 Feb 2019 12:17:25 +0000
+
 mintsystem (8.4.1) tessa; urgency=medium
 
   [ gm10 ]
