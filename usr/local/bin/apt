@@ -3,6 +3,7 @@
 import sys
 import os
 import subprocess
+import mintcommon.version
 
 def usage():
     print("apt")
@@ -112,7 +113,8 @@ elif argcommand == "deb":
 elif argcommand == "build":
     command = "dpkg-buildpackage %s" % argoptions
 elif argcommand == "version":
-    command = "/usr/lib/linuxmint/common/version.py %s" % argoptions
+    print(mintcommon.version.get_version(argoptions))
+    sys.exit(0)
 elif argcommand == "download":
     command = "/usr/lib/linuxmint/mintsystem/mint-apt-download.py " + argoptions
 elif argcommand == "add-repository":
