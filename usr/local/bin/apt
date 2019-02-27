@@ -3,7 +3,7 @@
 import sys
 import os
 import subprocess
-import mintcommon.version
+import shlex
 
 def usage():
     print("apt")
@@ -113,7 +113,11 @@ elif argcommand == "deb":
 elif argcommand == "build":
     command = "dpkg-buildpackage %s" % argoptions
 elif argcommand == "version":
-    print(mintcommon.version.get_version(argoptions))
+    try:
+        version = subprocess.check_output("dpkg-query -f '${Version}' -W %s 2>/dev/null" % shlex.quote(argoptions), shell=True, encoding="UTF-8")
+        print (version)
+    except:
+        print ("")
     sys.exit(0)
 elif argcommand == "download":
     command = "/usr/lib/linuxmint/mintsystem/mint-apt-download.py " + argoptions
