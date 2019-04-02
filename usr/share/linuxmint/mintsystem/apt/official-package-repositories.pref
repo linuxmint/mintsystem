@@ -7,5 +7,9 @@ Pin: release o=linuxmint,c=upstream
 Pin-Priority: 700
 
 Package: *
+Pin: release o=LP-PPA-linuxmint-daily-build-team-daily-builds
+Pin-Priority: 700
+
+Package: *
 Pin: release o=Ubuntu
 Pin-Priority: 500
