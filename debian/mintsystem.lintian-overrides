@@ -1,0 +1,6 @@
+mintsystem: file-in-usr-local usr/local/bin/apt
+mintsystem: file-in-usr-local usr/local/bin/highlight-mint
+mintsystem: file-in-usr-local usr/local/bin/mint-sha256sum
+mintsystem: file-in-usr-local usr/local/bin/search
+mintsystem: dir-in-usr-local usr/local/bin/
+mintsystem: package-installs-apt-preferences etc/apt/preferences.d/official-extra-repositories.pref
