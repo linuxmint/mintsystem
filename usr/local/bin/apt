@@ -91,12 +91,14 @@ if argcommand in ("autoremove", "list", "show", "install", "remove", "purge", "u
 elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean", "source", "moo"):
     # apt-get
     command = "apt-get %s %s" % (argcommand, argoptions)
-elif argcommand in ("changelog", "reinstall"):
+elif argcommand in ("reinstall", ):
     # aptitude
     command = "aptitude %s %s" % (argcommand, argoptions)
 elif argcommand in ("stats", "depends", "rdepends", "policy"):
     # apt-cache
     command = "apt-cache %s %s" % (argcommand, argoptions)
+elif argcommand in ("changelog", ):
+    command = "/usr/lib/python3/dist-packages/mintcommon/apt_changelog.py " + argoptions
 elif argcommand in ("recommends", ):
     command = "/usr/lib/linuxmint/mintsystem/mint-apt-recommends.py " + argoptions
 elif argcommand in ("showhold", "hold", "unhold"):
