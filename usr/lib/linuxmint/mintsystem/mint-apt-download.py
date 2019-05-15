@@ -35,7 +35,7 @@ if __name__ == "__main__":
             os.system("gzip %s.tar" % package.name)
             os.system("rm -rf '%s'" % package.name)
             print("")
-            print("The packages were downloaded into %s.tgz. This archive contains all the packages necessary for an offline installation." % package.name)
+            print("The packages were downloaded into %s.tar.gz. This archive contains all the packages necessary for an offline installation." % package.name)
 
     else:
         print("Usage: apt download [package]")
