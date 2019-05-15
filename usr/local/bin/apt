@@ -42,6 +42,7 @@ def usage():
     print("  search           - Search for a package by name and/or expression")
     print("  show             - Display detailed information about a package")
     print("  showhold         - Same as 'held'")
+    print("  showsrc          - Display all the source package records that match the given package name")
     print("  source           - Download source archives")
     print("  sources          - Same as 'edit-sources'")
     print("  unhold           - Unhold a package")
@@ -84,7 +85,7 @@ if argcommand == "help":
 if argcommand in aliases.keys():
     argcommand = aliases[argcommand]
 
-if argcommand in ("autoremove", "list", "show", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources"):
+if argcommand in ("autoremove", "list", "show", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "showsrc"):
     # apt
     command = "/usr/bin/apt %s %s" % (argcommand, argoptions)
 elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean", "source", "moo"):
