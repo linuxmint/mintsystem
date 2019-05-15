@@ -46,4 +46,4 @@ if [ "$directory" == "" -o "$text" == "" ]; then
     exit 1
 fi
 
-find $directory -type f -exec grep -$case$verbose "$text" --color=auto -n {} \;
+GREP_COLORS='mt=01:fn=01;31' find $directory -type f -exec grep -$case$verbose "$text" --color=auto -n {} \;

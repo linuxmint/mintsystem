@@ -4,7 +4,6 @@ import apt
 import sys
 import subprocess
 
-
 class RecommendsFinder:
 
     def __init__(self, cache, package):
@@ -28,7 +27,7 @@ class RecommendsFinder:
             # prefix = ""
             # for i in range(level):
             #     prefix = " %s" % prefix
-            # print prefix, package.name
+            # print (prefix, package.name)
 
             self.already_looked_at.append(package.name)
             if package.is_installed:
@@ -50,9 +49,12 @@ class RecommendsFinder:
                     if dep_name in self.cache:
                         dep_pkg = self.cache[dep_name]
                         # if the package is installed but the dep isn't, ignore it (it means another dep honored the dependency)
-                        if package.is_installed:
-                            if not dep_pkg.is_installed:
-                                continue
+                        if package.is_installed and not dep_pkg.is_installed:
+                            continue
+                        # If the dependency is missing but is part of an OR dependency, ignore it
+                        # (it means another package honors the OR dependency)
+                        if not package.is_installed and len(dep.or_dependencies) > 1:
+                            continue
                         self.get_recommends(dep_pkg, level + 1)
 
 if __name__ == "__main__":
@@ -71,7 +73,7 @@ if __name__ == "__main__":
                 print("")
                 print("You can install them by typing the following command:")
                 print("")
-                print("    apt install %s" % " ".join(missing_recommends))
+                print("    apt install --install-recommends %s" % " ".join(missing_recommends))
             else:
                 print("No missing recommended packages were found for %s" % package_name)
             print("")
