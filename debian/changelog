@@ -1,3 +1,30 @@
+mintsystem (8.4.3) tina; urgency=medium
+
+  [ Clement Lefebvre ]
+  * apt: Use mint-common's version function
+  * Don't rely on mintcommon's version module
+
+  [ gm10 ]
+  * Pin the official daily builds PPA (#95)
+
+  [ Clement Lefebvre ]
+  * Add lintian overrides
+
+  [ gm10 ]
+  * Remove unused templates (#96)
+
+  [ Clement Lefebvre ]
+  * apt recommends: Fix OR-dependency detection
+  * search: Make filenames more visible
+  * download: Fix wrong extension in success message
+  * apt: Add showsrc command
+  * apt: Use mint-common's changelog module
+
+  [ yotabits ]
+  * apt-preference: Cosmetic (#97)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 30 Jun 2019 16:00:30 +0200
+
 mintsystem (8.4.2) tessa; urgency=medium
 
   * APT: Clean downloaded files automatically
