@@ -1,3 +1,9 @@
+mintsystem (8.4.4) tina; urgency=medium
+
+  * APT preferences: Don't specify priority for Ubuntu repositories
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 07 Jul 2019 11:20:40 +0200
+
 mintsystem (8.4.3) tina; urgency=medium
 
   [ Clement Lefebvre ]
