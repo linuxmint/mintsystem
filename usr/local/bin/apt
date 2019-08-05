@@ -117,7 +117,7 @@ elif argcommand == "build":
     command = "dpkg-buildpackage %s" % argoptions
 elif argcommand == "version":
     try:
-        version = subprocess.check_output("dpkg-query -f '${Version}' -W %s 2>/dev/null" % shlex.quote(argoptions), shell=True, encoding="UTF-8")
+        version = subprocess.check_output("dpkg-query -f '${Version}' -W %s 2>/dev/null" % shlex.quote(argoptions), shell=True).decode("UTF-8")
         print (version)
     except:
         print ("")
