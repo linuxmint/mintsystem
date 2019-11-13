@@ -1,3 +1,10 @@
+mintsystem (8.4.6) tricia; urgency=medium
+
+  [ Chris Laplante ]
+  * apt: fix bash completion handling of -- arguments (#106)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 13 Nov 2019 18:20:13 +0100
+
 mintsystem (8.4.5) tina; urgency=medium
 
   * Remove Python 3.6 code
