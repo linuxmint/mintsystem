@@ -1,3 +1,13 @@
+mintsystem (8.4.7) debbie; urgency=medium
+
+  [ nardholio ]
+  * mintsystem: don't fail on apt-get purge
+
+  [ Clement Lefebvre ]
+  * Packaging: Switch to interest-noawait triggers
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 17 Mar 2020 11:59:34 +0000
+
 mintsystem (8.4.6) tricia; urgency=medium
 
   [ Chris Laplante ]
