@@ -148,19 +148,22 @@ if show_help:
     print("\"apt " + argcommand + " " + argoptions + "\" is equivalent to \"" + command + "\"")
 else:
     command = command.split()
-    if sort and highlight:
-        ps1 = subprocess.Popen(command, stdout=subprocess.PIPE)
-        ps2 = subprocess.Popen(('sort'), stdin=ps1.stdout, stdout=subprocess.PIPE)
-        ps3 = subprocess.Popen(('highlight-mint', argoptions), stdin=ps2.stdout)
-        ps3.wait()
-    elif sort:
-        ps1 = subprocess.Popen(command, stdout=subprocess.PIPE)
-        ps2 = subprocess.Popen(('sort'), stdin=ps1.stdout)
-        ps2.wait()
-    elif highlight:
-        ps1 = subprocess.Popen(command, stdout=subprocess.PIPE)
-        ps2 = subprocess.Popen(('highlight-mint', argoptions), stdin=ps1.stdout)
-        ps2.wait()
-    else:
-        return_code = subprocess.call(command)
-        sys.exit(return_code)
+    try:
+        if sort and highlight:
+            ps1 = subprocess.Popen(command, stdout=subprocess.PIPE)
+            ps2 = subprocess.Popen(('sort'), stdin=ps1.stdout, stdout=subprocess.PIPE)
+            ps3 = subprocess.Popen(('highlight-mint', argoptions), stdin=ps2.stdout)
+            ps3.wait()
+        elif sort:
+            ps1 = subprocess.Popen(command, stdout=subprocess.PIPE)
+            ps2 = subprocess.Popen(('sort'), stdin=ps1.stdout)
+            ps2.wait()
+        elif highlight:
+            ps1 = subprocess.Popen(command, stdout=subprocess.PIPE)
+            ps2 = subprocess.Popen(('highlight-mint', argoptions), stdin=ps1.stdout)
+            ps2.wait()
+        else:
+            return_code = subprocess.call(command)
+            sys.exit(return_code)
+    except KeyboardInterrupt:
+        print()
