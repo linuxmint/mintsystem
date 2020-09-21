@@ -98,7 +98,10 @@ elif argcommand in ("stats", "depends", "rdepends", "policy"):
     # apt-cache
     command = ["apt-cache", argcommand] + argoptions
 elif argcommand in ("changelog", ):
-    command = ["/usr/lib/python3/dist-packages/mintcommon/apt_changelog.py"] + argoptions
+    if os.path.exists("/usr/lib/python3/dist-packages/mintcommon/apt_changelog.py"):
+        command = ["/usr/lib/python3/dist-packages/mintcommon/apt_changelog.py"] + argoptions
+    else:
+        command = ["aptitude", argcommand] + argoptions
 elif argcommand in ("recommends", ):
     command = ["/usr/lib/linuxmint/mintsystem/mint-apt-recommends.py"] + argoptions
 elif argcommand in ("showhold", "hold", "unhold"):
