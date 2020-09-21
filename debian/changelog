@@ -1,3 +1,15 @@
+mintsystem (8.4.8) ulyana; urgency=medium
+
+  [ Vincent Vermeulen ]
+  * handle Ctrl+C in apt (#117)
+  * Make apt work with apt patterns (#118)
+
+  [ Clement Lefebvre ]
+  * APT Changelog: Add compatibility with old versions of mintcommon
+  * Re-enable APT recommends
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 21 Sep 2020 13:36:04 +0100
+
 mintsystem (8.4.7) debbie; urgency=medium
 
   [ nardholio ]
