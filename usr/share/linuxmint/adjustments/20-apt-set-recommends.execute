@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+
+import os
+
+RECOMMENDS_FILE = "/etc/apt/apt.conf.d/00recommends"
+SYNAPTIC_FILE = "/etc/apt/apt.conf.d/99synaptic"
+
+ENABLE_LINE = "APT::Install-Recommends \"true\";\n"
+
+if not os.path.exists(RECOMMENDS_FILE):
+    # print("no 00recommends found, exiting")
+    exit(0)
+
+print("Re-enabling recommends")
+
+os.system("rm %s" % RECOMMENDS_FILE)
+
+if not os.path.exists(SYNAPTIC_FILE):
+    # print("no 99synaptic found, making one with recommends enabled")
+    os.system("echo '%s' > %s" % (ENABLE_LINE, SYNAPTIC_FILE))
+    exit(0)
+
+outlines = []
+
+# print("Modifying existing 99synaptic")
+with open(SYNAPTIC_FILE, "r") as f:
+    for line in f:
+        if "APT::Install-Recommends" in line:
+            outlines.append(ENABLE_LINE)
+            continue
+
+        outlines.append(line)
+
+with open(SYNAPTIC_FILE, "w") as f:
+    for line in outlines:
+        f.write(line)
+
+exit(0)

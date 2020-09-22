@@ -28,10 +28,6 @@ case "$1" in
             systemctl daemon-reload || true
             systemctl reenable mintsystem.service || true
         fi
-        if test -f "/etc/apt/apt.conf.d/00recommends"; then
-            rm -f "/etc/apt/apt.conf.d/00recommends"
-            echo "Re-enabling APT recommends"
-        fi
         /usr/lib/linuxmint/mintsystem/mint-adjust.py
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
