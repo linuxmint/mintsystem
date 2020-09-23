@@ -16,8 +16,7 @@ print("Re-enabling recommends")
 os.system("rm %s" % RECOMMENDS_FILE)
 
 if not os.path.exists(SYNAPTIC_FILE):
-    # print("no 99synaptic found, making one with recommends enabled")
-    os.system("echo '%s' > %s" % (ENABLE_LINE, SYNAPTIC_FILE))
+    # print("no 99synaptic found, exiting")
     exit(0)
 
 outlines = []
