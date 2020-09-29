@@ -1,3 +1,14 @@
+mintsystem (8.4.9) ulyana; urgency=medium
+
+  [ Michael Webster ]
+  * Use a system adjustment to enable apt recommends.
+  * Don't create /etc/apt/apt.conf.d/99synaptic if it doesn't already exist.
+
+  [ Clement Lefebvre ]
+  * APT: Enable recommends in synaptic even if 00recommends does not exist
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 29 Sep 2020 12:51:32 +0100
+
 mintsystem (8.4.8) ulyana; urgency=medium
 
   [ Vincent Vermeulen ]
