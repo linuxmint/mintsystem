@@ -2,36 +2,29 @@
 
 import os
 
+FLAG_DIR = "/var/lib/linuxmint/mintsystem"
+FLAG_FILE = os.path.join(FLAG_DIR, "set-apt-recommends.flag")
 RECOMMENDS_FILE = "/etc/apt/apt.conf.d/00recommends"
 SYNAPTIC_FILE = "/etc/apt/apt.conf.d/99synaptic"
 
-ENABLE_LINE = "APT::Install-Recommends \"true\";\n"
+if not os.path.exists(FLAG_DIR):
+    os.system("mkdir -p %s" % FLAG_DIR)
 
-if not os.path.exists(RECOMMENDS_FILE):
-    # print("no 00recommends found, exiting")
-    exit(0)
-
-print("Re-enabling recommends")
-
-os.system("rm %s" % RECOMMENDS_FILE)
-
-if not os.path.exists(SYNAPTIC_FILE):
-    # print("no 99synaptic found, exiting")
-    exit(0)
-
-outlines = []
-
-# print("Modifying existing 99synaptic")
-with open(SYNAPTIC_FILE, "r") as f:
-    for line in f:
-        if "APT::Install-Recommends" in line:
-            outlines.append(ENABLE_LINE)
-            continue
-
-        outlines.append(line)
-
-with open(SYNAPTIC_FILE, "w") as f:
-    for line in outlines:
-        f.write(line)
-
-exit(0)
+if not os.path.exists(FLAG_FILE):
+    with open(FLAG_FILE, "w") as flag_file:
+        # Remove the APT Recommends file
+        if os.path.exists(RECOMMENDS_FILE):
+            os.system("rm %s" % RECOMMENDS_FILE)
+            flag_file.write("Removed %s\n" % RECOMMENDS_FILE)
+        # Reset the synaptic configuration for recommends
+        if os.path.exists(SYNAPTIC_FILE):
+            outlines = []
+            with open(SYNAPTIC_FILE, "r") as synaptic_file:
+                for line in synaptic_file:
+                    if "APT::Install-Recommends" in line:
+                        line = line.replace("false", "true")
+                    outlines.append(line)
+            with open(SYNAPTIC_FILE, "w") as synaptic_file:
+                for line in outlines:
+                    synaptic_file.write(line)
+            flag_file.write("Set configuration in %s\n" % SYNAPTIC_FILE)
