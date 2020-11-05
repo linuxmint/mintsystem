@@ -1,3 +1,9 @@
+mintsystem (8.5.0) ulyana; urgency=medium
+
+  * apt-set-recommends: Restart packagekit
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 05 Nov 2020 17:38:07 +0000
+
 mintsystem (8.4.9) ulyana; urgency=medium
 
   [ Michael Webster ]
