@@ -28,3 +28,5 @@ if not os.path.exists(FLAG_FILE):
                 for line in outlines:
                     synaptic_file.write(line)
             flag_file.write("Set configuration in %s\n" % SYNAPTIC_FILE)
+        # Restart packagekit
+        os.system("service packagekit restart")
