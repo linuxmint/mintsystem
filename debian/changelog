@@ -1,3 +1,9 @@
+mintsystem (8.5.1) ulyssa; urgency=medium
+
+  * apt download: Switch from dpkg to apt to enable conflicts resolution
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 03 Jan 2021 13:23:12 +0000
+
 mintsystem (8.5.0) ulyana; urgency=medium
 
   * apt-set-recommends: Restart packagekit
