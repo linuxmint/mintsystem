@@ -28,7 +28,7 @@ if __name__ == "__main__":
             os.chdir(package.name)
             os.system("rm -rf *.deb")
             os.system("LC_ALL=C apt-get install --dry-run %s | grep ^Inst | awk {'print $2;'} | xargs apt-get download " % package.name)
-            os.system("echo 'sudo dpkg -i *.deb' > install.sh")
+            os.system("echo 'apt install ./*.deb' > install.sh")
             os.system("chmod a+rx install.sh")
             os.chdir("..")
             os.system("tar cvf %s.tar %s/ >/dev/null" % (package.name, package.name))
