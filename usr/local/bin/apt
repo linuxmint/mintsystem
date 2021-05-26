@@ -64,6 +64,14 @@ if len(sys.argv) < 2:
 argcommand = sys.argv[1]
 argoptions = sys.argv[2:]
 
+for command in ["install", "remove", "update", "clean"]:
+    if argcommand.startswith("-") and command in argoptions:
+            for i in range(0, len(argoptions)):
+                if argoptions[i] == command:
+                    argoptions[i] = argcommand
+                    argcommand = command
+                    break
+
 command = ""
 
 show_help = False
