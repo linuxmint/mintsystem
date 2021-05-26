@@ -1,3 +1,9 @@
+mintsystem (8.5.2) uma; urgency=medium
+
+  * apt: Accept arguments preceeding command
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 26 May 2021 11:08:21 +0100
+
 mintsystem (8.5.1) ulyssa; urgency=medium
 
   * apt download: Switch from dpkg to apt to enable conflicts resolution
