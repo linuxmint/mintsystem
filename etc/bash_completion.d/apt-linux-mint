@@ -12,7 +12,7 @@ _apt()
     # Completion of commands.
     if [[ $COMP_CWORD == 1 ]]; then
     COMPREPLY=( $(compgen -W '
-        add-repository autoclean autoremove build build-dep changelog check clean
+        add-repository autoclean autopurge autoremove build build-dep changelog check clean
         contains content deb depends dist-upgrade download
         dselect-upgrade edit-sources full-upgrade held help hold install list policy purge recommends rdepends
         reinstall remove search show showhold source sources unhold update
@@ -38,7 +38,7 @@ _apt()
         _filedir '?(u)deb'
         return 0
         ;;
-   
+
     # Commands which require package name.
     "build"|"build-dep"|"changelog"|"depends"|"download"|"install"|"list"|\
     "policy"|"recommends"|"rdepends"|"show"|"source")
