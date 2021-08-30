@@ -41,14 +41,14 @@ _apt()
 
     # Commands which require package name.
     "build"|"build-dep"|"changelog"|"depends"|"download"|"install"|"list"|\
-    "policy"|"recommends"|"rdepends"|"show"|"source"|autopurge")
+    "policy"|"recommends"|"rdepends"|"show"|"source")
         COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" \
         2> /dev/null ) )
         return 0
         ;;
 
     # Commands which require name of installed package.
-    "content"|"hold"|"purge"|"reinstall"|"remove"|"unhold"|"version")
+    "content"|"hold"|"purge"|"reinstall"|"remove"|"unhold"|"version"|autopurge")
         if [ -f /etc/debian_version ]; then
         # Debian system
         COMPREPLY=( $( _xfunc dpkg _comp_dpkg_installed_packages $cur ) )
