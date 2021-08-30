@@ -41,7 +41,7 @@ _apt()
 
     # Commands which require package name.
     "build"|"build-dep"|"changelog"|"depends"|"download"|"install"|"list"|\
-    "policy"|"recommends"|"rdepends"|"show"|"source")
+    "policy"|"recommends"|"rdepends"|"show"|"source"|autopurge")
         COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" \
         2> /dev/null ) )
         return 0
