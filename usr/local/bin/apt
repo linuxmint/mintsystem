@@ -13,6 +13,7 @@ def usage():
     print("Commands:")
     print("  add-repository   - Add entries to apt sources.list")
     print("  autoclean        - Erase old downloaded archive files")
+    print("  autopurge        - Purge packages with automatically all unused packages")
     print("  autoremove       - Remove automatically all unused packages")
     print("  build            - Build binary or source packages from sources")
     print("  build-dep        - Configure build-dependencies for source packages")
@@ -93,7 +94,7 @@ if argcommand == "help":
 if argcommand in aliases.keys():
     argcommand = aliases[argcommand]
 
-if argcommand in ("autoremove", "list", "show", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "showsrc"):
+if argcommand in ("autoremove", "list", "show", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "showsrc", "autopurge"):
     # apt
     command = ["/usr/bin/apt", argcommand] + argoptions
 elif argcommand in ("clean", "dselect-upgrade", "build-dep", "check", "autoclean", "source", "moo"):
@@ -145,7 +146,7 @@ else:
     sys.exit(1)
 
 # Sudo prefix
-if os.getuid() != 0 and argcommand in ("autoremove", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall", "deb", "hold", "unhold", "add-repository", "markauto", "markmanual"):
+if os.getuid() != 0 and argcommand in ("autoremove", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall", "deb", "hold", "unhold", "add-repository", "markauto", "markmanual", "autopurge"):
     command = ["sudo"] + command
 
 # Color highlighting
