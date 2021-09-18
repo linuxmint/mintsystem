@@ -13,7 +13,7 @@ def usage():
     print("Commands:")
     print("  add-repository   - Add entries to apt sources.list")
     print("  autoclean        - Erase old downloaded archive files")
-    print("  autopurge        - Purge packages with automatically all unused packages")
+    print("  autopurge        - Remove packages with their configuration files and automatically remove all unused packages")
     print("  autoremove       - Remove automatically all unused packages")
     print("  build            - Build binary or source packages from sources")
     print("  build-dep        - Configure build-dependencies for source packages")
