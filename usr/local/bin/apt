@@ -82,7 +82,7 @@ highlight = False
 if sys.stdin.isatty():
     rows, columns = os.popen('stty size', 'r').read().split()
 else:
-    rows, columns = 24, 80
+    rows, columns = '24', '80'
 
 if argcommand == "help":
     if len(sys.argv) < 3:
