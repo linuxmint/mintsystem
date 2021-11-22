@@ -1,3 +1,13 @@
+mintsystem (8.5.3) una; urgency=medium
+
+  [ Butterfly ]
+  * Add autopurge argcommand for /usr/bin/apt  (#127)
+
+  [ McModknower ]
+  * Fix a crash when using apt search in non-tty enviroments (#128)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 22 Nov 2021 13:19:56 +0000
+
 mintsystem (8.5.2) uma; urgency=medium
 
   * apt: Accept arguments preceeding command
