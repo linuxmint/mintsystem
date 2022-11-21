@@ -1,3 +1,9 @@
+mintsystem (8.5.5) vera; urgency=medium
+
+  * Remove mint-sha256sum
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 21 Nov 2022 12:41:53 +0000
+
 mintsystem (8.5.4) vanessa; urgency=medium
 
   [ Tibladar ]
