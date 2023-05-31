@@ -1,3 +1,9 @@
+mintsystem (8.5.6) victoria; urgency=medium
+
+  * search: Make the help section more useful
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 31 May 2023 12:35:21 +0100
+
 mintsystem (8.5.5) vera; urgency=medium
 
   * Remove mint-sha256sum
