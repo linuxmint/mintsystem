@@ -2,13 +2,30 @@
 
 function usage
 {
-    echo "usage: search [arguments] [options]"
-    echo "arguments:"
-    echo "         for text"
-    echo "         in directory"
-    echo "options:"
-    echo "         -c | --case-sensitive"
-    echo "         -s | --show-filenames-only"
+    echo """
+Usage:
+
+    To search for something simply use 'search for':
+
+        search for [keyword]
+
+    You can restrict the search to a particular path by adding 'in [path]':
+
+        search for [keyword] in [path]
+
+    The following options are also supported:
+
+        -c | --case-sensitive
+        -s | --show-filenames-only
+
+    Examples:
+
+        search for keyword in ./
+
+        search in ../ for Keyword --case-sensitive
+
+        search -s in ../ for keyword
+"""
 }
 
 directory=.
