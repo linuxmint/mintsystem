@@ -144,9 +144,18 @@ else:
     usage()
     sys.exit(1)
 
-# Sudo prefix
-if os.getuid() != 0 and argcommand in ("autoremove", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall", "deb", "hold", "unhold", "add-repository", "markauto", "markmanual", "autopurge"):
-    command = ["sudo"] + command
+# Sudo prefix, unless simulating an applicable command
+if os.getuid() != 0:
+    if argcommand in ("autoremove", "install", "remove", "purge", "update", "upgrade", "full-upgrade", "edit-sources", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall", "deb", "hold", "unhold", "add-repository", "markauto", "markmanual", "autopurge"):
+        # The above commands for which simulating is applicable
+        simoptfound = False
+        if argcommand in ("autoremove", "install", "remove", "purge", "upgrade", "full-upgrade", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall"):
+            for simarg in '-s', '--simulate', '--just-print', '--dry-run', '--recon', '--no-act':
+                if simarg in argoptions:
+                    simoptfound = True
+
+        if not simoptfound:
+            command = ["sudo"] + command
 
 # Color highlighting
 if argcommand in ("content", "version", "policy", "depends", "rdepends", "search") and len(argoptions) >= 1:
