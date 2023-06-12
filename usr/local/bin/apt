@@ -4,6 +4,7 @@ import sys
 import os
 import subprocess
 import shlex
+import shutil
 
 def usage():
     print("apt")
@@ -80,9 +81,7 @@ sort = False
 highlight = False
 
 if sys.stdin.isatty():
-    rows, columns = os.popen('stty size', 'r').read().split()
-else:
-    rows, columns = '24', '80'
+    columns, rows = shutil.get_terminal_size(fallback = (80, 24))
 
 if argcommand == "help":
     if len(sys.argv) < 3:
