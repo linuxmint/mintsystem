@@ -26,7 +26,7 @@ Commands:
   build-dep        - Configure build-dependencies for source packages
   changelog        - View a package's changelog
   check            - Verify there are no broken dependencies
-  clean            - Erase package package
+  clean            - Erase downloaded archive files
   contains         - List packages containing a file
   content          - List files contained in and installed by a package(s)
   deb              - Install a local .deb package
@@ -35,7 +35,7 @@ Commands:
   download         - Download packages to the current working directory
   edit-sources     - Edit /etc/apt/sources.list with your preferred text editor
   dselect-upgrade  - Follow dselect selections
-  full-upgrade     - Synonymous with 'dist-upgrade'
+  full-upgrade     - Same as 'dist-upgrade'
   held             - List all held packages
   help             - Show help for a command
   hold             - Hold a package
