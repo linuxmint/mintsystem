@@ -151,7 +151,7 @@ if os.getuid() != 0:
         # The above commands for which simulating is applicable
         simoptfound = False
         if argcommand in ("autoremove", "install", "remove", "purge", "upgrade", "full-upgrade", "clean", "dselect-upgrade", "build-dep", "check", "autoclean", "reinstall"):
-            for simarg in '-s', '--simulate', '--just-print', '--dry-run', '--recon', '--no-act':
+            for simarg in ('-s', '--simulate', '--just-print', '--dry-run', '--recon', '--no-act'):
                 if simarg in argoptions:
                     simoptfound = True
 
