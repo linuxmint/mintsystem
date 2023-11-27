@@ -1,3 +1,17 @@
+mintsystem (8.5.7) virginia; urgency=medium
+
+  [ terminalforlife ]
+  * Optimize & clean up handling of terminal size
+  * Allow simulate flags to get through
+  * Improve `Usage()` & use `pass` with an exception
+
+  [ Clement Lefebvre ]
+  * Code: Make tuple more explicit
+  * Usage: Explain the difference between apt and upstream apt
+  * Usage: Update wording
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 27 Nov 2023 15:31:05 +0000
+
 mintsystem (8.5.6) victoria; urgency=medium
 
   * search: Make the help section more useful
