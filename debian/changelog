@@ -1,3 +1,9 @@
+mintsystem (8.5.8) virginia; urgency=medium
+
+  * Fix apt search
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 28 Nov 2023 09:55:14 +0000
+
 mintsystem (8.5.7) virginia; urgency=medium
 
   [ terminalforlife ]
