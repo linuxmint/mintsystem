@@ -87,9 +87,6 @@ show_help = False
 sort = False
 highlight = False
 
-if sys.stdin.isatty():
-    columns, rows = shutil.get_terminal_size(fallback = (80, 24))
-
 if argcommand == "help":
     if len(sys.argv) < 3:
         usage()
@@ -146,7 +143,10 @@ elif argcommand == "download":
 elif argcommand == "add-repository":
     command = ["add-apt-repository"] + argoptions
 elif argcommand == "search":
-    command = ["aptitude", "-w", columns, argcommand] + argoptions
+    columns = 80
+    if sys.stdin.isatty():
+        columns, rows = shutil.get_terminal_size(fallback = (80, 24))
+    command = ["aptitude", "-w", str(columns), argcommand] + argoptions
 else:
     usage()
     sys.exit(1)
