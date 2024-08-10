@@ -75,11 +75,12 @@ argoptions = sys.argv[2:]
 
 for command in ["install", "remove", "update", "clean"]:
     if argcommand.startswith("-") and command in argoptions:
-            for i in range(0, len(argoptions)):
-                if argoptions[i] == command:
-                    argoptions[i] = argcommand
-                    argcommand = command
-                    break
+        while argcommand != command:
+            temp = argoptions[0]
+            for i in range(1, len(argoptions)):
+                argoptions[i-1] = argoptions[i]
+            argoptions[len(argoptions)-1] = argcommand
+            argcommand = temp
 
 command = ""
 
