@@ -1,2 +1,15 @@
 #!/bin/bash
-sudo cp /usr/share/linuxmint/mintsystem/templates/resolv.conf /etc/resolv.conf
+echo 
+echo 
+echo "DNS FIXING SCRIPT"
+echo "This script will copy over your existing /etc/resolv.conf with a new file."
+echo "This may fix issues with DNS if your system is connected to the internet, but not able to resolve websites"
+echo "This will require sudo access."
+echo
+echo 
+read -r -p "Do you wish to continue? [y/N] " -n 1
+echo 
+case "$REPLY" in 
+	y|Y ) echo "Copying /usr/share/linuxmint/mintsystem/templates/resolv.conf to /etc/resolv.conf" && sudo cp /usr/share/linuxmint/mintsystem/templates/resolv.conf /etc/resolv.conf;;
+	* ) echo "OK, exiting.";;
+esac
