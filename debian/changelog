@@ -1,3 +1,10 @@
+mintsystem (8.6.0) xia; urgency=medium
+
+  * Remove dns-fix
+  * Remove resolv.conf template
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 28 Nov 2024 13:54:30 +0000
+
 mintsystem (8.5.9) wilma; urgency=medium
 
   * APT prefs: Remove unnecessary priorities
