@@ -1,3 +1,10 @@
+mintsystem (8.6.1) xia; urgency=medium
+
+  [ SurinameClubcard ]
+  * Fixed command line options parsing (#139)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 03 Dec 2024 10:15:53 +0000
+
 mintsystem (8.6.0) xia; urgency=medium
 
   * Remove dns-fix
