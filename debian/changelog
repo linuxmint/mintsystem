@@ -1,3 +1,9 @@
+mintsystem (8.6.2) xia; urgency=medium
+
+  * apt-download: Use a local repository
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 26 Dec 2024 15:30:53 +0000
+
 mintsystem (8.6.1) xia; urgency=medium
 
   [ SurinameClubcard ]
