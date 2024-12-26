@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+import os
+import sys
+
+curr_dir = os.getcwd()
+
+if os.getuid() != 0:
+    print("Call this script with sudo: `sudo ./install`.")
+    sys.exit(1)
+
+
+with open("/etc/apt/sources.list.d/local.list", "w") as outfile:
+    print(f"deb [trusted=yes] file://{curr_dir} ./", file=outfile)
+
+os.system("dpkg-scanpackages . /dev/null > Packages")
+os.system("apt-get update")
+os.system("apt install mint-meta-codecs")
