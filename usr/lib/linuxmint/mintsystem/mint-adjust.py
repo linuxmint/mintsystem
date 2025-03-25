@@ -236,6 +236,12 @@ class MintSystem():
             if self.timestamps_changed:
                 self.write_timestamps()
 
+            # Perform OEM config removal
+            if os.path.exists("/oem/done.flag"):
+                os.system("deluser --remove-home oem")
+                os.system("rm -rf /oem")
+                self.log("Removed OEM user")
+
         except Exception as detail:
             print (detail)
             self.log(detail)
