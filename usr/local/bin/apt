@@ -67,6 +67,14 @@ aliases = {
     "held": "showhold"
 }
 
+if any(arg == "--version" for arg in sys.argv[1:]):
+    try:
+        version = subprocess.check_output(["/usr/bin/apt", "--version"], text=True).splitlines()[0]
+        print(f"{version} (Mint wrapper)")
+    except Exception:
+        print("apt (Mint wrapper) - version info unavailable")
+    sys.exit(0)
+
 if len(sys.argv) < 2:
     usage()
 
