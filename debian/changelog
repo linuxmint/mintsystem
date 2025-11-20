@@ -1,3 +1,10 @@
+mintsystem (8.6.4) zena; urgency=medium
+
+  [ Leonardo Frazão ]
+  * Small typo fix in the apt command's description (#148)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 20 Nov 2025 14:54:04 +0000
+
 mintsystem (8.6.3) zara; urgency=medium
 
   [ Clement Lefebvre ]
