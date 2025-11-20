@@ -10,7 +10,7 @@ def usage():
     print("""
 This is the Linux Mint "apt" command.
 
-This commands acts as a wrapper for the APT package manager and many other useful tools such as apt-get, apt-cache, apt-mark, dpkg, aptitude...etc.
+This command acts as a wrapper for the APT package manager and many other useful tools such as apt-get, apt-cache, apt-mark, dpkg, aptitude...etc.
 
 It is installed in /usr/local/bin/apt. To use the upstream apt command directly type /usr/bin/apt.
 
