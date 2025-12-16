@@ -1,3 +1,9 @@
+mintsystem (8.6.5) zena; urgency=medium
+
+  * Add support for NotShowIn
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 16 Dec 2025 15:34:30 +0000
+
 mintsystem (8.6.4) zena; urgency=medium
 
   [ Leonardo Frazão ]
