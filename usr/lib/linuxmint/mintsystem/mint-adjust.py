@@ -192,6 +192,13 @@ class MintSystem():
                                         onlyshowins = onlyshowins.strip()
                                         os.system("sed -i -e 's/OnlyShowIn=.*/OnlyShowIn=%s/g' %s" % (onlyshowins, desktop_file))
                                         self.update_timestamp(desktop_file)
+                            elif line_items[0] == "notshowin":
+                                if len(line_items) == 3:
+                                    action, desktop_file, notshowins = line.split()
+                                    if self.has_changed(desktop_file, self.edited, "notshowin"):
+                                        notshowins = notshowins.strip()
+                                        os.system("sed -i -e 's/NotShowIn=.*/NotShowIn=%s/g' %s" % (notshowins, desktop_file))
+                                        self.update_timestamp(desktop_file)
                             elif line_items[0] == "exec":
                                 if len(line_items) >= 3:
                                     action, desktop_file, executable = line.split(' ', 2)
