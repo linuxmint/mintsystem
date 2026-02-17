@@ -171,7 +171,15 @@ if os.getuid() != 0:
                     simoptfound = True
 
         if not simoptfound:
-            command = ["sudo"] + command
+            printable_command = command.copy()
+            printable_command[0] = os.path.basename(printable_command[0])
+
+            print("This command needs to be run with root privileges.")
+            print("Try using:")
+            print("   sudo " + " ".join(printable_command))
+            sys.exit(1)
+
+
 
 # Color highlighting
 if argcommand in ("content", "version", "policy", "depends", "rdepends", "search") and len(argoptions) >= 1:
