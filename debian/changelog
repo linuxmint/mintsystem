@@ -1,3 +1,9 @@
+mintsystem (8.6.6) adrien; urgency=medium
+
+  * Make onlyshowin/notshowin work whether the file has that field or not
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 23 Sep 2026 17:45:29 +0100
+
 mintsystem (8.6.5) zena; urgency=medium
 
   * Add support for NotShowIn
