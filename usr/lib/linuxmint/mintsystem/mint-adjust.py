@@ -190,14 +190,24 @@ class MintSystem():
                                     action, desktop_file, onlyshowins = line.split()
                                     if self.has_changed(desktop_file, self.edited, "onlyshowin"):
                                         onlyshowins = onlyshowins.strip()
-                                        os.system("sed -i -e 's/OnlyShowIn=.*/OnlyShowIn=%s/g' %s" % (onlyshowins, desktop_file))
+                                        with open(desktop_file) as f:
+                                            has_key = "OnlyShowIn=" in f.read()
+                                        if has_key:
+                                            os.system("sed -i -e 's/OnlyShowIn=.*/OnlyShowIn=%s/g' %s" % (onlyshowins, desktop_file))
+                                        else:
+                                            os.system("sed -i -e '0,/^Categories=/{/^Categories=/a OnlyShowIn=%s\n}' %s" % (onlyshowins, desktop_file))
                                         self.update_timestamp(desktop_file)
                             elif line_items[0] == "notshowin":
                                 if len(line_items) == 3:
                                     action, desktop_file, notshowins = line.split()
                                     if self.has_changed(desktop_file, self.edited, "notshowin"):
                                         notshowins = notshowins.strip()
-                                        os.system("sed -i -e 's/NotShowIn=.*/NotShowIn=%s/g' %s" % (notshowins, desktop_file))
+                                        with open(desktop_file) as f:
+                                            has_key = "NotShowIn=" in f.read()
+                                        if has_key:
+                                            os.system("sed -i -e 's/NotShowIn=.*/NotShowIn=%s/g' %s" % (notshowins, desktop_file))
+                                        else:
+                                            os.system("sed -i -e '0,/^Categories=/{/^Categories=/a NotShowIn=%s\n}' %s" % (notshowins, desktop_file))
                                         self.update_timestamp(desktop_file)
                             elif line_items[0] == "exec":
                                 if len(line_items) >= 3:
