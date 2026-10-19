@@ -13,7 +13,6 @@ Depends: python3 (>= 3.3),
          aptitude,
          mint-common,
          mint-info,
-         zenity,
          ${misc:Depends}
 Description: Linux Mint System Base Package
  Used by the desktop and other mint tools to gather
