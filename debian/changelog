@@ -1,3 +1,9 @@
+mintsystem (8.6.7) adrien; urgency=medium
+
+  * Remove dependency on zenity
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 26 Oct 2026 13:05:32 +0000
+
 mintsystem (8.6.6) adrien; urgency=medium
 
   * Make onlyshowin/notshowin work whether the file has that field or not
